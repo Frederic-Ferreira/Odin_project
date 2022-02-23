@@ -48,6 +48,7 @@ a {
   width: 300px;
   background: royalblue;
   flex: 1 0 auto;
+  /* flex-shrink : 0; */
   padding: 16px;
 }
 
@@ -60,11 +61,12 @@ a {
 
 .card {
   border: 1px solid #eee;
-  box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 2px 4px 16px rgba(117, 68, 68, 0.06);
   border-radius: 4px;
   padding: 16px;
   max-width: 300px;
-  font-size: 13px;
+  /* margin: 16px; */
+  /* font-size: 13px; */
 }
 
 .footer {

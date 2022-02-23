@@ -55,7 +55,8 @@ a {
 
 .content {
   display: flex;
-  margin: auto;
+  flex: 1;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
 }
