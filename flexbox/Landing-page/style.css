@@ -21,18 +21,18 @@ ul {
   list-style-type: none;
 }
 
-/* Top section */
-
-.top {
-  height: 500px;
-  background-color: #1f2937;
-  display: flex;
-  flex-direction: column;
+.header,
+.top,
+.information,
+.bottom {
   padding: 10px 150px;
 }
 
+/* Header */
+
 .header {
   display: flex;
+  background-color: #1f2937;
   justify-content: space-between;
 }
 
@@ -44,6 +44,15 @@ ul {
 .logo {
   font-size: 24px;
   color: #f9faf8;
+}
+
+/* Top section */
+
+.top {
+  height: 500px;
+  background-color: #1f2937;
+  display: flex;
+  flex-direction: column;
 }
 
 .presentation {
@@ -90,7 +99,6 @@ h1 {
 
 .information {
   color: black;
-  padding: 10px 150px;
   text-align: center;
 }
 
@@ -146,7 +154,6 @@ h2 {
 .bottom {
   display: flex;
   height: 200px;
-  padding: 0 150px;
   align-items: center;
 }
 
