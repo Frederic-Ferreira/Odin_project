@@ -7,6 +7,11 @@ body {
   margin: 0;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 a {
   text-decoration: none;
   color: rgb(209, 209, 209);
@@ -14,8 +19,6 @@ a {
 
 ul {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
 }
 
 /* Top section */
@@ -52,7 +55,6 @@ ul {
 .presentation p {
   font-size: 18px;
   color: #e5e7eb;
-  margin: 0;
 }
 
 .description {
@@ -63,7 +65,7 @@ ul {
 
 .header-image {
   height: 200px;
-  width: 400px;
+  width: 450px;
   background-color: grey;
   flex: 1 0 auto;
 }
@@ -72,8 +74,6 @@ h1 {
   font-size: 48px;
   font-weight: bolder;
   color: #f9faf8;
-  margin: 0;
-  padding: 0;
 }
 
 .header-button {
@@ -92,7 +92,6 @@ h1 {
   color: black;
   padding: 10px 150px;
   text-align: center;
-  height: 400px;
 }
 
 h2 {
@@ -102,9 +101,15 @@ h2 {
 
 .image-description {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   margin: 50px 0 100px 0;
   gap: 20px;
+}
+
+.card {
+  height: 200px;
+  width: 200px;
 }
 
 .card img {
@@ -118,8 +123,7 @@ h2 {
 
 .quote {
   background-color: #e5e7eb;
-  padding: 0 300px;
-  height: 300px;
+  padding: 80px 300px;
   color: black;
   display: flex;
   flex-direction: column;
@@ -131,13 +135,10 @@ h2 {
   font-weight: lighter;
   font-style: italic;
   color: #1f2937;
-  margin: 0;
-  padding: 0;
 }
 
 .quote h4 {
   text-align: end;
-  margin: 0;
 }
 
 /* Call-to-action section */
@@ -151,17 +152,12 @@ h2 {
 
 .sign-up {
   width: 100%;
+  max-height: 100px;
   padding: 30px 100px;
   background-color: #3882f6;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
-}
-
-.sign-up h4,
-.sign-up p {
-  margin: 0;
-  padding: 0;
 }
 
 .sign-up p {
