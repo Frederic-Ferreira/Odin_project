@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function capitalize(string) {
+        const lowerCase = string.toLowerCase();
+        const upperCase = lowerCase.toLowerCase().slice(0, 1).toUpperCase();
+        console.log(`${upperCase}${lowerCase.slice(1, string.length)}`);
+      }
+      capitalize("FredeRicFerreiRa");
+
+      function lastLetter(word) {
+        console.log(`${word.slice(word.length - 1, word.length)}`);
+      }
+      lastLetter("roumjoulatinaksavaparalix");
+    </script>
+  </body>
+</html>
