@@ -1,0 +1,54 @@
+body {
+  background-color: black;
+  height: 100vh;
+  color: white;
+  font-size: 62.5%;
+  box-sizing: border-box;
+  z-index: 20;
+}
+
+.hide {
+  display: none;
+}
+
+.scores {
+  display: flex;
+  margin: 2rem;
+  justify-content: space-between;
+  height: 10rem;
+  font-size: 2em;
+}
+
+.scores p {
+  font-size: 2em;
+  text-align: center;
+}
+
+.buttons {
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+}
+
+button {
+  height: 3rem;
+  width: 7rem;
+}
+
+.choices {
+  height: 20rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(78, 74, 74);
+  z-index: 50;
+}
+
+img {
+  max-height: 10rem;
+  min-width: 15rem;
+  border: solid 2px blue;
+  z-index: -1;
+}

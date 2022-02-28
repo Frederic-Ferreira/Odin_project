@@ -1,50 +1,38 @@
-<script>
-  const rps = ["Rock", "Paper", "Scissors"];
-  let randomIndex = Math.floor(Math.random() * rps.length);
-  let playerSelection;
-  let computerSelection = computerPlay().toLowerCase();
-  let playerScore = 0;
-  let computerScore = 0;
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Papier, Cailloux, Ciseaux</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="scores">
+      <div class="player">
+        <h1>Player score</h1>
+        <p>0</p>
+      </div>
+      <div class="computer">
+        <h1>Computer score</h1>
+        <p>0</p>
+      </div>
+    </div>
 
-  function computerPlay() {
-    return rps[randomIndex];
-  }
+    <div class="choices">
+      <div class="player-choice">
+        <img class="img-player" src="" alt="choice" />
+      </div>
+      <div class="computer-choice">
+        <img class="img-computer" src="" alt="choice" />
+      </div>
+    </div>
 
-  function playRound(playerSelection, computerSelection) {
-    if (
-      (playerSelection === "rock" && computerSelection === "scissors") ||
-      (playerSelection === "paper" && computerSelection === "rock") ||
-      (playerSelection === "scissors" && computerSelection === "paper")
-    )
-      playerScore++;
-    else if (
-      (playerSelection === "rock" && computerSelection === "paper") ||
-      (playerSelection === "paper" && computerSelection === "scissors") ||
-      (playerSelection === "scissors" && computerSelection === "rock")
-    )
-      computerScore++;
-    else return;
-  }
-
-  const newComputerChoice = function () {
-    randomIndex = Math.floor(Math.random() * rps.length);
-    computerSelection = computerPlay().toLowerCase();
-  };
-
-  function game() {
-    for (let i = 0; i < 5; i++) {
-      playerSelection = prompt("Rock, Paper or Scissors ?").toLocaleLowerCase();
-      newComputerChoice();
-      playRound(playerSelection, computerSelection);
-      console.log(`player: ${playerScore} computer: ${computerScore}`);
-    }
-
-    playerScore === computerScore
-      ? console.log("No one wins🤷‍♂️")
-      : playerScore > computerScore
-      ? console.log("You win ! 😃")
-      : console.log("Computer wins ... 😔");
-  }
-
-  game();
-</script>
+    <div class="buttons">
+      <button class="paper">Papier</button>
+      <button class="rock">Cailloux</button>
+      <button class="scissors">Ciseaux</button>
+    </div>
+  </body>
+</html>
