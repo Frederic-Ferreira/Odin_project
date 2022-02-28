@@ -37,7 +37,7 @@ button {
   width: 7rem;
 }
 
-.choices {
+.playground {
   height: 20rem;
   display: flex;
   justify-content: space-around;
@@ -47,7 +47,7 @@ button {
 }
 
 img {
-  max-height: 10rem;
+  min-height: 10rem;
   min-width: 15rem;
   border: solid 2px blue;
   z-index: -1;
