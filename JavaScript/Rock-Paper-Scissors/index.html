@@ -34,20 +34,9 @@
   function game() {
     for (let i = 0; i < 5; i++) {
       playerSelection = prompt("Rock, Paper or Scissors ?").toLocaleLowerCase();
-      if (
-        playerSelection !== "rock" &&
-        playerSelection !== "paper" &&
-        playerSelection !== "scissors"
-      ) {
-        alert(
-          "Something went wrong, please check your input : Rock, Paper or Scissors"
-        );
-        i--;
-      } else {
-        newComputerChoice();
-        playRound(playerSelection, computerSelection);
-        console.log(`player: ${playerScore} computer: ${computerScore}`);
-      }
+      newComputerChoice();
+      playRound(playerSelection, computerSelection);
+      console.log(`player: ${playerScore} computer: ${computerScore}`);
     }
 
     playerScore === computerScore
