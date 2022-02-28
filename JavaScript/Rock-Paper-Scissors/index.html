@@ -26,10 +26,10 @@
     else return;
   }
 
-  function computerChoice() {
+  const newComputerChoice = function () {
     randomIndex = Math.floor(Math.random() * rps.length);
     computerSelection = computerPlay().toLowerCase();
-  }
+  };
 
   function game() {
     for (let i = 0; i < 5; i++) {
@@ -44,7 +44,7 @@
         );
         i--;
       } else {
-        computerChoice();
+        newComputerChoice();
         playRound(playerSelection, computerSelection);
         console.log(`player: ${playerScore} computer: ${computerScore}`);
       }
