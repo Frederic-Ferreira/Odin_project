@@ -47,8 +47,8 @@ button {
 }
 
 img {
-  min-height: 10rem;
-  min-width: 15rem;
+  max-height: 10rem;
+  max-width: 15rem;
   border: solid 2px blue;
   z-index: -1;
 }

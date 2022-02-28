@@ -6,6 +6,8 @@ const pChoice = document.querySelector(".player-choice");
 const cChoice = document.querySelector(".computer-choice");
 const results = document.querySelector(".results");
 const winner = document.querySelector(".winner");
+const imgPlayer = document.querySelector(".img-player");
+const imgComputer = document.querySelector(".img-computer");
 
 const rps = ["Rock", "Paper", "Scissors"];
 let randomIndex = Math.floor(Math.random() * rps.length);
@@ -26,7 +28,16 @@ function playAgain() {
   pChoice.classList.toggle("hide");
   cChoice.classList.toggle("hide");
   results.classList.toggle("hide");
+  imgPlayer.classList.toggle("hide");
+  imgComputer.classList.toggle("hide");
   btns.forEach((btn) => btn.classList.toggle("hide"));
+}
+
+function displayImage(pChoice, cChoice) {
+  imgPlayer.classList.remove("hide");
+  imgComputer.classList.remove("hide");
+  imgPlayer.src = `${pChoice}.png`;
+  imgComputer.src = `${cChoice}.png`;
 }
 
 function checkWinner() {
@@ -68,7 +79,7 @@ function game(choice) {
   playerSelection = choice;
   newComputerChoice();
   playRound(playerSelection, computerSelection);
-  console.log(`player: ${playerScore} computer: ${computerScore}`);
+  displayImage(playerSelection, computerSelection);
 }
 
 btns.forEach((btn) =>
