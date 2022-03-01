@@ -11,7 +11,7 @@ const imgPlayer = document.querySelector(".img-player");
 const imgComputer = document.querySelector(".img-computer");
 const imgs = document.querySelectorAll(".img");
 
-const rps = ["Rock", "Paper", "Scissors"];
+const rps = ["cailloux", "papier", "ciseaux"];
 let randomIndex = Math.floor(Math.random() * rps.length);
 let playerSelection;
 let computerSelection = computerPlay().toLowerCase();
@@ -56,7 +56,7 @@ function displayImage(pChoice, cChoice) {
   imgComputer.classList.add("arrive");
   imgPlayer.classList.add("arrive");
   imgPlayer.src = `${pChoice}.png`;
-  if (cChoice === "scissors") imgComputer.src = `${cChoice}2.png`;
+  if (cChoice === "ciseaux") imgComputer.src = `${cChoice}2.png`;
   else imgComputer.src = `${cChoice}.png`;
 }
 
@@ -69,9 +69,9 @@ function checkWinner() {
 
 function playRound(playerSelection, computerSelection) {
   if (
-    (playerSelection === "rock" && computerSelection === "scissors") ||
-    (playerSelection === "paper" && computerSelection === "rock") ||
-    (playerSelection === "scissors" && computerSelection === "paper")
+    (playerSelection === "cailloux" && computerSelection === "ciseaux") ||
+    (playerSelection === "papier" && computerSelection === "cailloux") ||
+    (playerSelection === "ciseaux" && computerSelection === "papier")
   ) {
     playerScore++;
     round++;
@@ -88,9 +88,9 @@ function playRound(playerSelection, computerSelection) {
     if (playerScore === 5 || computerScore === 5)
       setTimeout(() => checkWinner(), 500);
   } else if (
-    (playerSelection === "rock" && computerSelection === "paper") ||
-    (playerSelection === "paper" && computerSelection === "scissors") ||
-    (playerSelection === "scissors" && computerSelection === "rock")
+    (playerSelection === "cailloux" && computerSelection === "papier") ||
+    (playerSelection === "papier" && computerSelection === "ciseaux") ||
+    (playerSelection === "ciseaux" && computerSelection === "cailloux")
   ) {
     computerScore++;
     round++;
