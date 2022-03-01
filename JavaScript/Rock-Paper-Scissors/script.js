@@ -31,12 +31,13 @@ function playAgain() {
   cScore.textContent = "0";
   winner.textContent = "Le premier arrivé à 5 points à gagné !";
   roundNumber.textContent = "Round 0";
-  pChoice.classList.toggle("hide");
-  cChoice.classList.toggle("hide");
+  btns.forEach((btn) => btn.classList.toggle("hide"));
+}
+
+function displayMessage() {
   results.classList.remove("hide");
   imgPlayer.classList.toggle("hide");
   imgComputer.classList.toggle("hide");
-  btns.forEach((btn) => btn.classList.toggle("hide"));
 }
 
 function displayImage(pChoice, cChoice) {
@@ -56,9 +57,7 @@ function displayImage(pChoice, cChoice) {
 }
 
 function checkWinner() {
-  pChoice.classList.add("hide");
-  cChoice.classList.add("hide");
-  results.classList.remove("hide");
+  displayMessage();
   winner.textContent = `${
     playerScore > computerScore ? "You win" : "You lose"
   }`;
@@ -73,20 +72,36 @@ function playRound(playerSelection, computerSelection) {
   ) {
     playerScore++;
     round++;
-    roundNumber.textContent = `Round ${round}`;
-    pScore.textContent = `${playerScore}`;
+    if (playerScore < 5) {
+      setTimeout(function () {
+        displayMessage();
+        winner.textContent = `Tu gagnes, ${playerSelection} bat ${computerSelection}`;
+        roundNumber.textContent = `Round ${round}`;
+        pScore.textContent = `${playerScore}`;
+      }, 200);
+    }
   } else if (
     (playerSelection === "rock" && computerSelection === "paper") ||
     (playerSelection === "paper" && computerSelection === "scissors") ||
     (playerSelection === "scissors" && computerSelection === "rock")
   ) {
     computerScore++;
-    cScore.textContent = `${computerScore}`;
     round++;
-    roundNumber.textContent = `Round ${round}`;
+    if (computerScore < 5) {
+      setTimeout(function () {
+        displayMessage();
+        winner.textContent = `L'ordinateur gagne, ${computerSelection} bat ${playerSelection}`;
+        roundNumber.textContent = `Round ${round}`;
+        cScore.textContent = `${computerScore}`;
+      }, 200);
+    }
   } else {
     round++;
-    roundNumber.textContent = `Round ${round}`;
+    setTimeout(function () {
+      displayMessage();
+      winner.textContent = "Ex-aeco!";
+      roundNumber.textContent = `Round ${round}`;
+    }, 200);
   }
 }
 

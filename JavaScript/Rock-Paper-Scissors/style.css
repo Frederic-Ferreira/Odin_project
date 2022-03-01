@@ -69,6 +69,7 @@ img {
   height: 15rem;
   width: 18rem;
   border: solid 2px blue;
+  transition: all 0.7s;
 }
 
 .arrive {
@@ -81,6 +82,10 @@ img {
 
 .battle-computer {
   animation: 0.5s ease-in-out battle-computer;
+}
+
+.results {
+  z-index: 10;
 }
 
 /* img animations */
