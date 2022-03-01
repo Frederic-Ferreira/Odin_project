@@ -59,7 +59,8 @@ button {
 
 .playground {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 15rem;
   flex: 1;
   align-items: center;
   background-color: rgb(78, 74, 74);
@@ -76,12 +77,32 @@ img {
   animation: 1.1s ease-in-out arrives;
 }
 
-.battle-player {
-  animation: 0.5s ease-in-out battle-player;
+.no-one-player {
+  animation: 0.5s ease-in-out no-one-player;
 }
 
-.battle-computer {
-  animation: 0.5s ease-in-out battle-computer;
+.no-one-computer {
+  animation: 0.5s ease-in-out no-one-computer;
+}
+
+.lose-player {
+  animation: 0.5s ease-in-out lose-player;
+  transform: translate(-300%);
+}
+
+.win-computer {
+  animation: 0.1s ease-in-out win-computer;
+  transform: translate(-90%);
+}
+
+.win-player {
+  animation: 0.1s ease-in-out win-player;
+  transform: translate(90%);
+}
+
+.lose-computer {
+  animation: 0.5s ease-in-out lose-computer;
+  transform: translate(300%);
 }
 
 .results {
@@ -111,7 +132,7 @@ img {
   }
 }
 
-@keyframes battle-player {
+@keyframes no-one-player {
   0% {
     transform: translate(25%);
   }
@@ -129,7 +150,7 @@ img {
   }
 }
 
-@keyframes battle-computer {
+@keyframes no-one-computer {
   0% {
     transform: translate(-25%);
   }
@@ -144,5 +165,71 @@ img {
   }
   100% {
     transform: translate(0%);
+  }
+}
+
+@keyframes lose-player {
+  0% {
+    transform: translate(25%);
+  }
+  25% {
+    transform: translate(50%);
+  }
+  50% {
+    transform: translate(-100%);
+  }
+  75% {
+    transform: translate(-200%);
+  }
+  100% {
+    transform: translate(-300%);
+  }
+}
+
+@keyframes win-computer {
+  0% {
+    transform: translate(-25%);
+  }
+  50% {
+    transform: translate(-50%);
+  }
+  75% {
+    transform: translate(-120%);
+  }
+  100% {
+    transform: translate(-90%);
+  }
+}
+
+@keyframes lose-computer {
+  0% {
+    transform: translate(-25%);
+  }
+  25% {
+    transform: translate(-50%);
+  }
+  50% {
+    transform: translate(100%);
+  }
+  75% {
+    transform: translate(200%);
+  }
+  100% {
+    transform: translate(300%);
+  }
+}
+
+@keyframes win-player {
+  0% {
+    transform: translate(25%);
+  }
+  50% {
+    transform: translate(50%);
+  }
+  75% {
+    transform: translate(120%);
+  }
+  100% {
+    transform: translate(90%);
   }
 }

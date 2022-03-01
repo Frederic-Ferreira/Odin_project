@@ -18,6 +18,8 @@ let computerSelection = computerPlay().toLowerCase();
 let playerScore = 0;
 let computerScore = 0;
 let round = 0;
+let playerClass;
+let computerClass;
 
 function computerPlay() {
   return rps[randomIndex];
@@ -27,6 +29,8 @@ function playAgain() {
   playerScore = 0;
   computerScore = 0;
   round = 0;
+  playerClass = "";
+  computerClass = "";
   pScore.textContent = "0";
   cScore.textContent = "0";
   winner.textContent = "Le premier arrivé à 5 points à gagné !";
@@ -57,7 +61,6 @@ function displayImage(pChoice, cChoice) {
 }
 
 function checkWinner() {
-  displayMessage();
   winner.textContent = `${
     playerScore > computerScore ? "You win" : "You lose"
   }`;
@@ -72,14 +75,18 @@ function playRound(playerSelection, computerSelection) {
   ) {
     playerScore++;
     round++;
-    if (playerScore < 5) {
-      setTimeout(function () {
-        displayMessage();
-        winner.textContent = `Tu gagnes, ${playerSelection} bat ${computerSelection}`;
-        roundNumber.textContent = `Round ${round}`;
-        pScore.textContent = `${playerScore}`;
-      }, 200);
-    }
+    playerClass = "win-player";
+    computerClass = "lose-computer";
+    setTimeout(function () {
+      displayMessage();
+      winner.textContent = `Tu gagnes, ${playerSelection} bat ${computerSelection}`;
+      roundNumber.textContent = `Round ${round}`;
+      pScore.textContent = `${playerScore}`;
+      imgPlayer.classList.remove(`${playerClass}`);
+      imgComputer.classList.remove(`${computerClass}`);
+    }, 700);
+    if (playerScore === 5 || computerScore === 5)
+      setTimeout(() => checkWinner(), 500);
   } else if (
     (playerSelection === "rock" && computerSelection === "paper") ||
     (playerSelection === "paper" && computerSelection === "scissors") ||
@@ -87,21 +94,29 @@ function playRound(playerSelection, computerSelection) {
   ) {
     computerScore++;
     round++;
-    if (computerScore < 5) {
-      setTimeout(function () {
-        displayMessage();
-        winner.textContent = `L'ordinateur gagne, ${computerSelection} bat ${playerSelection}`;
-        roundNumber.textContent = `Round ${round}`;
-        cScore.textContent = `${computerScore}`;
-      }, 200);
-    }
+    computerClass = "win-computer";
+    playerClass = "lose-player";
+    setTimeout(function () {
+      displayMessage();
+      winner.textContent = `L'ordinateur gagne, ${computerSelection} bat ${playerSelection}`;
+      roundNumber.textContent = `Round ${round}`;
+      cScore.textContent = `${computerScore}`;
+      imgPlayer.classList.remove(`${playerClass}`);
+      imgComputer.classList.remove(`${computerClass}`);
+    }, 700);
+    if (playerScore === 5 || computerScore === 5)
+      setTimeout(() => checkWinner(), 500);
   } else {
     round++;
+    playerClass = "no-one-player";
+    computerClass = "no-one-computer";
     setTimeout(function () {
       displayMessage();
       winner.textContent = "Ex-aeco!";
       roundNumber.textContent = `Round ${round}`;
-    }, 200);
+      imgPlayer.classList.remove(`${playerClass}`);
+      imgComputer.classList.remove(`${computerClass}`);
+    }, 700);
   }
 }
 
@@ -117,15 +132,10 @@ function game(choice) {
   setTimeout(function () {
     imgPlayer.classList.remove("arrive");
     imgComputer.classList.remove("arrive");
-    imgPlayer.classList.add("battle-player");
-    imgComputer.classList.add("battle-computer");
-  }, 2200);
-  setTimeout(() => {
     playRound(playerSelection, computerSelection);
-    if (playerScore === 5 || computerScore === 5) checkWinner();
-    imgPlayer.classList.remove("battle-player");
-    imgComputer.classList.remove("battle-computer");
-  }, 2700);
+    imgPlayer.classList.add(`${playerClass}`);
+    imgComputer.classList.add(`${computerClass}`);
+  }, 2200);
 }
 
 btns.forEach((btn) =>
@@ -136,5 +146,3 @@ btns.forEach((btn) =>
 );
 
 restart.addEventListener("click", playAgain);
-
-// game();
