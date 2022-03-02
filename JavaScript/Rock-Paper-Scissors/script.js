@@ -91,9 +91,9 @@ function playRound(playerSelection, computerSelection) {
       pScore.textContent = `${playerScore}`;
       imgPlayer.classList.remove(`${playerClass}`);
       imgComputer.classList.remove(`${computerClass}`);
-      chose = true;
     }, 700);
     if (playerScore === 5) setTimeout(() => checkWinner(), 2200);
+    else chose = true;
   } else if (
     (playerSelection === "cailloux" && computerSelection === "papier") ||
     (playerSelection === "papier" && computerSelection === "ciseaux") ||
@@ -108,9 +108,9 @@ function playRound(playerSelection, computerSelection) {
       cScore.textContent = `${computerScore}`;
       imgPlayer.classList.remove(`${playerClass}`);
       imgComputer.classList.remove(`${computerClass}`);
-      chose = true;
     }, 700);
     if (computerScore === 5) setTimeout(() => checkWinner(), 2200);
+    else chose = true;
   } else {
     playerClass = "no-one-player";
     computerClass = "no-one-computer";
