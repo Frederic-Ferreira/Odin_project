@@ -10,6 +10,8 @@ const winner = document.querySelector(".winner");
 const imgPlayer = document.querySelector(".img-player");
 const imgComputer = document.querySelector(".img-computer");
 const imgs = document.querySelectorAll(".img");
+const spans = document.querySelectorAll("span");
+const pReveals = document.querySelector(".revealing");
 
 const rps = ["cailloux", "papier", "ciseaux"];
 let randomIndex = Math.floor(Math.random() * rps.length);
@@ -35,7 +37,9 @@ function playAgain() {
   cScore.textContent = "0";
   winner.textContent = "Le premier arrivé à 5 points à gagné !";
   roundNumber.textContent = "Round 0";
-  btns.forEach((btn) => btn.classList.toggle("hide"));
+  btns.forEach((btn) => {
+    if (!btn.classList.contains("begin")) btn.classList.toggle("hide");
+  });
 }
 
 function displayMessage() {
@@ -62,9 +66,13 @@ function displayImage(pChoice, cChoice) {
 
 function checkWinner() {
   winner.textContent = `${
-    playerScore > computerScore ? "You win" : "You lose"
+    playerScore > computerScore
+      ? "Tu as gagné ! 😃 🥳 🎉"
+      : "L'Intelligence Artificielle t'a battu ... 🥺 😨 🤖"
   }`;
-  btns.forEach((btn) => btn.classList.toggle("hide"));
+  btns.forEach((btn) => {
+    if (!btn.classList.contains("begin")) btn.classList.toggle("hide");
+  });
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -85,8 +93,7 @@ function playRound(playerSelection, computerSelection) {
       imgPlayer.classList.remove(`${playerClass}`);
       imgComputer.classList.remove(`${computerClass}`);
     }, 700);
-    if (playerScore === 5 || computerScore === 5)
-      setTimeout(() => checkWinner(), 500);
+    if (playerScore === 5) setTimeout(() => checkWinner(), 2200);
   } else if (
     (playerSelection === "cailloux" && computerSelection === "papier") ||
     (playerSelection === "papier" && computerSelection === "ciseaux") ||
@@ -104,8 +111,7 @@ function playRound(playerSelection, computerSelection) {
       imgPlayer.classList.remove(`${playerClass}`);
       imgComputer.classList.remove(`${computerClass}`);
     }, 700);
-    if (playerScore === 5 || computerScore === 5)
-      setTimeout(() => checkWinner(), 500);
+    if (computerScore === 5) setTimeout(() => checkWinner(), 2200);
   } else {
     round++;
     playerClass = "no-one-player";
@@ -138,11 +144,44 @@ function game(choice) {
   }, 2200);
 }
 
+btns[0].addEventListener("click", function () {});
+
 btns.forEach((btn) =>
   btn.addEventListener("click", function (e) {
-    const choice = e.target.getAttribute("class");
-    if (playerScore < 5 && computerScore < 5) game(choice);
+    if (
+      btn.classList.contains("papier") ||
+      btn.classList.contains("cailloux") ||
+      btn.classList.contains("ciseaux")
+    ) {
+      const choice = e.target.getAttribute("class");
+      if (playerScore < 5 && computerScore < 5) game(choice);
+    } else if (btn.classList.contains("begin")) {
+      for (let i = 1; i < 4; i++) {
+        btns[i].classList.remove("hide");
+      }
+      btns[0].classList.add("hide");
+      pReveals.classList.add("hide");
+      winner.classList.remove("hide");
+    }
   })
 );
 
 restart.addEventListener("click", playAgain);
+
+let char = 0;
+let timer = setInterval(onTick, 50);
+
+function onTick() {
+  const span = spans[char];
+  span.classList.add("appears");
+  char++;
+  //stops the function from running once the end of the string has been reached
+  if (char === spans.length) {
+    complete();
+    return;
+  }
+}
+function complete() {
+  clearInterval(timer);
+  timer = null;
+}

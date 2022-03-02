@@ -109,6 +109,24 @@ img {
   z-index: 10;
 }
 
+.winner {
+  animation: 1s ease-in-out fade-in-down;
+}
+
+.hidden {
+  font-size: 2rem;
+  opacity: 0;
+  transition: all 0.1s;
+}
+
+.appears {
+  opacity: 1;
+}
+
+.revealing {
+  text-align: center;
+}
+
 /* img animations */
 
 @keyframes arrives {
@@ -231,5 +249,15 @@ img {
   }
   100% {
     transform: translate(90%);
+  }
+}
+
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+  100% {
+    opacity: 1;
   }
 }
