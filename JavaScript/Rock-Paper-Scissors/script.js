@@ -116,7 +116,7 @@ function playRound(playerSelection, computerSelection) {
     computerClass = "no-one-computer";
     setTimeout(function () {
       displayMessage();
-      winner.textContent = "Ex-aeco!";
+      winner.textContent = "Ex-aequo!";
       imgPlayer.classList.remove(`${playerClass}`);
       imgComputer.classList.remove(`${computerClass}`);
       chose = true;
