@@ -110,7 +110,7 @@ img {
 }
 
 .winner {
-  animation: 1s ease-in-out fade-in-down;
+  animation: 0.7s ease-in-out fade-in-down;
 }
 
 .hidden {

@@ -20,6 +20,7 @@ let computerSelection = computerPlay().toLowerCase();
 let playerScore = 0;
 let computerScore = 0;
 let round = 0;
+let chose = true;
 let playerClass;
 let computerClass;
 
@@ -82,16 +83,15 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection === "ciseaux" && computerSelection === "papier")
   ) {
     playerScore++;
-    round++;
     playerClass = "win-player";
     computerClass = "lose-computer";
     setTimeout(function () {
       displayMessage();
       winner.textContent = `Tu gagnes, ${playerSelection} bat ${computerSelection}`;
-      roundNumber.textContent = `Round ${round}`;
       pScore.textContent = `${playerScore}`;
       imgPlayer.classList.remove(`${playerClass}`);
       imgComputer.classList.remove(`${computerClass}`);
+      chose = true;
     }, 700);
     if (playerScore === 5) setTimeout(() => checkWinner(), 2200);
   } else if (
@@ -100,28 +100,26 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection === "ciseaux" && computerSelection === "cailloux")
   ) {
     computerScore++;
-    round++;
     computerClass = "win-computer";
     playerClass = "lose-player";
     setTimeout(function () {
       displayMessage();
       winner.textContent = `L'ordinateur gagne, ${computerSelection} bat ${playerSelection}`;
-      roundNumber.textContent = `Round ${round}`;
       cScore.textContent = `${computerScore}`;
       imgPlayer.classList.remove(`${playerClass}`);
       imgComputer.classList.remove(`${computerClass}`);
+      chose = true;
     }, 700);
     if (computerScore === 5) setTimeout(() => checkWinner(), 2200);
   } else {
-    round++;
     playerClass = "no-one-player";
     computerClass = "no-one-computer";
     setTimeout(function () {
       displayMessage();
       winner.textContent = "Ex-aeco!";
-      roundNumber.textContent = `Round ${round}`;
       imgPlayer.classList.remove(`${playerClass}`);
       imgComputer.classList.remove(`${computerClass}`);
+      chose = true;
     }, 700);
   }
 }
@@ -154,7 +152,12 @@ btns.forEach((btn) =>
       btn.classList.contains("ciseaux")
     ) {
       const choice = e.target.getAttribute("class");
-      if (playerScore < 5 && computerScore < 5) game(choice);
+      if (playerScore < 5 && computerScore < 5 && chose === true) {
+        round++;
+        roundNumber.textContent = `Round ${round}`;
+        game(choice);
+        chose = false;
+      }
     } else if (btn.classList.contains("begin")) {
       for (let i = 1; i < 4; i++) {
         btns[i].classList.remove("hide");
