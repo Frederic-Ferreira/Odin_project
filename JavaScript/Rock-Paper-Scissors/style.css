@@ -114,159 +114,9 @@ body {
   cursor: pointer;
 }
 
-.front {
-  height: 3rem;
-  width: 10rem;
-  background-color: white;
-  border-radius: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translate(-50.5%);
-  border: solid 2px black;
-  z-index: 50;
-}
-
-.front:hover {
-  transform: translate(-50.5%, 0.25rem);
-  transition: 0.2s;
-}
-
-.front:active {
-  transform: translate(-50.5%, 0.5rem);
-  background-color: #77a6f6f1;
-}
-
-.back {
-  height: 3rem;
-  width: 10rem;
-  background-color: white;
-  border-radius: 2rem;
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translate(-50%);
-  border: solid 2px black;
-  z-index: 40;
-}
-
-.shadow {
-  height: 3rem;
-  width: 10rem;
-  border-radius: 2rem;
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translate(-50%);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.85);
-  z-index: 30;
-}
-
-.front-papier {
-  height: 3rem;
-  width: 10rem;
-  background-color: white;
-  border-radius: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: 2.5rem;
-  left: 25%;
-  transform: translate(-50.5%);
-  border: solid 2px black;
-  z-index: 50;
-}
-
-.front-papier:hover {
-  transform: translate(-50.5%, 0.25rem);
-  transition: 0.2s;
-}
-
-.front-papier:active {
-  transform: translate(-50.5%, 0.5rem);
-  background-color: #77a6f6f1;
-}
-
-.back-papier {
-  height: 3rem;
-  width: 10rem;
-  background-color: white;
-  border-radius: 2rem;
-  position: absolute;
-  bottom: 2rem;
-  left: 25%;
-  transform: translate(-50%);
-  border: solid 2px black;
-  z-index: 40;
-}
-
-.shadow-papier {
-  height: 3rem;
-  width: 10rem;
-  border-radius: 2rem;
-  position: absolute;
-  bottom: 2rem;
-  left: 25%;
-  transform: translate(-50%);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.85);
-  z-index: 30;
-}
-
-.front-cailloux {
-  height: 3rem;
-  width: 10rem;
-  background-color: white;
-  border-radius: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translate(-50.5%);
-  border: solid 2px black;
-  z-index: 50;
-}
-
-.front-cailloux:hover {
-  transform: translate(-50.5%, 0.25rem);
-  transition: 0.2s;
-}
-
-.front-cailloux:active {
-  transform: translate(-50.5%, 0.5rem);
-  background-color: #77a6f6f1;
-}
-
-.back-cailloux {
-  height: 3rem;
-  width: 10rem;
-  background-color: white;
-  border-radius: 2rem;
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translate(-50%);
-  border: solid 2px black;
-  z-index: 40;
-}
-
-.shadow-cailloux {
-  height: 3rem;
-  width: 10rem;
-  border-radius: 2rem;
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translate(-50%);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.85);
-  z-index: 30;
-}
-
+.front,
+.front-papier,
+.front-cailloux,
 .front-ciseaux {
   height: 3rem;
   width: 10rem;
@@ -277,22 +127,14 @@ body {
   justify-content: center;
   position: absolute;
   bottom: 2.5rem;
-  left: 75%;
-  transform: translate(-50.5%);
+  transform: translate(-51%);
   border: solid 2px black;
   z-index: 50;
 }
 
-.front-ciseaux:hover {
-  transform: translate(-50.5%, 0.25rem);
-  transition: 0.2s;
-}
-
-.front-ciseaux:active {
-  transform: translate(-50.5%, 0.5rem);
-  background-color: #77a6f6f1;
-}
-
+.back,
+.back-papier,
+.back-cailloux,
 .back-ciseaux {
   height: 3rem;
   width: 10rem;
@@ -300,22 +142,61 @@ body {
   border-radius: 2rem;
   position: absolute;
   bottom: 2rem;
-  left: 75%;
   transform: translate(-50%);
   border: solid 2px black;
   z-index: 40;
 }
 
+.shadow,
+.shadow-papier,
+.shadow-cailloux,
 .shadow-ciseaux {
   height: 3rem;
   width: 10rem;
   border-radius: 2rem;
   position: absolute;
   bottom: 2rem;
-  left: 75%;
   transform: translate(-50%);
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.85);
   z-index: 30;
+}
+
+.front,
+.back,
+.shadow,
+.front-cailloux,
+.back-cailloux,
+.shadow-cailloux {
+  left: 50%;
+}
+
+.front:hover,
+.front-cailloux:hover,
+.front-papier:hover,
+.front-ciseaux:hover {
+  transform: translate(-51%, 0.25rem);
+  transition: 0.2s;
+}
+
+.front:active,
+.front-cailloux:active,
+.front-papier:active,
+.front-ciseaux:active {
+  transform: translate(-51%, 0.5rem);
+  background-color: #77a6f6f1;
+  transition: 0.2s;
+}
+
+.front-papier,
+.back-papier,
+.shadow-papier {
+  left: 25%;
+}
+
+.front-ciseaux,
+.back-ciseaux,
+.shadow-ciseaux {
+  left: 75%;
 }
 
 /* Separation */
