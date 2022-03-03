@@ -69,7 +69,7 @@ function checkWinner() {
   winner.textContent = `${
     playerScore > computerScore
       ? "Tu as gagné ! 😃 🥳 🎉"
-      : "L'Intelligence Artificielle t'a battu ... 🥺 😨 🤖"
+      : "L'Intelligence Artificielle t'a battu 🥺 😨 🤖"
   }`;
   btns.forEach((btn) => {
     if (!btn.classList.contains("begin")) btn.classList.toggle("hide");
@@ -142,8 +142,6 @@ function game(choice) {
   }, 2200);
 }
 
-btns[0].addEventListener("click", function () {});
-
 btns.forEach((btn) =>
   btn.addEventListener("click", function (e) {
     if (
@@ -151,17 +149,21 @@ btns.forEach((btn) =>
       btn.classList.contains("cailloux") ||
       btn.classList.contains("ciseaux")
     ) {
-      const choice = e.target.getAttribute("class");
+      const choice = e.currentTarget.getAttribute("class");
       if (playerScore < 5 && computerScore < 5 && chose === true) {
         round++;
         roundNumber.textContent = `Round ${round}`;
         game(choice);
         chose = false;
       }
-    } else if (btn.classList.contains("begin")) {
+    } else if (
+      btn.classList.contains("begin") ||
+      btn.classList.contains("play-again")
+    ) {
       for (let i = 1; i < 4; i++) {
         btns[i].classList.remove("hide");
       }
+      roundNumber.classList.remove("hide");
       btns[0].classList.add("hide");
       pReveals.classList.add("hide");
       winner.classList.remove("hide");
@@ -185,6 +187,7 @@ function onTick() {
   }
 }
 function complete() {
+  btns[0].classList.remove("hide");
   clearInterval(timer);
   timer = null;
 }

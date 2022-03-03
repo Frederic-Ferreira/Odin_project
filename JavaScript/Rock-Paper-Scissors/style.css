@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300&family=Roboto:ital,wght@1,300;1,700&family=Sora:wght@300;400;500&display=swap");
 
 body {
   height: 100vh;
@@ -69,6 +69,7 @@ body {
 }
 
 .scores {
+  font-family: "Oxygen";
   display: flex;
   min-height: 7rem;
   margin: 2rem 5rem;
@@ -81,11 +82,12 @@ body {
   color: #367bf1;
   background-color: rgba(255, 255, 255, 0.664);
   border-radius: 3rem;
+  font-family: Sora;
+  font-weight: 500;
   font-size: 20px;
   text-transform: uppercase;
   padding: 0.7rem 3rem;
-  position: relative;
-  right: 1em;
+  animation: 0.7s ease-in-out fade-in-down;
 }
 
 .scores p {
@@ -99,6 +101,11 @@ body {
   align-items: center;
   gap: 5rem;
   box-sizing: border-box;
+}
+
+.begin,
+.play-again {
+  animation: 0.7s ease-in-out zoom-in-out;
 }
 
 .begin,
@@ -202,6 +209,7 @@ body {
 /* Separation */
 
 .playground {
+  margin-bottom: 10rem;
   display: flex;
   justify-content: center;
   gap: 33rem;
@@ -256,6 +264,9 @@ body {
 }
 
 .winner {
+  font-family: Sora;
+  font-weight: 400;
+  font-size: 2em;
   animation: 0.7s ease-in-out fade-in-down;
 }
 
@@ -270,6 +281,7 @@ body {
 }
 
 .revealing {
+  font-family: "Oxygen";
   text-align: center;
   max-width: 20rem;
 }
@@ -406,5 +418,17 @@ body {
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes zoom-in-out {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
   }
 }
