@@ -95,36 +95,230 @@ body {
 
 .buttons {
   display: flex;
-  min-height: 10rem;
   justify-content: center;
   align-items: center;
   gap: 5rem;
+  box-sizing: border-box;
 }
 
-button {
-  height: 3rem;
-  width: 10rem;
-  margin: 1.5rem;
-  background-color: white;
+.begin,
+.papier,
+.cailloux,
+.ciseaux,
+.play-again {
+  background-color: transparent;
+  border: none;
   font-family: Roboto;
   text-transform: uppercase;
-  font-size: 1.5em;
+  font-size: 1rem;
   cursor: pointer;
-  border: 2px solid rgba(0, 0, 0, 0.637);
-  border-radius: 3rem;
+}
+
+.front {
+  height: 3rem;
+  width: 10rem;
+  background-color: white;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translate(-50.5%);
+  border: solid 2px black;
+  z-index: 50;
+}
+
+.front:hover {
+  transform: translate(-50.5%, 0.25rem);
+  transition: 0.2s;
+}
+
+.front:active {
+  transform: translate(-50.5%, 0.5rem);
+  background-color: #77a6f6f1;
+}
+
+.back {
+  height: 3rem;
+  width: 10rem;
+  background-color: white;
+  border-radius: 2rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%);
+  border: solid 2px black;
+  z-index: 40;
 }
 
 .shadow {
   height: 3rem;
   width: 10rem;
-  transform: translateY(5px);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 2rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.85);
+  z-index: 30;
 }
 
-button:active {
-  transform: translate(5%, 3px);
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+.front-papier {
+  height: 3rem;
+  width: 10rem;
+  background-color: white;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 2.5rem;
+  left: 25%;
+  transform: translate(-50.5%);
+  border: solid 2px black;
+  z-index: 50;
 }
+
+.front-papier:hover {
+  transform: translate(-50.5%, 0.25rem);
+  transition: 0.2s;
+}
+
+.front-papier:active {
+  transform: translate(-50.5%, 0.5rem);
+  background-color: #77a6f6f1;
+}
+
+.back-papier {
+  height: 3rem;
+  width: 10rem;
+  background-color: white;
+  border-radius: 2rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 25%;
+  transform: translate(-50%);
+  border: solid 2px black;
+  z-index: 40;
+}
+
+.shadow-papier {
+  height: 3rem;
+  width: 10rem;
+  border-radius: 2rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 25%;
+  transform: translate(-50%);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.85);
+  z-index: 30;
+}
+
+.front-cailloux {
+  height: 3rem;
+  width: 10rem;
+  background-color: white;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translate(-50.5%);
+  border: solid 2px black;
+  z-index: 50;
+}
+
+.front-cailloux:hover {
+  transform: translate(-50.5%, 0.25rem);
+  transition: 0.2s;
+}
+
+.front-cailloux:active {
+  transform: translate(-50.5%, 0.5rem);
+  background-color: #77a6f6f1;
+}
+
+.back-cailloux {
+  height: 3rem;
+  width: 10rem;
+  background-color: white;
+  border-radius: 2rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%);
+  border: solid 2px black;
+  z-index: 40;
+}
+
+.shadow-cailloux {
+  height: 3rem;
+  width: 10rem;
+  border-radius: 2rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.85);
+  z-index: 30;
+}
+
+.front-ciseaux {
+  height: 3rem;
+  width: 10rem;
+  background-color: white;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 2.5rem;
+  left: 75%;
+  transform: translate(-50.5%);
+  border: solid 2px black;
+  z-index: 50;
+}
+
+.front-ciseaux:hover {
+  transform: translate(-50.5%, 0.25rem);
+  transition: 0.2s;
+}
+
+.front-ciseaux:active {
+  transform: translate(-50.5%, 0.5rem);
+  background-color: #77a6f6f1;
+}
+
+.back-ciseaux {
+  height: 3rem;
+  width: 10rem;
+  background-color: white;
+  border-radius: 2rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 75%;
+  transform: translate(-50%);
+  border: solid 2px black;
+  z-index: 40;
+}
+
+.shadow-ciseaux {
+  height: 3rem;
+  width: 10rem;
+  border-radius: 2rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 75%;
+  transform: translate(-50%);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.85);
+  z-index: 30;
+}
+
+/* Separation */
 
 .playground {
   display: flex;
