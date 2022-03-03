@@ -38,6 +38,7 @@ function playAgain() {
   cScore.textContent = "0";
   winner.textContent = "Le premier arrivé à 5 points à gagné !";
   roundNumber.textContent = "Round 0";
+  chose = true;
   btns.forEach((btn) => {
     if (!btn.classList.contains("begin")) btn.classList.toggle("hide");
   });
@@ -93,7 +94,7 @@ function playRound(playerSelection, computerSelection) {
       imgComputer.classList.remove(`${computerClass}`);
     }, 700);
     if (playerScore === 5) setTimeout(() => checkWinner(), 2200);
-    else chose = true;
+    else setTimeout(() => (chose = true), 900);
   } else if (
     (playerSelection === "cailloux" && computerSelection === "papier") ||
     (playerSelection === "papier" && computerSelection === "ciseaux") ||
@@ -110,7 +111,7 @@ function playRound(playerSelection, computerSelection) {
       imgComputer.classList.remove(`${computerClass}`);
     }, 700);
     if (computerScore === 5) setTimeout(() => checkWinner(), 2200);
-    else chose = true;
+    else setTimeout(() => (chose = true), 900);
   } else {
     playerClass = "no-one-player";
     computerClass = "no-one-computer";
@@ -119,7 +120,7 @@ function playRound(playerSelection, computerSelection) {
       winner.textContent = "Ex-aequo!";
       imgPlayer.classList.remove(`${playerClass}`);
       imgComputer.classList.remove(`${computerClass}`);
-      chose = true;
+      setTimeout(() => (chose = true), 200);
     }, 700);
   }
 }
@@ -156,10 +157,7 @@ btns.forEach((btn) =>
         game(choice);
         chose = false;
       }
-    } else if (
-      btn.classList.contains("begin") ||
-      btn.classList.contains("play-again")
-    ) {
+    } else if (btn.classList.contains("begin")) {
       for (let i = 1; i < 4; i++) {
         btns[i].classList.remove("hide");
       }
