@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300&family=Roboto:ital,wght@1,300;1,700&family=Sora:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&family=Roboto:ital,wght@1,300;1,700&family=Sora:wght@300;400;500&display=swap");
 
 body {
   height: 100vh;
@@ -14,6 +14,29 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
+}
+
+.footer {
+  font-family: Oxygen;
+  position: absolute;
+  left: 50%;
+  bottom: 0.25rem;
+  transform: translate(-50%);
+  font-size: 1.5em;
+  font-weight: 700;
+  height: 1rem;
+}
+
+.purple {
+  color: #2a1b3d;
+}
+
+.yellow {
+  color: #ffbe54;
+}
+
+.crossed {
+  text-decoration: line-through;
 }
 
 .circle {
@@ -282,6 +305,7 @@ body {
 
 .revealing {
   font-family: "Oxygen";
+  font-weight: 300;
   text-align: center;
   max-width: 20rem;
 }
@@ -415,6 +439,16 @@ body {
   0% {
     opacity: 0;
     transform: translateY(-2rem);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-header {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -2rem);
   }
   100% {
     opacity: 1;

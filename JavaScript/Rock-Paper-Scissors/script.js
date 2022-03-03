@@ -12,6 +12,7 @@ const imgComputer = document.querySelector(".img-computer");
 const imgs = document.querySelectorAll(".img");
 const spans = document.querySelectorAll("span");
 const pReveals = document.querySelector(".revealing");
+const header = document.querySelector(".header");
 
 const rps = ["cailloux", "papier", "ciseaux"];
 let randomIndex = Math.floor(Math.random() * rps.length);
