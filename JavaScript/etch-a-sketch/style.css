@@ -1,0 +1,41 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  height: 550px;
+  width: 550px;
+  display: flex;
+  flex-wrap: wrap;
+  border: solid 2px black;
+}
+
+.grid {
+  position: absolute;
+  left: 70%;
+  top: 0%;
+}
+
+.rainbow {
+  position: absolute;
+  left: 80%;
+  top: 0%;
+}
+
+.darker {
+  position: absolute;
+  left: 90%;
+  top: 0%;
+}
+
+.clear {
+  position: absolute;
+  left: 60%;
+  top: 0%;
+}
