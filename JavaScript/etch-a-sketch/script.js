@@ -35,9 +35,10 @@ function draw() {
           square.style.backgroundColor = `rgb(${randomColor}, ${randomColor}, ${randomColor})`;
         else {
           const colorString = square.style.getPropertyValue("background-color");
-          const colorsOnly = colorString.split(")");
-          const colorsSeparated = colorsOnly[0].split("(");
-          let [r, g, b] = colorsSeparated[1].split(",");
+          let [r, g, b] = colorString
+            .slice(4, -1)
+            .replaceAll(",", "")
+            .split(" ");
           r *= 0.9;
           g *= 0.9;
           b *= 0.9;
