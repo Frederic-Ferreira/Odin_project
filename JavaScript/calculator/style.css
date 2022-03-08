@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.calculator {
+  height: 70%;
+  width: 30%;
+  padding: 2rem;
+  background-color: aliceblue;
+  border: solid 2px grey;
+  border-radius: 3rem;
+}
+
+.window {
+  background-color: white;
+  border: solid 2px grey;
+  padding: 1rem;
+  height: 20%;
+  font-size: 4rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
+.clear-input {
+  display: flex;
+  height: 10%;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.clear,
+.delete {
+  font-size: 2rem;
+  font-weight: 300;
+  flex: 1 0 auto;
+}
+
+.number-operator {
+  display: flex;
+  height: 10%;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.number,
+.operator {
+  font-size: 1.5rem;
+  width: 6rem;
+  height: 3.5rem;
+  /* height: 10%;
+  flex: 1 0 auto; */
+}
