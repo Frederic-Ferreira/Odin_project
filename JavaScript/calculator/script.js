@@ -7,6 +7,7 @@ const inputBtns = document.querySelectorAll(".input");
 // initialisation des valeurs pour savoir si on doit/peut remplacer et afficher le résultat
 let replace = true;
 let result = false;
+let operation = true;
 
 document.addEventListener("keydown", function (e) {
   const k = e.key;
@@ -31,6 +32,7 @@ document.addEventListener("keydown", function (e) {
       ? (inputWindow.textContent += `${value}`)
       : (inputWindow.textContent = value);
     replace = false;
+    operation = true;
   } else if (
     k.includes("+") ||
     k.includes("-") ||
@@ -44,7 +46,7 @@ document.addEventListener("keydown", function (e) {
     const currentValue = Number(inputWindow.textContent);
     // remplacer l'input après une opération
     replace = true;
-    if (!k.includes("=")) {
+    if (!k.includes("=") && operation === true) {
       // si l'input des opérations est vide ou que un resultat a été effectué,
       // remplacer l'input des opérations par le nouveau contenu, sinon effectuer
       // l'opération
@@ -55,7 +57,8 @@ document.addEventListener("keydown", function (e) {
             isFloat(operate(previousOperator, previousValue, currentValue)) +
             ` ${operator}`);
       result = false;
-    } else {
+      operation = false;
+    } else if (k.includes("=")) {
       // empêcher de voir un résultat sans opération et savoir si on doit remplacer
       // l'input (si c'est 0) ou pas
       if (operationsWindow.textContent === "") {
@@ -96,6 +99,7 @@ numberBtns.forEach((btn) =>
       ? (inputWindow.textContent += `${value}`)
       : (inputWindow.textContent = value);
     replace = false;
+    operation = true;
   })
 );
 
@@ -107,7 +111,7 @@ operationBtns.forEach((btn) =>
     const currentValue = Number(inputWindow.textContent);
     // remplacer l'input après une opération
     replace = true;
-    if (!e.target.classList.contains("equal")) {
+    if (!e.target.classList.contains("equal") && operation === true) {
       // si l'input des opérations est vide ou que un resultat a été effectué,
       // remplacer l'input des opérations par le nouveau contenu, sinon effectuer
       // l'opération
@@ -118,7 +122,8 @@ operationBtns.forEach((btn) =>
             isFloat(operate(previousOperator, previousValue, currentValue)) +
             ` ${operator}`);
       result = false;
-    } else {
+      operation = false;
+    } else if (e.target.classList.contains("equal")) {
       // empêcher de voir un résultat sans opération et savoir si on doit remplacer
       // l'input (si c'est 0) ou pas
       if (operationsWindow.textContent === "") {
