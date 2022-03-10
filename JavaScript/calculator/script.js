@@ -9,6 +9,8 @@ let result = false;
 
 numberBtns.forEach((btn) =>
   btn.addEventListener("click", function (e) {
+    if (btn.classList.contains("dot"))
+      if (inputWindow.textContent.includes(".")) return;
     const value =
       e.target.textContent === "."
         ? e.target.textContent
@@ -36,6 +38,7 @@ operationBtns.forEach((btn) =>
             ` ${operator}`);
       result = false;
     } else {
+      if (operationsWindow.textContent === "") return;
       result = true;
       operationsWindow.textContent =
         operationsWindow.textContent + ` ${currentValue}`;
