@@ -8,7 +8,83 @@ const inputBtns = document.querySelectorAll(".input");
 let replace = true;
 let result = false;
 
-document.addEventListener("keydown", function (e) {
+function addNumber(e) {
+  let checkDot;
+  let input;
+  e.key
+    ? (checkDot = e.key.includes("."))
+    : (checkDot = e.target.classList.contains("dot"));
+  e.key ? (input = e.key) : (input = e.target.textContent);
+
+  if (checkDot) if (inputWindow.textContent.includes(".")) return;
+  // Convertir en nombre que si ce n'est pas un point
+  const value = input === "." ? input : Number(input);
+  // si replace n'est pas initialiser ou que l'input est un point, ajouter valeur à la suite de l'input
+  replace === false || input === "."
+    ? (inputWindow.textContent += `${value}`)
+    : (inputWindow.textContent = value);
+  replace = false;
+}
+
+function operations(e) {
+  let checkEqual;
+  let operator;
+  e.key
+    ? (checkEqual = e.key.includes("="))
+    : (checkEqual = e.target.classList.contains("equal"));
+  e.key ? (operator = e.key) : (operator = e.target.textContent);
+
+  const previousOperator = operationsWindow.textContent.slice(-1);
+  const previousValue = Number(operationsWindow.textContent.slice(0, -2));
+  const currentValue = Number(inputWindow.textContent);
+  // remplacer l'input après une opération
+  replace = true;
+  if (!checkEqual) {
+    // si l'input des opérations est vide ou que un resultat a été effectué,
+    // remplacer l'input des opérations par le nouveau contenu, sinon effectuer
+    // l'opération
+    operationsWindow.textContent === "" || result === true
+      ? (operationsWindow.textContent =
+          inputWindow.textContent + ` ${operator}`)
+      : (operationsWindow.textContent =
+          isFloat(operate(previousOperator, previousValue, currentValue)) +
+          ` ${operator}`);
+    result = false;
+  } else {
+    console.log(inputWindow.textContent);
+    // empêcher de voir un résultat sans opération et savoir si on doit remplacer
+    // l'input (si c'est 0) ou pas
+    if (operationsWindow.textContent === "") {
+      if (inputWindow.textContent == 0) return (replace = true);
+      else return (replace = false);
+    }
+    result = true;
+    operationsWindow.textContent =
+      operationsWindow.textContent + ` ${currentValue}`;
+    // afficher le résultat de l'opération dans la fenêtre input
+    inputWindow.textContent = isFloat(
+      operate(previousOperator, previousValue, currentValue)
+    );
+  }
+}
+
+function clear(e) {
+  let checkDelete;
+  e.key
+    ? (checkDelete = e.key.includes("Backspace"))
+    : (checkDelete = e.target.classList.contains("delete"));
+
+  if (checkDelete) {
+    inputWindow.textContent = inputWindow.textContent.slice(0, -1);
+    replace = false;
+  } else {
+    inputWindow.textContent = 0;
+    operationsWindow.textContent = "";
+    replace = true;
+  }
+}
+
+function keydowns(e) {
   const k = e.key;
   if (
     k.includes("1") ||
@@ -22,132 +98,27 @@ document.addEventListener("keydown", function (e) {
     k.includes("9") ||
     k.includes("0") ||
     k.includes(".")
-  ) {
-    if (k.includes(".")) if (inputWindow.textContent.includes(".")) return;
-    // Convertir en nombre que si ce n'est pas un point
-    const value = k === "." ? k : Number(k);
-    // si replace n'est pas initialiser ou que l'input est un point, ajouter valeur à la suite de l'input
-    replace === false || k === "."
-      ? (inputWindow.textContent += `${value}`)
-      : (inputWindow.textContent = value);
-    replace = false;
-  } else if (
+  )
+    addNumber();
+  else if (
     k.includes("+") ||
     k.includes("-") ||
     k.includes("/") ||
     k.includes("*") ||
     k.includes("=")
-  ) {
-    const operator = k;
-    const previousOperator = operationsWindow.textContent.slice(-1);
-    const previousValue = Number(operationsWindow.textContent.slice(0, -2));
-    const currentValue = Number(inputWindow.textContent);
-    // remplacer l'input après une opération
-    replace = true;
-    if (!k.includes("=")) {
-      // si l'input des opérations est vide ou que un resultat a été effectué,
-      // remplacer l'input des opérations par le nouveau contenu, sinon effectuer
-      // l'opération
-      operationsWindow.textContent === "" || result === true
-        ? (operationsWindow.textContent =
-            inputWindow.textContent + ` ${operator}`)
-        : (operationsWindow.textContent =
-            isFloat(operate(previousOperator, previousValue, currentValue)) +
-            ` ${operator}`);
-      result = false;
-    } else {
-      // empêcher de voir un résultat sans opération et savoir si on doit remplacer
-      // l'input (si c'est 0) ou pas
-      if (operationsWindow.textContent === "") {
-        if (inputWindow.textContent == 0) return (replace = true);
-        else return (replace = false);
-      }
-      result = true;
-      operationsWindow.textContent =
-        operationsWindow.textContent + ` ${currentValue}`;
-      // afficher le résultat de l'opération dans la fenêtre input
-      inputWindow.textContent = isFloat(
-        operate(previousOperator, previousValue, currentValue)
-      );
-    }
-  } else if (k.includes("Backspace") || k.includes("Escape")) {
-    if (k.includes("Backspace"))
-      inputWindow.textContent = inputWindow.textContent.slice(0, -1);
-    else {
-      inputWindow.textContent = 0;
-      operationsWindow.textContent = "";
-      replace = true;
-    }
-  }
-});
+  )
+    operations();
+  else if (k.includes("Backspace") || k.includes("Escape")) clear();
+  else return;
+}
 
-numberBtns.forEach((btn) =>
-  btn.addEventListener("click", function (e) {
-    // si il y a déjà un point dans les chiffres, ne pas pouvoir en rajouter
-    if (btn.classList.contains("dot"))
-      if (inputWindow.textContent.includes(".")) return;
-    // Convertir en nombre que si ce n'est pas un point
-    const value =
-      e.target.textContent === "."
-        ? e.target.textContent
-        : Number(e.target.textContent);
-    // si replace n'est pas initialiser ou que l'input est un point, ajouter valeur à la suite de l'input
-    replace === false || e.target.textContent === "."
-      ? (inputWindow.textContent += `${value}`)
-      : (inputWindow.textContent = value);
-    replace = false;
-  })
-);
+document.addEventListener("keydown");
 
-operationBtns.forEach((btn) =>
-  btn.addEventListener("click", function (e) {
-    const operator = e.target.textContent;
-    const previousOperator = operationsWindow.textContent.slice(-1);
-    const previousValue = Number(operationsWindow.textContent.slice(0, -2));
-    const currentValue = Number(inputWindow.textContent);
-    // remplacer l'input après une opération
-    replace = true;
-    if (!e.target.classList.contains("equal")) {
-      // si l'input des opérations est vide ou que un resultat a été effectué,
-      // remplacer l'input des opérations par le nouveau contenu, sinon effectuer
-      // l'opération
-      operationsWindow.textContent === "" || result === true
-        ? (operationsWindow.textContent =
-            inputWindow.textContent + ` ${operator}`)
-        : (operationsWindow.textContent =
-            isFloat(operate(previousOperator, previousValue, currentValue)) +
-            ` ${operator}`);
-      result = false;
-    } else {
-      // empêcher de voir un résultat sans opération et savoir si on doit remplacer
-      // l'input (si c'est 0) ou pas
-      if (operationsWindow.textContent === "") {
-        if (inputWindow.textContent == 0) return (replace = true);
-        else return (replace = false);
-      }
-      result = true;
-      operationsWindow.textContent =
-        operationsWindow.textContent + ` ${currentValue}`;
-      // afficher le résultat de l'opération dans la fenêtre input
-      inputWindow.textContent = isFloat(
-        operate(previousOperator, previousValue, currentValue)
-      );
-    }
-  })
-);
+numberBtns.forEach((btn) => btn.addEventListener("click", addNumber));
 
-inputBtns.forEach((btn) =>
-  btn.addEventListener("click", function (e) {
-    // boutons effacer ou remettre à 0
-    if (e.target.classList.contains("delete"))
-      inputWindow.textContent = inputWindow.textContent.slice(0, -1);
-    else {
-      inputWindow.textContent = 0;
-      operationsWindow.textContent = "";
-      replace = true;
-    }
-  })
-);
+operationBtns.forEach((btn) => btn.addEventListener("click", operations));
+
+inputBtns.forEach((btn) => btn.addEventListener("click", clear));
 
 function isFloat(num) {
   return Number.isInteger(num) ? num : Math.round(num * 1000) / 1000;
