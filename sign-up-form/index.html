@@ -38,38 +38,38 @@
   
             <div class="input">
               <label for="first-name">FIRST NAME</label>
-              <input type="text" id="first-name" name="first-name" minlength="2" required/>
+              <input type="text" id="first-name" name="first-name" minlength="3" placeholder=" " required/>
               <p class="error-message hidden">* Please enter a valid First Name</p>
             </div>
 
             <div class="input">
               <label for="last-name">LAST NAME</label>
-              <input type="text" id="last-name" name="last-name" minlength="3" required/>
+              <input type="text" id="last-name" name="last-name" minlength="3" placeholder=" " required/>
               <p class="error-message hidden">* Please enter a valid Last Name</p>
             </div>
   
             <div class="input">
               <label for="email">EMAIL</label>
-              <input type="text" id="email" name="email" required/>
+              <input type="email" id="email" name="email" placeholder=" " required/>
               <p class="error-message hidden">* Please enter a valid Email</p>
             </div>
   
             <div class="input">
               <label for="phone">PHONE NUMBER</label>
-              <input type="text" id="phone" name="phone" minlength="10" required/>
+              <input type="tel" id="phone" name="phone" minlength="10" placeholder=" " pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$"" required/>
               <p class="error-message hidden">* Please enter a valid Phone Number</p>
             </div>
   
   
             <div class="input">
               <label for="password">PASSWORD</label>
-              <input class="password" type="password" id="password" name="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" title="Veuillez inclure 1 miniscule, 1 majuscule et 1 chiffre dans 8 charactères minimum." minlength="8" required>
+              <input class="password" type="password" id="password" name="password" placeholder=" " pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" title="Veuillez inclure 1 miniscule, 1 majuscule et 1 chiffre dans 8 charactères minimum." minlength="8" required>
               <p class="error-message hidden">* Please enter a valid Password</p>
             </div>
   
             <div class="input">
               <label for="password-validation">CONFIRM PASSWORD</label>
-              <input class="confirm-password" type="password" id="password-validation" name="password-validation" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" title="Veuillez inclure 1 miniscule, 1 majuscule et 1 chiffre dans 8 charactères minimum." minlength="8" required>
+              <input class="confirm-password" type="password" id="password-validation" placeholder=" " name="password-validation" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" title="Veuillez inclure 1 miniscule, 1 majuscule et 1 chiffre dans 8 charactères minimum." minlength="8" required>
               <p class="error-message confirm hidden">* Please enter a valid Password</p>
             </div>
 </div>
@@ -80,19 +80,10 @@
 </div>
       </form>
 <script>
-  const inputs = document.querySelectorAll("input");
   const form = document.querySelector('form');
   const passInput = document.querySelector('.password');
   const confirmPassInput = document.querySelector('.confirm-password');
   const passMessage = document.querySelector('.confirm');
-
-inputs.forEach(input => {
-  input.addEventListener("invalid", (e) => {
-    input.classList.add("error");
-    e.target.nextElementSibling.classList.remove('hidden');
-    },
-    false
-  );
 
   form.addEventListener('submit', (e) => {
     if(passInput.value !== confirmPassInput.value) {
@@ -102,10 +93,7 @@ inputs.forEach(input => {
       passMessage.classList.remove('hidden');
       return
     }
-  })
-
-
-});
+  });
 </script>
   </body>
 </html>
