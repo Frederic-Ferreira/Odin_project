@@ -34,7 +34,7 @@ html {
   grid-template-rows: 2fr repeat(10, 1fr);
   flex-direction: column;
   padding: 2rem;
-  z-index: 1;
+  z-index: 2;
 }
 
 .dashboard {
@@ -93,7 +93,8 @@ html {
   grid-template-columns: 2fr 1fr;
   align-items: center;
   padding: 1rem 2rem;
-  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.6);
+  z-index: 1;
 }
 
 .search-bar {
@@ -182,6 +183,13 @@ input {
   border-radius: 10px;
   border-left: 5px solid #efb42a;
   padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  transition: all ease 0.5s;
+  cursor: pointer;
+}
+
+.main li:hover {
+  border-left: 10px solid #efb42a;
 }
 
 .main h3 {
@@ -194,6 +202,7 @@ input {
 
 .cards span {
   justify-self: end;
+  align-self: end;
 }
 
 .cards p {
@@ -210,6 +219,51 @@ input {
 
 /* SIDE CONTENT */
 
+.announcements,
+.trending {
+  display: grid;
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.side-content::before {
+  content: 'Announcements';
+  font-size: 1.75rem;
+  font-weight: 500;
+  position: relative;
+  top: -1rem;
+}
+
+.side-content::after {
+  content: 'Trending';
+  font-size: 1.75rem;
+  font-weight: 500;
+  position: relative;
+  top: -27rem;
+}
+.announcements h5 {
+  font-size: 1rem;
+}
+
+.announcements p {
+  color: rgba(0, 0, 0, 0.382);
+}
+.trending {
+  margin-top: 5rem;
+  gap: 2rem;
+}
+.profile {
+  font-weight: 300;
+  display: flex;
+  gap: 1rem;
+}
+
+.pseudo {
+  font-weight: 500;
+}
 /* IMGS & ICONS */
 
 i {
