@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js" defer></script>
+    <title>Library</title>
+  </head>
+  <body>
+    <header>
+      <div class="header">
+        <h2>Library</h2>
+        <p>Welcome</p>
+      </div>
+    </header>
+
+    <main>
+      <div>
+        <ul class="grid-container"></ul>
+      </div>
+      <div class="overlay">
+        <form class="form">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="book-title"
+            minlength="3"
+            placeholder="Enter book's title"
+            required
+          />
+          <p class="error-message hidden">
+            * Please enter a valid Book title
+          </p>
+          <label for="author">Author</label>
+          <input
+            type="text"
+            id="author"
+            name="book-author"
+            minlength="3"
+            placeholder="Enter book's author"
+            required
+          />
+          <p class="error-message hidden">
+            * Please enter a valid Author Name
+          </p>
+          <label for="pages">Pages</label>
+          <input
+            type="text"
+            id="pages"
+            name="book-pages"
+            minlength="3"
+            placeholder="Enter the number of pages"
+            required
+          />
+          <p class="error-message hidden">
+            * Please enter a valid First Name
+          </p>
+          <label for="read">Have you already read the Book?</label>
+          <input
+            type="checkbox"
+            id="read"
+            name="book-read"
+            minlength="3"
+            placeholder=" "
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <button>+</button>
+    </footer>
+  </body>
+</html>
