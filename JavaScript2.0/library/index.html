@@ -21,9 +21,11 @@
 
     <main>
       <div>
+        <p>List of the books you've read ...</p>
         <ul class="grid-container"></ul>
       </div>
-      <div class="overlay">
+      <div class="overlay hidden">
+        <span class="close">&times;</span>
         <form class="form">
           <label for="title">Title</label>
           <input
@@ -68,6 +70,7 @@
             name="book-read"
             minlength="3"
             placeholder=" "
+            checked
           />
           <button type="submit">Submit</button>
         </form>
@@ -75,7 +78,8 @@
     </main>
 
     <footer>
-      <button>+</button>
+      <h3>Add a book</h3>
+      <button class="add-book">+</button>
     </footer>
   </body>
 </html>
