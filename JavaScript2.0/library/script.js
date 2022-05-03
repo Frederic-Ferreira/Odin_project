@@ -26,35 +26,51 @@ function deleteBook(i) {
   myLibrary.splice(i, 1);
 }
 
+function toggleOverlay() {
+  overlay.classList.toggle('hidden');
+}
+
+function clearInputs() {
+  inputFields.forEach((input) => {
+    input.value = '';
+  });
+}
+
 const renderBookList = () => {
+  // re-render display (in case there is no book / myLibrary empty)
   container.textContent = '';
 
   myLibrary.map((book, i) => {
     const li = document.createElement('li');
+    const haveRead = book.read === true;
     const renderedBook = `
     <h3>${book.title}</h3>
     <hr />
     <h4>${book.author}</h4>
     <hr />
-    <p>${book.pages}</p>
+    <p>${book.pages} pages</p>
     <hr />
     <div class="buttons">
       <button class="delete">Delete</button>
-      <button class="toggle-read ${
-        book.read === true ? 'read' : 'not-read'
-      }">Have ${book.read === true ? '' : 'not'} read</button>
+    </div>
+    <div class="buttons">
+    <button class="toggle-read ${
+      haveRead ? 'read' : 'not-read'
+    }">Have ${haveRead ? '' : 'not'} read</button>
     </div>
     `;
-    li.innerHTML = renderedBook;
+    li.insertAdjacentHTML('afterbegin', renderedBook);
     li.dataset.position = i;
+    // Do not display the same book twice
     if (!container.textContent.includes(li.textContent))
       container.appendChild(li);
   });
 };
 
 const createBook = (e) => {
-  let invalid = false;
   e.preventDefault();
+
+  let invalid = false;
 
   myLibrary.forEach((book) => {
     if (book.title === titleInput.value) {
@@ -75,7 +91,6 @@ const createBook = (e) => {
       readInput.checked
     );
 
-    console.log(newBook);
     myLibrary.push(newBook);
     clearInputs();
     renderBookList();
@@ -83,23 +98,16 @@ const createBook = (e) => {
   }
 };
 
-const toggleOverlay = () => {
-  overlay.classList.toggle('hidden');
-};
-
-const clearInputs = () => {
-  inputFields.forEach((input) => {
-    input.value = '';
-  });
-};
-
 document.addEventListener('click', (e) => {
   const targetClass = e.target.classList;
+
+  // Guard clause
   if (
     !targetClass.contains('delete') &&
     !targetClass.contains('toggle-read')
   )
     return;
+
   if (targetClass.contains('delete')) {
     const index = e.target.closest('li').dataset.position;
     deleteBook(index);

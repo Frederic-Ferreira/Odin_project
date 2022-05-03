@@ -20,7 +20,7 @@
     </header>
 
     <main>
-      <p class="announcer">List of the books you've read ...</p>
+      <p class="announcer">List of your favorite books ...💜</p>
       <ul class="grid-container"></ul>
       <div class="overlay hidden">
         <span class="close">&times;</span>
@@ -54,7 +54,7 @@
             type="text"
             id="pages"
             name="book-pages"
-            minlength="3"
+            minlength="1"
             placeholder="Enter the number of pages"
             required
           />
@@ -62,14 +62,7 @@
             * Please enter a valid First Name
           </p>
           <label for="read">Have you already read the Book?</label>
-          <input
-            type="checkbox"
-            id="read"
-            name="book-read"
-            minlength="3"
-            placeholder=" "
-            checked
-          />
+          <input type="checkbox" id="read" name="book-read" checked />
           <button type="submit">Submit</button>
         </form>
       </div>
