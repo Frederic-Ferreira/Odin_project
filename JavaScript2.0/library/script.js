@@ -1,4 +1,5 @@
 const container = document.querySelector('.grid-container');
+const errors = document.querySelectorAll('.error-message');
 const form = document.querySelector('.form');
 const btn = document.querySelector('.add-book');
 const close = document.querySelector('.close');
@@ -10,7 +11,8 @@ const pagesInput = document.getElementById('pages');
 const readInput = document.getElementById('read');
 
 let myLibrary = [];
-let list = '';
+let remove;
+let read;
 
 const tryout = new Book(
   'Harry Potter',
@@ -35,7 +37,29 @@ function deleteBook(i) {
   myLibrary.splice(i, 1);
 }
 
+function buttonsEvent() {
+  const btnsDelete = document.querySelectorAll('.delete');
+  const btnsEdit = document.querySelectorAll('.toggle-read');
+
+  btnsDelete.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      // const index = e.target.closest('li').dataset.position;
+      // deleteBook(index);
+      // renderBookList();
+      console.log('hey');
+    });
+  });
+
+  btnsEdit.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      console.log('hey');
+    });
+  });
+}
+
 const renderBookList = () => {
+  container.innerHTML = '';
+
   myLibrary.map((book, i) => {
     const li = document.createElement('li');
     const renderedBook = `
@@ -54,27 +78,43 @@ const renderBookList = () => {
     `;
     li.innerHTML = renderedBook;
     li.dataset.position = i;
-    if (!list.includes(renderedBook)) container.appendChild(li);
+    if (!container.textContent.includes(li.textContent))
+      container.appendChild(li);
+    buttonsEvent();
   });
 };
 
 const createBook = (e) => {
+  let invalid = false;
   e.preventDefault();
 
-  const read =
-    readInput.checked === true ? 'have already read' : 'not read';
+  myLibrary.forEach((book) => {
+    if (book.title === titleInput.value) {
+      const error = titleInput.nextElementSibling;
+      error.classList.remove('hidden');
+      error.textContent = '* The name of the book already exists';
+      return (invalid = true);
+    }
+  });
 
-  const newBook = new Book(
-    titleInput.value,
-    authorInput.value,
-    pagesInput.value,
-    read
-  );
+  if (invalid === false) {
+    errors.forEach((error) => error.classList.add('hidden'));
 
-  myLibrary.push(newBook);
-  clearInputs();
-  renderBookList();
-  toggleOverlay();
+    const read =
+      readInput.checked === true ? 'have already read' : 'not read';
+
+    const newBook = new Book(
+      titleInput.value,
+      authorInput.value,
+      pagesInput.value,
+      read
+    );
+
+    myLibrary.push(newBook);
+    clearInputs();
+    renderBookList();
+    toggleOverlay();
+  }
 };
 
 const toggleOverlay = () => {
@@ -86,6 +126,7 @@ const clearInputs = () => {
     input.value = '';
   });
 };
+
 form.addEventListener('submit', createBook);
 
 btn.addEventListener('click', toggleOverlay);
@@ -98,4 +139,5 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+// Initialiser
 renderBookList();
