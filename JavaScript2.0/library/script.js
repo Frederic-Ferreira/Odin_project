@@ -11,25 +11,14 @@ const pagesInput = document.getElementById('pages');
 const readInput = document.getElementById('read');
 
 let myLibrary = [];
-let remove;
-let read;
-
-const tryout = new Book(
-  'Harry Potter',
-  'Blabla',
-  '229',
-  'have read yet'
-);
-
-myLibrary.push(tryout);
 
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.info = function () {
-    return `The ${title} by ${author}, ${pages} pages, ${read} yet`;
+  this.toggleRead = function () {
+    return (this.read = !this.read);
   };
 }
 
@@ -37,28 +26,8 @@ function deleteBook(i) {
   myLibrary.splice(i, 1);
 }
 
-function buttonsEvent() {
-  const btnsDelete = document.querySelectorAll('.delete');
-  const btnsEdit = document.querySelectorAll('.toggle-read');
-
-  btnsDelete.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      // const index = e.target.closest('li').dataset.position;
-      // deleteBook(index);
-      // renderBookList();
-      console.log('hey');
-    });
-  });
-
-  btnsEdit.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      console.log('hey');
-    });
-  });
-}
-
 const renderBookList = () => {
-  container.innerHTML = '';
+  container.textContent = '';
 
   myLibrary.map((book, i) => {
     const li = document.createElement('li');
@@ -69,18 +38,17 @@ const renderBookList = () => {
     <hr />
     <p>${book.pages}</p>
     <hr />
-    ${book.read}
-    <hr />
     <div class="buttons">
       <button class="delete">Delete</button>
-      <button class="toggle-read">Have read</button>
+      <button class="toggle-read ${
+        book.read === true ? 'read' : 'not-read'
+      }">Have ${book.read === true ? '' : 'not'} read</button>
     </div>
     `;
     li.innerHTML = renderedBook;
     li.dataset.position = i;
     if (!container.textContent.includes(li.textContent))
       container.appendChild(li);
-    buttonsEvent();
   });
 };
 
@@ -100,16 +68,14 @@ const createBook = (e) => {
   if (invalid === false) {
     errors.forEach((error) => error.classList.add('hidden'));
 
-    const read =
-      readInput.checked === true ? 'have already read' : 'not read';
-
     const newBook = new Book(
       titleInput.value,
       authorInput.value,
       pagesInput.value,
-      read
+      readInput.checked
     );
 
+    console.log(newBook);
     myLibrary.push(newBook);
     clearInputs();
     renderBookList();
@@ -126,6 +92,23 @@ const clearInputs = () => {
     input.value = '';
   });
 };
+
+document.addEventListener('click', (e) => {
+  const targetClass = e.target.classList;
+  if (
+    !targetClass.contains('delete') &&
+    !targetClass.contains('toggle-read')
+  )
+    return;
+  if (targetClass.contains('delete')) {
+    const index = e.target.closest('li').dataset.position;
+    deleteBook(index);
+    renderBookList();
+  } else {
+    myLibrary[e.target.closest('li').dataset.position].toggleRead();
+    renderBookList();
+  }
+});
 
 form.addEventListener('submit', createBook);
 
