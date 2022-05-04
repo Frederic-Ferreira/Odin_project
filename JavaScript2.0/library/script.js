@@ -36,6 +36,14 @@ function clearInputs() {
   });
 }
 
+function updateBtnClass(node, obj) {
+  node.classList.remove(`${obj.read === true ? 'not-read' : 'read'}`);
+  node.classList.add(`${obj.read === true ? 'read' : 'not-read'}`);
+  node.textContent = `${
+    obj.read === true ? 'Have read' : 'Have not read'
+  }`;
+}
+
 const renderBookList = () => {
   // re-render display (in case there is no book / myLibrary empty)
   container.textContent = '';
@@ -108,13 +116,15 @@ document.addEventListener('click', (e) => {
   )
     return;
 
+  const obj = myLibrary[e.target.closest('li').dataset.position];
+
   if (targetClass.contains('delete')) {
     const index = e.target.closest('li').dataset.position;
     deleteBook(index);
     renderBookList();
   } else {
-    myLibrary[e.target.closest('li').dataset.position].toggleRead();
-    renderBookList();
+    obj.toggleRead();
+    updateBtnClass(e.target, obj);
   }
 });
 
@@ -129,6 +139,3 @@ document.addEventListener('keydown', function (e) {
     toggleOverlay();
   }
 });
-
-// Initialiser
-renderBookList();
