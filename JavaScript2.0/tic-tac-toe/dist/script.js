@@ -1,33 +1,73 @@
 const gameBoard = {
-  'first-row': ['', '', ''],
-  'second-row': ['', '', ''],
-  'third-row': ['', '', ''],
+  'first-row': ['x', 'x', 'x'],
+  'second-row': ['x', 'x', 'x'],
+  'third-row': ['x', 'x', 'x'],
 };
 
 const winning1 =
   gameBoard['first-row'][0] === gameBoard['first-row'][1] &&
-  gameBoard['first-row'][1] === gameBoard['first-row'][2];
+  gameBoard['first-row'][1] === gameBoard['first-row'][2] &&
+  gameBoard['first-row'][0] === 'x';
 const winning2 =
-  gameBoard['first-row'][0] === gameBoard['second-row'][1] &&
-  gameBoard['second-row'][1] === gameBoard['third-row'][2];
+  gameBoard['first-row'][0] === gameBoard['first-row'][1] &&
+  gameBoard['first-row'][1] === gameBoard['first-row'][2] &&
+  gameBoard['first-row'][0] === 'o';
 const winning3 =
-  gameBoard['first-row'][0] === gameBoard['second-row'][0] &&
-  gameBoard['first-row'][0] === gameBoard['second-row'][0];
+  gameBoard['first-row'][0] === gameBoard['second-row'][1] &&
+  gameBoard['second-row'][1] === gameBoard['third-row'][2] &&
+  gameBoard['first-row'][0] === 'x';
 const winning4 =
-  gameBoard['second-row'][0] === gameBoard['second-row'][1] &&
-  gameBoard['second-row'][1] === gameBoard['second-row'][2];
+  gameBoard['first-row'][0] === gameBoard['second-row'][1] &&
+  gameBoard['second-row'][1] === gameBoard['third-row'][2] &&
+  gameBoard['first-row'][0] === 'o';
 const winning5 =
-  gameBoard['third-row'][0] === gameBoard['second-row'][1] &&
-  gameBoard['second-row'][1] === gameBoard['first-row'][2];
+  gameBoard['first-row'][0] === gameBoard['second-row'][0] &&
+  gameBoard['first-row'][0] === gameBoard['second-row'][0] &&
+  gameBoard['first-row'][0] === 'x';
 const winning6 =
-  gameBoard['third-row'][0] === gameBoard['third-row'][1] &&
-  gameBoard['third-row'][1] === gameBoard['third-row'][2];
+  gameBoard['first-row'][0] === gameBoard['second-row'][0] &&
+  gameBoard['first-row'][0] === gameBoard['second-row'][0] &&
+  gameBoard['first-row'][0] === 'o';
 const winning7 =
-  gameBoard['third-row'][1] === gameBoard['second-row'][1] &&
-  gameBoard['second-row'][1] === gameBoard['first-row'][1];
+  gameBoard['second-row'][0] === gameBoard['second-row'][1] &&
+  gameBoard['second-row'][1] === gameBoard['second-row'][2] &&
+  gameBoard['second-row'][0] === 'x';
 const winning8 =
+  gameBoard['second-row'][0] === gameBoard['second-row'][1] &&
+  gameBoard['second-row'][1] === gameBoard['second-row'][2] &&
+  gameBoard['second-row'][0] === 'o';
+const winning9 =
+  gameBoard['third-row'][0] === gameBoard['second-row'][1] &&
+  gameBoard['second-row'][1] === gameBoard['first-row'][2] &&
+  gameBoard['third-row'][0] === 'x';
+const winning10 =
+  gameBoard['third-row'][0] === gameBoard['second-row'][1] &&
+  gameBoard['second-row'][1] === gameBoard['first-row'][2] &&
+  gameBoard['third-row'][0] === 'o';
+const winning11 =
+  gameBoard['third-row'][0] === gameBoard['third-row'][1] &&
+  gameBoard['third-row'][1] === gameBoard['third-row'][2] &&
+  gameBoard['third-row'][0] === 'x';
+const winning12 =
+  gameBoard['third-row'][0] === gameBoard['third-row'][1] &&
+  gameBoard['third-row'][1] === gameBoard['third-row'][2] &&
+  gameBoard['third-row'][0] === 'o';
+const winning13 =
+  gameBoard['third-row'][1] === gameBoard['second-row'][1] &&
+  gameBoard['second-row'][1] === gameBoard['first-row'][1] &&
+  gameBoard['third-row'][1] === 'x';
+const winning14 =
+  gameBoard['third-row'][1] === gameBoard['second-row'][1] &&
+  gameBoard['second-row'][1] === gameBoard['first-row'][1] &&
+  gameBoard['third-row'][1] === 'o';
+const winning15 =
   gameBoard['third-row'][2] === gameBoard['second-row'][2] &&
-  gameBoard['second-row'][2] === gameBoard['first-row'][2];
+  gameBoard['second-row'][2] === gameBoard['first-row'][2] &&
+  gameBoard['third-row'][2] === 'x';
+const winning16 =
+  gameBoard['third-row'][2] === gameBoard['second-row'][2] &&
+  gameBoard['second-row'][2] === gameBoard['first-row'][2] &&
+  gameBoard['third-row'][2] === 'o';
 
 const winningCombinations = [
   winning1,
@@ -38,6 +78,14 @@ const winningCombinations = [
   winning6,
   winning7,
   winning8,
+  winning9,
+  winning10,
+  winning11,
+  winning12,
+  winning13,
+  winning14,
+  winning15,
+  winning16,
 ];
 
 const playerProto = (choice) => {
@@ -48,7 +96,22 @@ const playerProto = (choice) => {
 };
 
 const checkWinner = () => {
-  winningCombinations.forEach((check) => {
-    if (check) return true;
+  let winner;
+
+  winningCombinations.forEach((combination, i) => {
+    if (combination) return (winner = i % 2 === 0 ? 'x' : 'o');
   });
+
+  return winner;
+};
+
+const playGame = () => {
+  checkWinner();
+  if (winner !== undefined) console.log('The winner is ' + winner);
+  if (
+    gameBoard['first-row'].length === 2 &&
+    gameBoard['second-row'].length === 2 &&
+    gameBoard['third-row'].length === 2
+  )
+    console.log('Its a tie');
 };
