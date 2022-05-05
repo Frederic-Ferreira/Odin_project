@@ -1,7 +1,34 @@
+const gridCells = document.querySelectorAll('.grid-cell');
+
+let activePlayer;
+
+gridCells.forEach((cell) => {
+  cell.addEventListener('click', (e) => {
+    const i = e.target.dataset.cell;
+
+    if (i <= 3) {
+      if (gameBoard['first-row'][i - 1] === '') {
+        gameBoard['first-row'][i - 1] = 'x';
+        cell.textContent = 'x';
+      }
+    } else if (i <= 6) {
+      if (gameBoard['second-row'][i - 4] === '') {
+        gameBoard['second-row'][i - 4] = 'x';
+        cell.textContent = 'x';
+      }
+    } else {
+      if (gameBoard['third-row'][i - 7] === '') {
+        gameBoard['third-row'][i - 7] = 'x';
+        cell.textContent = 'x';
+      }
+    }
+  });
+});
+
 const gameBoard = {
-  'first-row': ['x', 'x', 'x'],
-  'second-row': ['x', 'x', 'x'],
-  'third-row': ['x', 'x', 'x'],
+  'first-row': ['', '', ''],
+  'second-row': ['', '', ''],
+  'third-row': ['', '', ''],
 };
 
 const winning1 =

@@ -103,7 +103,17 @@ main .game-board .grid-cell .grid-cell {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  cursor: pointer;
   font-size: 3rem;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+main .game-board .grid-cell:hover,
+main .game-board .grid-cell .grid-cell:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.469);
 }
 
 main .buttons {
