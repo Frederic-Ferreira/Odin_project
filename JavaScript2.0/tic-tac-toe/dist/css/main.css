@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -6,8 +7,127 @@
 }
 
 html {
-  font-size: 10px;
+  font-size: 62.5%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: 'Playfair Display', serif;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+/* --------- HEADER --------- */
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 3rem;
+  height: 15vh;
+  background-color: #f9ca4b;
+  color: #cf8bf3;
+}
+
+/* --------- MAIN --------- */
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+main .players-display {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 40vw;
+  padding: 5rem 10rem;
+  font-size: 2rem;
+}
+
+main .players-display h3 {
+  color: #cf8bf3;
+  font-size: 3rem;
+}
+
+main .players-display h4 {
+  color: #65a0bd;
+}
+
+main .game-board {
+  -ms-grid-row-align: center;
+      align-self: center;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (1fr)[3];
+  -ms-grid-columns: (1fr)[3];
+      grid-template: repeat(3, 1fr)/repeat(3, 1fr);
+  height: 40vh;
+  width: 40vw;
+}
+
+main .game-board,
+main .game-board .grid-cell {
+  border: 1px solid black;
+}
+
+main .game-board .grid-cell,
+main .game-board .grid-cell .grid-cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 3rem;
+}
+
+main .buttons {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin: 5rem 0;
+}
+
+main .buttons button {
+  cursor: pointer;
+  font-size: 1.5rem;
+  height: 3rem;
+  width: 10rem;
+  border-radius: 20px;
+  border: none;
+  background-color: #cf8bf3;
+  color: #f9ca4b;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+main .buttons button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 /*# sourceMappingURL=main.css.map */
