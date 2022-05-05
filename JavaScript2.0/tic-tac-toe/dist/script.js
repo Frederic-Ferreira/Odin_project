@@ -1,29 +1,7 @@
+const playerSelection = document.querySelector('.player-selection');
+const main = document.querySelector('main');
+const choices = document.querySelectorAll('.choices');
 const gridCells = document.querySelectorAll('.grid-cell');
-
-let activePlayer;
-
-gridCells.forEach((cell) => {
-  cell.addEventListener('click', (e) => {
-    const i = e.target.dataset.cell;
-
-    if (i <= 3) {
-      if (gameBoard['first-row'][i - 1] === '') {
-        gameBoard['first-row'][i - 1] = 'x';
-        cell.textContent = 'x';
-      }
-    } else if (i <= 6) {
-      if (gameBoard['second-row'][i - 4] === '') {
-        gameBoard['second-row'][i - 4] = 'x';
-        cell.textContent = 'x';
-      }
-    } else {
-      if (gameBoard['third-row'][i - 7] === '') {
-        gameBoard['third-row'][i - 7] = 'x';
-        cell.textContent = 'x';
-      }
-    }
-  });
-});
 
 const gameBoard = {
   'first-row': ['', '', ''],
@@ -115,11 +93,23 @@ const winningCombinations = [
   winning16,
 ];
 
+let activePlayer;
+
 const playerProto = (choice) => {
   return {
     choice: choice,
     score: 0,
   };
+};
+
+const choosePlayer = () => {
+  choices.forEach((choice) => {
+    choice.addEventListener('click', (e) => {
+      e.target.textContent;
+    });
+  });
+
+  console.log(playerChoice);
 };
 
 const checkWinner = () => {
@@ -142,3 +132,26 @@ const playGame = () => {
   )
     console.log('Its a tie');
 };
+
+gridCells.forEach((cell) => {
+  cell.addEventListener('click', (e) => {
+    const i = e.target.dataset.cell;
+
+    if (i <= 3) {
+      if (gameBoard['first-row'][i - 1] === '') {
+        gameBoard['first-row'][i - 1] = 'x';
+        cell.textContent = 'x';
+      }
+    } else if (i <= 6) {
+      if (gameBoard['second-row'][i - 4] === '') {
+        gameBoard['second-row'][i - 4] = 'x';
+        cell.textContent = 'x';
+      }
+    } else {
+      if (gameBoard['third-row'][i - 7] === '') {
+        gameBoard['third-row'][i - 7] = 'x';
+        cell.textContent = 'x';
+      }
+    }
+  });
+});
