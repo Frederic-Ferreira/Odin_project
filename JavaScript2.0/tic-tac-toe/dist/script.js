@@ -10,6 +10,7 @@ const gameBoard = {
 };
 
 let activePlayer, playerOne, playerTwo, winner;
+let tie = false;
 
 const playerProto = (choice) => {
   return {
@@ -42,10 +43,10 @@ const checkCombinations = () => {
       gameBoard['second-row'][1] === gameBoard['third-row'][2] &&
       gameBoard['first-row'][0] === 'O',
     gameBoard['first-row'][0] === gameBoard['second-row'][0] &&
-      gameBoard['first-row'][0] === gameBoard['second-row'][0] &&
+      gameBoard['second-row'][0] === gameBoard['third-row'][0] &&
       gameBoard['first-row'][0] === 'X',
     gameBoard['first-row'][0] === gameBoard['second-row'][0] &&
-      gameBoard['first-row'][0] === gameBoard['second-row'][0] &&
+      gameBoard['second-row'][0] === gameBoard['third-row'][0] &&
       gameBoard['first-row'][0] === 'O',
     gameBoard['second-row'][0] === gameBoard['second-row'][1] &&
       gameBoard['second-row'][1] === gameBoard['second-row'][2] &&
@@ -86,15 +87,26 @@ const checkCombinations = () => {
   return winner;
 };
 
+const checkTie = () => {
+  if (
+    gameBoard['first-row'][0] !== '' &&
+    gameBoard['first-row'][1] !== '' &&
+    gameBoard['first-row'][2] !== '' &&
+    gameBoard['second-row'][0] !== '' &&
+    gameBoard['second-row'][1] !== '' &&
+    gameBoard['second-row'][2] !== '' &&
+    gameBoard['third-row'][0] !== '' &&
+    gameBoard['third-row'][1] !== '' &&
+    gameBoard['third-row'][2] !== ''
+  )
+    tie = true;
+};
+
 const playGame = () => {
   checkCombinations();
   if (winner !== undefined) console.log('The winner is ' + winner);
-  if (
-    gameBoard['first-row'].length === 3 &&
-    gameBoard['second-row'].length === 3 &&
-    gameBoard['third-row'].length === 3
-  )
-    console.log('Its a tie');
+  checkTie();
+  if (winner === undefined && tie === true) console.log('Its a tie');
 };
 
 gridCells.forEach((cell) => {
