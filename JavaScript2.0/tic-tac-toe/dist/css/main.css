@@ -25,7 +25,7 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* --------- HEADER --------- */
@@ -39,7 +39,7 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  text-shadow: 1px 1px 1px #65a0bd;
+  text-shadow: 1px 1px 1px #1fb4ff;
   font-size: 3rem;
   height: 15vh;
   background-color: #f9ca4b;
@@ -75,10 +75,10 @@ header {
   gap: 3rem;
   height: 50vh;
   width: 50vw;
-  background-color: #f9ca4bbf;
+  background-color: #f9ca4b;
   text-shadow: 1px 1px 1px white;
-  -webkit-box-shadow: #65a0bd 0px 1px 5px;
-          box-shadow: #65a0bd 0px 1px 5px;
+  -webkit-box-shadow: #1fb4ff 0px 1px 5px;
+          box-shadow: #1fb4ff 0px 1px 5px;
   border-radius: 20px;
   font-size: 2rem;
 }
@@ -106,9 +106,9 @@ header {
   cursor: pointer;
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
-  border: 1px solid rgba(178, 178, 178, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.33);
   border-radius: 20px;
-  background: rgba(178, 178, 178, 0.1);
+  background: rgba(255, 255, 255, 0.33);
 }
 
 .player-selection .box .player-one,
@@ -120,14 +120,17 @@ header {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
+  background-color: #fdfdfd2a;
   padding: 1rem;
   border-radius: 10px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   gap: 2rem;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
 }
 
 .player-selection .box .player-one h2,
@@ -137,7 +140,7 @@ header {
 
 .player-selection .box .player-one h4,
 .player-selection .box .player-two h4 {
-  color: #65a0bd;
+  color: #1fb4ff;
 }
 
 /* --------- MAIN --------- */
@@ -172,7 +175,7 @@ main .players-display h3 {
 }
 
 main .players-display h4 {
-  color: #65a0bd;
+  color: #1fb4ff;
 }
 
 main .game-board {
@@ -237,5 +240,55 @@ main .buttons button {
 main .buttons button:hover {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
+}
+
+/* --------- FOOTER ---------- */
+footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 2rem;
+  background-color: #cf8bf3;
+  text-shadow: 1px 1px 1px black;
+  color: white;
+  height: 5vh;
+}
+
+/* --------- ANIMATION ---------- */
+@-webkit-keyframes scale {
+  0% {
+    color: black;
+  }
+  50% {
+    color: white;
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    color: white;
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+}
+@keyframes scale {
+  0% {
+    color: black;
+  }
+  50% {
+    color: white;
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    color: white;
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
 }
 /*# sourceMappingURL=main.css.map */

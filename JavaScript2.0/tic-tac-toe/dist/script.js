@@ -93,7 +93,7 @@ const winningCombinations = [
   winning16,
 ];
 
-let activePlayer;
+let activePlayer, playerOne, playerTwo;
 
 const playerProto = (choice) => {
   return {
@@ -102,14 +102,13 @@ const playerProto = (choice) => {
   };
 };
 
-const choosePlayer = () => {
-  choices.forEach((choice) => {
-    choice.addEventListener('click', (e) => {
-      e.target.textContent;
-    });
-  });
-
-  console.log(playerChoice);
+const choosePlayer = (choice) => {
+  playerOne = playerProto(choice);
+  playerTwo = playerProto(choice === 'X' ? 'O' : 'X');
+  activePlayer = playerOne;
+  playerSelection.classList.add('hidden');
+  main.classList.remove('hidden');
+  playGame();
 };
 
 const checkWinner = () => {
@@ -123,6 +122,7 @@ const checkWinner = () => {
 };
 
 const playGame = () => {
+  gridEventListener();
   checkWinner();
   if (winner !== undefined) console.log('The winner is ' + winner);
   if (
@@ -133,25 +133,36 @@ const playGame = () => {
     console.log('Its a tie');
 };
 
-gridCells.forEach((cell) => {
-  cell.addEventListener('click', (e) => {
-    const i = e.target.dataset.cell;
+function gridEventListener() {
+  gridCells.forEach((cell) => {
+    cell.addEventListener('click', (e) => {
+      const i = e.target.dataset.cell;
+      const fill = activePlayer.choice;
 
-    if (i <= 3) {
-      if (gameBoard['first-row'][i - 1] === '') {
-        gameBoard['first-row'][i - 1] = 'x';
-        cell.textContent = 'x';
+      if (i <= 3) {
+        if (gameBoard['first-row'][i - 1] === '') {
+          gameBoard['first-row'][i - 1] = fill;
+          cell.textContent = fill;
+        }
+      } else if (i <= 6) {
+        if (gameBoard['second-row'][i - 4] === '') {
+          gameBoard['second-row'][i - 4] = fill;
+          cell.textContent = fill;
+        }
+      } else {
+        if (gameBoard['third-row'][i - 7] === '') {
+          gameBoard['third-row'][i - 7] = fill;
+          cell.textContent = fill;
+        }
       }
-    } else if (i <= 6) {
-      if (gameBoard['second-row'][i - 4] === '') {
-        gameBoard['second-row'][i - 4] = 'x';
-        cell.textContent = 'x';
-      }
-    } else {
-      if (gameBoard['third-row'][i - 7] === '') {
-        gameBoard['third-row'][i - 7] = 'x';
-        cell.textContent = 'x';
-      }
-    }
+      activePlayer =
+        activePlayer === playerOne ? playerTwo : playerOne;
+    });
+  });
+}
+
+choices.forEach((choice) => {
+  choice.addEventListener('click', (e) => {
+    choosePlayer(e.target.textContent);
   });
 });
