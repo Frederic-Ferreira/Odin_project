@@ -1,4 +1,6 @@
 const playerSelection = document.querySelector('.player-selection');
+const adversarySelection = document.querySelector('.selection');
+const box = document.querySelector('.box');
 const main = document.querySelector('main');
 const choices = document.querySelectorAll('.choices');
 const gridCells = document.querySelectorAll('.grid-cell');
@@ -137,6 +139,9 @@ gridCells.forEach((cell) => {
 
 choices.forEach((choice) => {
   choice.addEventListener('click', (e) => {
-    choosePlayer(e.target.textContent);
+    box.classList.add('player-transition');
+    // choosePlayer(e.target.textContent);
   });
 });
+
+adversarySelection.forEach((selection) => {});
