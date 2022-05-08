@@ -265,6 +265,32 @@ main .players-display h4 {
   color: #1fb4ff;
 }
 
+main .players-display h4 span {
+  color: black;
+}
+
+main .players-display p {
+  color: black;
+}
+
+main .players-display p span {
+  font-size: 2rem;
+  color: #f9ca4b;
+}
+
+main .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 main .game-board {
   -ms-grid-row-align: center;
       align-self: center;
@@ -319,7 +345,7 @@ main .buttons button {
   border-radius: 20px;
   border: none;
   background-color: #cf8bf3;
-  color: #f9ca4b;
+  color: #ffea00;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
@@ -328,7 +354,7 @@ main .buttons button:hover {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
   font-size: 1.75rem;
-  color: #ffea00;
+  color: #f9f04b;
 }
 
 /* --------- FOOTER ---------- */

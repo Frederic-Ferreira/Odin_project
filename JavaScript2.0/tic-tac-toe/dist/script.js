@@ -5,6 +5,18 @@ const box = document.querySelector('.box');
 const main = document.querySelector('main');
 const choices = document.querySelectorAll('.choices');
 const gridCells = document.querySelectorAll('.grid-cell');
+const firstPlayer = document.querySelector('.first-player');
+const secondPlayer = document.querySelector('.second-player');
+const firstPlayerChoice = document.querySelector(
+  '.player-one--choice'
+);
+const secondPlayerChoice = document.querySelector(
+  '.player-two--choice'
+);
+const firstPlayerScore = document.querySelector('.player-one--score');
+const secondPlayerScore = document.querySelector(
+  '.player-two--score'
+);
 
 const gameBoard = {
   'first-row': ['', '', ''],
@@ -15,20 +27,43 @@ const gameBoard = {
 let activePlayer, playerOne, playerTwo, winner;
 let tie = false;
 
-const playerProto = (choice) => {
+const playerProto = (choice, player) => {
   return {
     choice: choice,
+    player: player,
     score: 0,
   };
 };
 
 const choosePlayer = (choice) => {
-  playerOne = playerProto(choice);
-  playerTwo = playerProto(choice === 'X' ? 'O' : 'X');
+  playerOne = playerProto(choice, 'Player One');
+  playerTwo.choice = choice === 'X' ? 'O' : 'X';
   activePlayer = playerOne;
   playerSelection.classList.add('hidden');
   main.classList.remove('hidden');
   playGame();
+};
+
+const setDisplay = () => {
+  const firstPlayerName = firstPlayer.firstChild.nextSibling;
+  const secondPlayerName = secondPlayer.firstChild.nextSibling;
+
+  firstPlayerName.textContent = 'The King 👑';
+
+  firstPlayerChoice.textContent =
+    playerOne.choice === 'O' ? 'O' : 'X';
+
+  firstPlayerScore.textContent = playerOne.score;
+
+  secondPlayerName.textContent =
+    playerTwo.player === 'Computer'
+      ? 'The Machine 🦾'
+      : 'Your best bud 💪';
+
+  secondPlayerChoice.textContent =
+    playerTwo.choice === 'O' ? 'O' : 'X';
+
+  secondPlayerScore.textContent = playerTwo.score;
 };
 
 const checkCombinations = () => {
@@ -105,7 +140,12 @@ const checkTie = () => {
     tie = true;
 };
 
+const autoPlay = () => {
+  // générer un chifre 0, 1 ou 2, l'associer à first row, second ... et choisir au hasard prévoir if déjà rempli un autre ou avant fill
+};
+
 const playGame = () => {
+  if (playerTwo.player === 'Computer') autoPlay();
   checkCombinations();
   if (winner !== undefined) console.log('The winner is ' + winner);
   checkTie();
@@ -145,6 +185,7 @@ choices.forEach((choice) => {
       choosePlayer(e.target.textContent);
       chooseWeapon.classList.add('hidden');
       main.classList.remove('hidden');
+      setDisplay();
     });
   });
 });
@@ -152,7 +193,12 @@ choices.forEach((choice) => {
 adversarySelection.forEach((selection) => {
   selection.addEventListener('click', (e) => {
     const selected = e.target.closest('.selection');
+
+    playerTwo = selected.classList.contains('computer')
+      ? playerProto(null, 'Computer')
+      : playerProto(null, 'Player Two');
     selected.classList.add('player-transition');
+
     selected.addEventListener('animationend', (e) => {
       selection
         .closest('.adversary-selection')
