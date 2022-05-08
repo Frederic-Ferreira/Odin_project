@@ -1,5 +1,6 @@
 const playerSelection = document.querySelector('.player-selection');
-const adversarySelection = document.querySelector('.selection');
+const adversarySelection = document.querySelectorAll('.selection');
+const chooseWeapon = document.querySelector('.player-one');
 const box = document.querySelector('.box');
 const main = document.querySelector('main');
 const choices = document.querySelectorAll('.choices');
@@ -139,9 +140,24 @@ gridCells.forEach((cell) => {
 
 choices.forEach((choice) => {
   choice.addEventListener('click', (e) => {
-    box.classList.add('player-transition');
-    // choosePlayer(e.target.textContent);
+    e.target.classList.add('player-transition');
+    e.target.addEventListener('animationend', () => {
+      choosePlayer(e.target.textContent);
+      chooseWeapon.classList.add('hidden');
+      main.classList.remove('hidden');
+    });
   });
 });
 
-adversarySelection.forEach((selection) => {});
+adversarySelection.forEach((selection) => {
+  selection.addEventListener('click', (e) => {
+    const selected = e.target.closest('.selection');
+    selected.classList.add('player-transition');
+    selected.addEventListener('animationend', (e) => {
+      selection
+        .closest('.adversary-selection')
+        .classList.add('hidden');
+      chooseWeapon.classList.remove('hidden');
+    });
+  });
+});
