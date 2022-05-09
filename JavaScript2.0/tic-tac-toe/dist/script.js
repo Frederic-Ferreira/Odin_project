@@ -142,6 +142,50 @@ const checkTie = () => {
 
 const autoPlay = () => {
   // générer un chifre 0, 1 ou 2, l'associer à first row, second ... et choisir au hasard prévoir if déjà rempli un autre ou avant fill
+  console.log('autoPlayer call');
+  const keys = Object.keys(gameBoard);
+  const fill = playerTwo.choice;
+
+  let random = Math.floor(Math.random() * 3);
+  let index = Math.floor(Math.random() * 3);
+  let cell;
+
+  const findCell = () => {
+    const goodCell = [...gridCells].filter((cell) => {
+      if (gameBoard[keys[random]] === 'first-row') {
+        cell.dataset.cell === 1 - index;
+      } else if (gameBoard[keys[random]] === 'second-row') {
+        cell.dataset.cell === 4 - index;
+      } else cell.dataset.cell === 7 - index;
+    });
+
+    return (cell = goodCell);
+  };
+
+  const tryFill = () => {
+    for (i = 0; i < 9; i++) {
+      findCell();
+      console.log(cell);
+      if (gameBoard[keys[random]][index] === '') {
+        gameBoard[keys[random]][index] = fill;
+        cell.textContent = fill;
+        break;
+      } else {
+        random = Math.floor(Math.random() * 3);
+        index = Math.floor(Math.random() * 3);
+      }
+    }
+  };
+
+  if (keys[random][index] === '') {
+    console.log('fill first try done');
+    findCell();
+    keys[random][index] = fill;
+    cell.textContent = fill;
+  } else {
+    console.log('fill second try called');
+    tryFill();
+  }
 };
 
 const playGame = () => {
