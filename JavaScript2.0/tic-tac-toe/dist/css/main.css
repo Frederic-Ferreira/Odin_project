@@ -382,6 +382,11 @@ footer {
           animation: 1s ease selection !important;
 }
 
+.p-cell {
+  -webkit-animation: 1s ease scaleWeapon !important;
+          animation: 1s ease scaleWeapon !important;
+}
+
 @-webkit-keyframes scale {
   0% {
     color: black;
@@ -477,6 +482,28 @@ footer {
   100% {
     -webkit-transform: translateX(0);
             transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes scaleWeapon {
+  0% {
+    -webkit-transform: scale(10);
+            transform: scale(10);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes scaleWeapon {
+  0% {
+    -webkit-transform: scale(10);
+            transform: scale(10);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }
 /*# sourceMappingURL=main.css.map */

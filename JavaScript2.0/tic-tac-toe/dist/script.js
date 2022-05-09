@@ -45,8 +45,8 @@ const choosePlayer = (choice) => {
 };
 
 const setDisplay = () => {
-  const firstPlayerName = firstPlayer.firstChild.nextSibling;
-  const secondPlayerName = secondPlayer.firstChild.nextSibling;
+  const firstPlayerName = firstPlayer.firstElementChild.nextSibling;
+  const secondPlayerName = secondPlayer.firstElementChild.nextSibling;
 
   firstPlayerName.textContent = 'The King 👑';
 
@@ -166,7 +166,8 @@ const autoPlay = () => {
       findCell();
       if (gameBoard[keys[random]][index] === '') {
         gameBoard[keys[random]][index] = fill;
-        cell.textContent = fill;
+        cell.firstElementChild.textContent = fill;
+        cell.firstElementChild.classList.add('p-cell');
         break;
       } else {
         random = Math.floor(Math.random() * 3);
@@ -180,7 +181,8 @@ const autoPlay = () => {
     console.log(random, index);
     findCell();
     gameBoard[keys[random]][index] = fill;
-    cell.textContent = fill;
+    cell.firstElementChild.textContent = fill;
+    cell.firstElementChild.classList.add('p-cell');
   } else {
     console.log('second attempt to fill');
     tryFill();
@@ -191,7 +193,7 @@ const autoPlay = () => {
 
 const playGame = () => {
   if (playerTwo.player === 'Computer' && activePlayer === playerTwo)
-    setTimeout(autoPlay, 1000);
+    setTimeout(autoPlay, 2000);
   checkCombinations();
   if (winner !== undefined) console.log('The winner is ' + winner);
   checkTie();
@@ -206,17 +208,20 @@ gridCells.forEach((cell) => {
     if (i <= 3) {
       if (gameBoard['first-row'][i - 1] === '') {
         gameBoard['first-row'][i - 1] = fill;
-        cell.textContent = fill;
+        cell.firstElementChild.textContent = fill;
+        cell.firstElementChild.classList.add('p-cell');
       }
     } else if (i <= 6) {
       if (gameBoard['second-row'][i - 4] === '') {
         gameBoard['second-row'][i - 4] = fill;
-        cell.textContent = fill;
+        cell.firstElementChild.textContent = fill;
+        cell.firstElementChild.classList.add('p-cell');
       }
     } else {
       if (gameBoard['third-row'][i - 7] === '') {
         gameBoard['third-row'][i - 7] = fill;
-        cell.textContent = fill;
+        cell.firstElementChild.textContent = fill;
+        cell.firstElementChild.classList.add('p-cell');
       }
     }
     activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
