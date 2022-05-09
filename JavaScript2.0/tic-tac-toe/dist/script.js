@@ -141,7 +141,6 @@ const checkTie = () => {
 };
 
 const autoPlay = () => {
-  // générer un chifre 0, 1 ou 2, l'associer à first row, second ... et choisir au hasard prévoir if déjà rempli un autre ou avant fill
   const keys = Object.keys(gameBoard);
   const fill = playerTwo.choice;
 
@@ -151,11 +150,11 @@ const autoPlay = () => {
 
   const findCell = () => {
     const [goodCell] = [...gridCells].filter((cell) => {
-      if (gameBoard[keys[random]] === 'first-row') {
-        return cell.dataset.cell === String(1 - index);
-      } else if (gameBoard[keys[random]] === 'second-row') {
-        return cell.dataset.cell === String(4 - index);
-      } else return cell.dataset.cell === String(7 - index);
+      if (keys[random] === 'first-row') {
+        return cell.dataset.cell === String(index + 1);
+      } else if (keys[random] === 'second-row') {
+        return cell.dataset.cell === String(index + 4);
+      } else return cell.dataset.cell === String(index + 7);
     });
 
     return (cell = goodCell);
@@ -178,6 +177,7 @@ const autoPlay = () => {
 
   if (gameBoard[keys[random]][index] === '') {
     console.log('first attempt to fill');
+    console.log(random, index);
     findCell();
     gameBoard[keys[random]][index] = fill;
     cell.textContent = fill;
@@ -185,10 +185,13 @@ const autoPlay = () => {
     console.log('second attempt to fill');
     tryFill();
   }
+
+  activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
 };
 
 const playGame = () => {
-  if (playerTwo.player === 'Computer') autoPlay();
+  if (playerTwo.player === 'Computer' && activePlayer === playerTwo)
+    setTimeout(autoPlay, 1000);
   checkCombinations();
   if (winner !== undefined) console.log('The winner is ' + winner);
   checkTie();
