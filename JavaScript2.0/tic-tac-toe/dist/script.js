@@ -142,7 +142,6 @@ const checkTie = () => {
 
 const autoPlay = () => {
   // générer un chifre 0, 1 ou 2, l'associer à first row, second ... et choisir au hasard prévoir if déjà rempli un autre ou avant fill
-  console.log('autoPlayer call');
   const keys = Object.keys(gameBoard);
   const fill = playerTwo.choice;
 
@@ -151,21 +150,21 @@ const autoPlay = () => {
   let cell;
 
   const findCell = () => {
-    const goodCell = [...gridCells].filter((cell) => {
+    const [goodCell] = [...gridCells].filter((cell) => {
       if (gameBoard[keys[random]] === 'first-row') {
-        cell.dataset.cell === 1 - index;
+        return cell.dataset.cell === String(1 - index);
       } else if (gameBoard[keys[random]] === 'second-row') {
-        cell.dataset.cell === 4 - index;
-      } else cell.dataset.cell === 7 - index;
+        return cell.dataset.cell === String(4 - index);
+      } else return cell.dataset.cell === String(7 - index);
     });
 
     return (cell = goodCell);
   };
 
   const tryFill = () => {
+    console.log('tryFill called');
     for (i = 0; i < 9; i++) {
       findCell();
-      console.log(cell);
       if (gameBoard[keys[random]][index] === '') {
         gameBoard[keys[random]][index] = fill;
         cell.textContent = fill;
@@ -177,13 +176,13 @@ const autoPlay = () => {
     }
   };
 
-  if (keys[random][index] === '') {
-    console.log('fill first try done');
+  if (gameBoard[keys[random]][index] === '') {
+    console.log('first attempt to fill');
     findCell();
-    keys[random][index] = fill;
+    gameBoard[keys[random]][index] = fill;
     cell.textContent = fill;
   } else {
-    console.log('fill second try called');
+    console.log('second attempt to fill');
     tryFill();
   }
 };
