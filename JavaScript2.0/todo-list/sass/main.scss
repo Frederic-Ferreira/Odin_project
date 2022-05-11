@@ -94,7 +94,7 @@ main {
 
 #sidebar {
   background-color: $first-color;
-  border: 3px solid $second-color;
+  border: 5px solid $second-color;
   padding: 1.5rem;
   font-family: 'Sora', sans-serif;
   @include flexColumn();
@@ -106,6 +106,14 @@ main {
     text-align: center;
     background-color: $second-color;
     border-radius: 10px;
+
+    li {
+      @include pointer();
+
+      &:hover {
+        color: white;
+      }
+    }
   }
 
   #projects {
@@ -115,14 +123,56 @@ main {
     align-items: center;
     border-radius: 10px;
 
+    li {
+      @include pointer();
+
+      &:hover {
+        color: white;
+      }
+    }
+
     .space-between {
+      height: 100%;
       display: flex;
-      justify-content: space-around;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     #new-project-span {
       @include flexCenter();
-      justify-self: flex-end;
+      gap: 1rem;
+
+      button {
+        height: 2.5rem;
+        width: 2.5rem;
+        font-size: 1.5rem;
+        border: none;
+        border-radius: 50%;
+        background-color: $fourth-color;
+        position: relative;
+        top: -0.5rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+          @include pointer();
+          transform: scale(1.1);
+          font-size: 1.75rem;
+        }
+
+        &:active {
+          transform: scale(1.1);
+          font-size: 1.75rem;
+          transform: translate(2px, 2px);
+        }
+      }
     }
   }
+}
+
+/* -------------- SIDEBAR ------------- */
+
+#todo-list-display {
+  border-top: 5px solid $second-color;
+  background: $first-color;
+  padding: 5rem;
 }

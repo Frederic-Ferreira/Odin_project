@@ -88,7 +88,7 @@ main {
 /* -------------- SIDEBAR ------------- */
 #sidebar {
   background-color: #85cdcb;
-  border: 3px solid #7cc2ad;
+  border: 5px solid #7cc2ad;
   padding: 1.5rem;
   font-family: 'Sora', sans-serif;
   display: -webkit-box;
@@ -109,6 +109,14 @@ main {
   border-radius: 10px;
 }
 
+#sidebar #general li {
+  cursor: pointer;
+}
+
+#sidebar #general li:hover {
+  color: white;
+}
+
 #sidebar #projects {
   height: 50%;
   display: -webkit-box;
@@ -125,12 +133,26 @@ main {
   border-radius: 10px;
 }
 
+#sidebar #projects li {
+  cursor: pointer;
+}
+
+#sidebar #projects li:hover {
+  color: white;
+}
+
 #sidebar #projects .space-between {
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 #sidebar #projects #new-project-span {
@@ -143,6 +165,41 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  justify-self: flex-end;
+  gap: 1rem;
+}
+
+#sidebar #projects #new-project-span button {
+  height: 2.5rem;
+  width: 2.5rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 50%;
+  background-color: #e9a77b;
+  position: relative;
+  top: -0.5rem;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+#sidebar #projects #new-project-span button:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  font-size: 1.75rem;
+}
+
+#sidebar #projects #new-project-span button:active {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  font-size: 1.75rem;
+  -webkit-transform: translate(2px, 2px);
+          transform: translate(2px, 2px);
+}
+
+/* -------------- SIDEBAR ------------- */
+#todo-list-display {
+  border-top: 5px solid #7cc2ad;
+  background: #85cdcb;
+  padding: 5rem;
 }
 /*# sourceMappingURL=main.css.map */
