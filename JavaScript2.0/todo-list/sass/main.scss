@@ -157,6 +157,7 @@ main {
           @include pointer();
           transform: scale(1.1);
           font-size: 1.75rem;
+          color: $sixth-color;
         }
 
         &:active {
@@ -175,4 +176,66 @@ main {
   border-top: 5px solid $second-color;
   background: $first-color;
   padding: 5rem;
+
+  #todo-list {
+    @include flexColumn();
+    gap: 1rem;
+    @include flexColumn();
+    align-items: center;
+  }
+
+  .todo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    border: 2px solid $fourth-color;
+    border-radius: 20px;
+    background-color: #e37c5fb8;
+    height: 4rem;
+    color: white;
+
+    .check {
+      height: 1.5rem;
+      width: 1.5rem;
+      border-radius: 50%;
+      border: 1px solid white;
+
+      &:hover {
+        @include pointer();
+      }
+
+      &:active::after {
+        content: '✓';
+        position: relative;
+        left: 4px;
+        border-radius: 50%;
+        color: white;
+        background-color: greenyellow;
+      }
+    }
+
+    h3,
+    i {
+      position: relative;
+      top: -5px;
+    }
+
+    p {
+      position: relative;
+      top: 5px;
+    }
+
+    .span-todo-list {
+      display: flex;
+      justify-content: space-between;
+      width: 5rem;
+      position: relative;
+      left: 33px;
+    }
+
+    i {
+      @include pointer();
+    }
+  }
 }
