@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
+    <script src="main.js" defer></script>
+    <title>Todo List</title>
+  </head>
+  <body>
+    <header>
+      <h1>Todo List</h1>
+      <p>Log In <i class="angle down icon"></i></p>
+    </header>
+
+    <main>
+      <section id="sidebar">
+        <div id="general">
+          <h2>General</h2>
+        </div>
+        <div id="projects">
+          <h2>Projects</h2>
+          <div class="space-between">
+            <ul id="project-list">
+              <li class="project">Project example</li>
+            </ul>
+            <span id="new-project-span">
+              <p>New Project</p>
+              <button id="create-project" type="button">+</button>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section id="main">
+        <ul id="todo-list">
+          <li class="todo">Todo example</li>
+        </ul>
+        <span id="new-todo-span">
+          <p>Add Todo</p>
+          <button id="create-todo" type="button">+</button>
+        </span>
+      </section>
+    </main>
+
+    <footer>Copyright ©2022 - created by FREɄD</footer>
+  </body>
+</html>

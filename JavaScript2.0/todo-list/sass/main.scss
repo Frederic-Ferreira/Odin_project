@@ -1,0 +1,128 @@
+/* -------------- GLOBAL ------------- */
+@import url('https://fonts.googleapis.com/css2?family=Macondo&family=Raleway:wght@300;400;700&family=Sora:wght@100;300;500;700&display=swap');
+
+$first-color: #85cdcb;
+$second-color: #7cc2ad;
+$third-color: #40b3a3;
+$fourth-color: #e9a77b;
+$fifth-color: #c38d9d;
+$sixth-color: #e37c5f;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+  list-style: none;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+@mixin flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin pointer {
+  cursor: pointer;
+}
+
+body {
+  @include flexColumn();
+  height: 100vh;
+}
+
+/* -------------- HEADER ------------- */
+
+header {
+  background-color: $second-color;
+  color: white;
+  height: 10vh;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5rem;
+  transition: all 0.5s ease;
+
+  h1 {
+    font-family: 'Macondo', sans-serif;
+    font-size: 3rem;
+    position: relative;
+    top: 5px;
+  }
+
+  p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 2rem;
+    border-radius: 10px;
+    padding: 0 1rem;
+    transition: all 0.4s ease;
+
+    &:hover {
+      @include pointer();
+      background-color: rgba(255, 255, 255, 0.33);
+      color: $third-color;
+    }
+  }
+
+  i {
+    font-size: 1.5rem !important;
+
+    &:hover {
+      @include pointer();
+    }
+  }
+}
+
+/* -------------- MAIN ------------- */
+
+main {
+  flex: 1;
+  display: grid !important;
+  grid-template-columns: 1fr 4fr;
+}
+
+/* -------------- SIDEBAR ------------- */
+
+#sidebar {
+  background-color: $first-color;
+  border: 3px solid $second-color;
+  padding: 1.5rem;
+  font-family: 'Sora', sans-serif;
+  @include flexColumn();
+  gap: 1rem;
+  color: black;
+
+  #general {
+    height: 50%;
+    text-align: center;
+    background-color: $second-color;
+    border-radius: 10px;
+  }
+
+  #projects {
+    height: 50%;
+    @include flexColumn();
+    background-color: $fifth-color;
+    align-items: center;
+    border-radius: 10px;
+
+    .space-between {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    #new-project-span {
+      @include flexCenter();
+      justify-self: flex-end;
+    }
+  }
+}
