@@ -1,5 +1,4 @@
-import { todoEventListener } from './modules/todos';
-import { renderTodoList } from './modules/ui';
+import UI from './modules/ui';
 
-todoEventListener();
-renderTodoList();
+UI.todoEventListener();
+UI.btnTodoEventListener();
