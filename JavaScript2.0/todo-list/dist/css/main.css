@@ -162,6 +162,11 @@ main {
   color: white;
 }
 
+#sidebar #projects .new-project {
+  -webkit-animation: ease 1s show-up;
+          animation: ease 1s show-up;
+}
+
 #sidebar #projects .new-project input,
 #sidebar #projects .new-project button {
   border: none;
@@ -340,6 +345,11 @@ main {
   color: white;
 }
 
+#todo-list-display .new-todo {
+  -webkit-animation: ease 1s show-up;
+          animation: ease 1s show-up;
+}
+
 #todo-list-display .new-todo form {
   width: 100%;
   padding: 0 1rem;
@@ -374,7 +384,7 @@ main {
 
 #todo-list-display .new-todo form button:hover {
   cursor: pointer;
-  color: black;
+  color: white;
 }
 
 #todo-list-display .new-todo form button:active {
@@ -448,5 +458,27 @@ footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+/* -------------- ANIMATIONS ------------- */
+@-webkit-keyframes show-up {
+  0% {
+    -webkit-transform: translateY(500%);
+            transform: translateY(500%);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+@keyframes show-up {
+  0% {
+    -webkit-transform: translateY(500%);
+            transform: translateY(500%);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
 }
 /*# sourceMappingURL=main.css.map */

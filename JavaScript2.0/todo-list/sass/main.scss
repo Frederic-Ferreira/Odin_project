@@ -153,6 +153,8 @@ main {
     }
 
     .new-project {
+      animation: ease 1s show-up;
+
       input,
       button {
         border: none;
@@ -291,6 +293,8 @@ main {
   }
 
   .new-todo {
+    animation: ease 1s show-up;
+
     form {
       width: 100%;
       padding: 0 1rem;
@@ -318,7 +322,7 @@ main {
 
         &:hover {
           @include pointer();
-          color: black;
+          color: white;
         }
 
         &:active {
@@ -382,4 +386,15 @@ footer {
   display: flex !important;
   justify-content: center;
   align-items: center;
+}
+
+/* -------------- ANIMATIONS ------------- */
+
+@keyframes show-up {
+  0% {
+    transform: translateY(500%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
