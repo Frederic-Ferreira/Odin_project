@@ -280,7 +280,8 @@ main {
 }
 
 #todo-list-display .todo,
-#todo-list-display .new-todo {
+#todo-list-display .new-todo,
+#todo-list-display .modified-todo-form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -298,7 +299,8 @@ main {
 }
 
 #todo-list-display .todo .check,
-#todo-list-display .new-todo .check {
+#todo-list-display .new-todo .check,
+#todo-list-display .modified-todo-form .check {
   height: 1.5rem;
   width: 1.5rem;
   border-radius: 50%;
@@ -307,24 +309,28 @@ main {
 }
 
 #todo-list-display .todo .check:hover,
-#todo-list-display .new-todo .check:hover {
+#todo-list-display .new-todo .check:hover,
+#todo-list-display .modified-todo-form .check:hover {
   cursor: pointer;
 }
 
 #todo-list-display .todo h3,
-#todo-list-display .new-todo h3 {
+#todo-list-display .new-todo h3,
+#todo-list-display .modified-todo-form h3 {
   position: relative;
   top: -5px;
 }
 
 #todo-list-display .todo p,
-#todo-list-display .new-todo p {
+#todo-list-display .new-todo p,
+#todo-list-display .modified-todo-form p {
   position: relative;
   top: 10px;
 }
 
 #todo-list-display .todo .span-todo-list,
-#todo-list-display .new-todo .span-todo-list {
+#todo-list-display .new-todo .span-todo-list,
+#todo-list-display .modified-todo-form .span-todo-list {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -337,16 +343,18 @@ main {
 }
 
 #todo-list-display .todo i,
-#todo-list-display .new-todo i {
+#todo-list-display .new-todo i,
+#todo-list-display .modified-todo-form i {
   cursor: pointer;
 }
 
 #todo-list-display .todo i:hover,
-#todo-list-display .new-todo i:hover {
+#todo-list-display .new-todo i:hover,
+#todo-list-display .modified-todo-form i:hover {
   color: white;
 }
 
-#todo-list-display .new-todo {
+#todo-list-display .pop-up {
   -webkit-animation: ease 1s show-up;
           animation: ease 1s show-up;
 }

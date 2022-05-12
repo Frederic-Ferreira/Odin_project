@@ -238,7 +238,8 @@ main {
   }
 
   .todo,
-  .new-todo {
+  .new-todo,
+  .modified-todo-form {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -288,9 +289,11 @@ main {
     }
   }
 
-  .new-todo {
+  .pop-up {
     animation: ease 1s show-up;
+  }
 
+  .new-todo {
     form {
       width: 100%;
       padding: 0 1rem;
