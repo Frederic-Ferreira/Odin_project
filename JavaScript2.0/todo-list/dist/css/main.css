@@ -381,6 +381,8 @@ main {
   background-color: #e37c5f;
   color: #85cdcb;
   width: 3rem;
+  position: relative;
+  left: 0.5rem;
 }
 
 #todo-list-display .new-todo form button:hover {
@@ -391,6 +393,22 @@ main {
 #todo-list-display .new-todo form button:active {
   -webkit-transform: translate(1px, 1px);
           transform: translate(1px, 1px);
+}
+
+#todo-list-display .new-todo form .exit--new-todo {
+  font-size: 1.5rem;
+  position: relative;
+  left: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  -webkit-transition: all ease 0.3s;
+  transition: all ease 0.3s;
+}
+
+#todo-list-display .new-todo form .exit--new-todo:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+  color: white;
 }
 
 #todo-list-display .checked--btn {
@@ -404,6 +422,37 @@ main {
 
 #todo-list-display .checked--list h3 {
   text-decoration: line-through;
+}
+
+#todo-list-display .low,
+#todo-list-display .normal,
+#todo-list-display .high {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#todo-list-display .low {
+  border-left: 5px solid #e9ca7b;
+}
+
+#todo-list-display .low:hover {
+  border-left: 7px solid #e9ca7b;
+}
+
+#todo-list-display .normal {
+  border-left: 7px solid #f2722d;
+}
+
+#todo-list-display .normal:hover {
+  border-left: 10px solid #f2722d;
+}
+
+#todo-list-display .high {
+  border-left: 10px solid #f14435;
+}
+
+#todo-list-display .high:hover {
+  border-left: 15px solid #f14435;
 }
 
 #todo-list-display #new-todo-span {

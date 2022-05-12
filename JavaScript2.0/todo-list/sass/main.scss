@@ -315,6 +315,8 @@ main {
         background-color: $sixth-color;
         color: $first-color;
         width: 3rem;
+        position: relative;
+        left: 0.5rem;
 
         &:hover {
           @include pointer();
@@ -323,6 +325,20 @@ main {
 
         &:active {
           transform: translate(1px, 1px);
+        }
+      }
+
+      .exit--new-todo {
+        font-size: 1.5rem;
+        position: relative;
+        left: 0.75rem;
+        color: rgba(255, 255, 255, 0.7);
+        transition: all ease 0.3s;
+
+        &:hover {
+          @include pointer();
+          transform: scale(1.5);
+          color: white;
         }
       }
     }
@@ -338,6 +354,33 @@ main {
 
     h3 {
       text-decoration: line-through;
+    }
+  }
+
+  .low,
+  .normal,
+  .high {
+    transition: all 0.5s ease;
+  }
+
+  .low {
+    border-left: 5px solid #e9ca7b;
+    &:hover {
+      border-left: 7px solid #e9ca7b;
+    }
+  }
+
+  .normal {
+    border-left: 7px solid #f2722d;
+    &:hover {
+      border-left: 10px solid #f2722d;
+    }
+  }
+
+  .high {
+    border-left: 10px solid #f14435;
+    &:hover {
+      border-left: 15px solid #f14435;
     }
   }
 

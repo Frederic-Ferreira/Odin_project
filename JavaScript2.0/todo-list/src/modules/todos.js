@@ -1,39 +1,18 @@
 export default class todos {
   static todoList = [];
 
-  static createTodo(title, date, priority) {
+  static createTodo(title, date, priority, id, category) {
     return {
       title,
       date,
       priority,
+      id,
+      category,
     };
   }
 
-  static newTodo(parent) {
-    const html = `
-            <li class="new-todo">
-            <form class="todo-form">
-              <label for="title">Title</label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                minlength="3"
-                placeholder=" "
-                required
-              />
-              <label for="date">Date</label>
-              <input type="date" id="date" name="date" required />
-              <label for="priority">Priority</label>
-              <select id="priority" name="priority">
-                <option value="high">High</option>
-                <option value="normal" selected>Normal</option>
-                <option value="low">Low</option>
-              </select>
-              <button>OK</button>
-            </form>
-          </li>`;
-    parent.insertAdjacentHTML('beforeend', html);
+  static modifyTodo(todoNode) {
+    console.log(todoNode);
   }
 
   static getTitle(todo) {

@@ -1,4 +1,6 @@
 import UI from './modules/ui';
 
-UI.todoEventListener();
-UI.btnTodoEventListener();
+UI.todoFormEventListener();
+UI.addTodoEventListener();
+UI.editTodoEventListener();
+UI.exitNewTodoEventListener();
