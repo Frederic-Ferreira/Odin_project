@@ -11,45 +11,17 @@ export default class todos {
     };
   }
 
-  static modifyTodoForm(todoNode) {
-    const title = todoNode.childNodes[3].textContent;
-    const date = todoNode.childNodes[5].textContent;
-    const priority = todoNode.classList.value.slice(5);
+  static modifyTodo(index, title, date, priority) {
+    const todo = this.todoList[index];
+    todo.title = title;
+    todo.date = date;
+    todo.priority = priority;
+  }
 
-    const li = document.createElement('li');
-    const html = `
-    <form class="modified-todo-form">
-      <label for="title">Title</label>
-      <input
-        type="text"
-        id="title"
-        name="title"
-        minlength="3"
-        value="${title}"
-        required
-      />
-      <label for="date">Date</label>
-      <input type="date" id="date" name="date" value="${this.inputFormattedDate(
-        date
-      )}" required />
-      <label for="priority">Priority</label>
-      <select id="priority" name="priority">
-        <option value="high" ${
-          priority === 'high' ? 'selected' : ''
-        }>High</option>
-        <option value="normal" ${
-          priority === 'normal' ? 'selected' : ''
-        }>Normal</option>
-        <option value="low" ${
-          priority === 'low' ? 'selected' : ''
-        }>Low</option>
-      </select>
-      <button>OK</button>
-      <span class="exit--new-todo">&times;</span>
-  </form>`;
-    li.classList.add('new-todo');
-    li.insertAdjacentHTML('afterbegin', html);
-    todoNode.closest('#todo-list').replaceChild(li, todoNode);
+  static deleteTodo(index) {
+    console.log(this.todoList);
+    this.todoList.splice(index, 1);
+    console.log(this.todoList);
   }
 
   static getTitle(todo) {
@@ -73,4 +45,13 @@ export default class todos {
   static getPriority = (todo) => {
     return todo.priority;
   };
+
+  static getIndex = (node) => {
+    return node.dataset.index;
+  };
+
+  static toggleCheck(btn, li) {
+    btn.classList.toggle('checked--btn');
+    li.classList.toggle('checked--list');
+  }
 }

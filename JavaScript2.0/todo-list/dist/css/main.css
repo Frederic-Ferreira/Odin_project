@@ -29,6 +29,13 @@ body {
   display: none !important;
 }
 
+.overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+}
+
 /* -------------- HEADER ------------- */
 header {
   background-color: #40b3a3;
@@ -282,6 +289,7 @@ main {
 #todo-list-display .todo,
 #todo-list-display .new-todo,
 #todo-list-display .modified-todo-form {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -296,6 +304,7 @@ main {
   background-color: #e9a77b;
   height: 4rem;
   color: white;
+  z-index: 3;
 }
 
 #todo-list-display .todo .check,
@@ -305,7 +314,6 @@ main {
   width: 1.5rem;
   border-radius: 50%;
   border: 1px solid white;
-  z-index: 1;
 }
 
 #todo-list-display .todo .check:hover,
@@ -447,6 +455,41 @@ main {
   border-left: 7px solid #e9ca7b;
 }
 
+#todo-list-display .delete-request {
+  position: absolute;
+  border-radius: 20px;
+  right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  width: 10%;
+  background: red;
+  -webkit-animation: 0.5s ease delete-growth;
+          animation: 0.5s ease delete-growth;
+}
+
+#todo-list-display .delete-request::after {
+  content: 'Delete';
+  font-size: 1rem;
+}
+
+#todo-list-display .delete-request:hover {
+  cursor: pointer;
+  color: black;
+}
+
+#todo-list-display .delete-request:active {
+  -webkit-transform: translate(1px, 1px);
+          transform: translate(1px, 1px);
+}
+
 #todo-list-display .normal {
   border-left: 7px solid #f2722d;
 }
@@ -537,6 +580,24 @@ footer {
   100% {
     -webkit-transform: translateY(0);
             transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes delete-growth {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 10%;
+  }
+}
+
+@keyframes delete-growth {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 10%;
   }
 }
 /*# sourceMappingURL=main.css.map */

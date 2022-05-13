@@ -240,6 +240,7 @@ main {
   .todo,
   .new-todo,
   .modified-todo-form {
+    position: relative;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -249,13 +250,13 @@ main {
     background-color: $fourth-color;
     height: 4rem;
     color: white;
+    z-index: 3;
 
     .check {
       height: 1.5rem;
       width: 1.5rem;
       border-radius: 50%;
       border: 1px solid white;
-      z-index: 1;
 
       &:hover {
         @include pointer();
@@ -373,6 +374,28 @@ main {
     }
   }
 
+  .delete-request {
+    position: absolute;
+    border-radius: 20px;
+    right: 0;
+    @include flexCenter();
+    height: 100%;
+    width: 10%;
+    background: red;
+    animation: 0.5s ease delete-growth;
+    &::after {
+      content: 'Delete';
+      font-size: 1rem;
+    }
+    &:hover {
+      @include pointer();
+      color: black;
+    }
+    &:active {
+      transform: translate(1px, 1px);
+    }
+  }
+
   .normal {
     border-left: 7px solid #f2722d;
     &:hover {
@@ -438,5 +461,14 @@ footer {
   }
   100% {
     transform: translateY(0);
+  }
+}
+
+@keyframes delete-growth {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 10%;
   }
 }
