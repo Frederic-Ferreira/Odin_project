@@ -12,8 +12,6 @@ const priority = document.getElementById('priority');
 const btnAddTodo = document.getElementById('create-todo');
 const btnExitNewTodo = document.querySelector('.exit--new-todo');
 
-const overlay = document.querySelector('.overlay');
-
 export default class UI {
   delete = false;
 
@@ -57,7 +55,36 @@ export default class UI {
 
       const confirm = e.target.closest('div').nextElementSibling;
 
+      // Hide any other possible confirm-delete already open
+      UI.hideConfirmsDelete();
+
+      // Show the confirm-delete the user just clicked
       general.toggleHidden(confirm);
+
+      // Set EventListener to possibly hide the confirm-delete
+      UI.hideConfirmDeleteEventListener();
+      UI.delete = true;
+    });
+  }
+
+  static hideConfirmDeleteEventListener() {
+    document.addEventListener('click', (e) => {
+      const guardClause = e.target.closest('li');
+
+      if (UI.delete === false) return;
+
+      // If the user click anywhere but on a todo element
+      if (guardClause === null) {
+        UI.hideConfirmsDelete();
+        UI.delete = false;
+      }
+    });
+  }
+
+  static hideConfirmsDelete() {
+    document.querySelectorAll('.delete-request').forEach((btn) => {
+      if (!btn.classList.contains('hidden'))
+        general.toggleHidden(btn);
     });
   }
 
@@ -156,7 +183,8 @@ export default class UI {
             <div class="span-todo-list">
               <i class="edit outline icon"></i>
               <i class="trash alternate outline icon"></i>
-          </div>
+            </div>
+            <div class="delete-request hidden"></div>
     `;
     li.classList.add('todo');
     li.classList.add(priority);
@@ -181,10 +209,6 @@ export default class UI {
                           </div>
                           <div class="delete-request hidden"></div>
                       </li>`;
-        // const guardClause = document.querySelector(
-        //   `[data-index="${i}"]`
-        // );
-        // if (guardClause === null)
         mainTodos.insertAdjacentHTML('beforeend', html);
       });
     }
