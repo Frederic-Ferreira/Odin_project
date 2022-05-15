@@ -35,8 +35,10 @@ export default class UI {
         title.value,
         date.value,
         priority.value,
-        id
+        id,
+        false
       );
+
       todos.todoList.push(newTodo);
 
       general.clearInputFields();
@@ -165,11 +167,16 @@ export default class UI {
     const title = todoNode.childNodes[3].textContent;
     const date = todoNode.childNodes[5].textContent;
     const priority = todoNode.classList.value.slice(5);
+    const checked =
+      todoNode.childNodes[1].classList.contains('checked--btn');
+
     const index = todos.getIndex(todoNode);
 
     const li = document.createElement('li');
     const html = `
-    <form class="modified-todo-form" data-index="${index}">
+    <form class="modified-todo-form ${
+      checked === true ? 'true' : 'false'
+    }" data-index="${index}">
       <label for="title">Title</label>
       <input
         type="text"
@@ -186,13 +193,13 @@ export default class UI {
       <label for="priority">Priority</label>
       <select id="priority" name="priority">
         <option value="high" ${
-          priority === 'high' ? 'selected' : ''
+          priority.includes('high') ? 'selected' : ''
         }>High</option>
         <option value="normal" ${
-          priority === 'normal' ? 'selected' : ''
+          priority.includes('normal') ? 'selected' : ''
         }>Normal</option>
         <option value="low" ${
-          priority === 'low' ? 'selected' : ''
+          priority.includes('low') ? 'selected' : ''
         }>Low</option>
       </select>
       <button>OK</button>
@@ -207,12 +214,15 @@ export default class UI {
     const date = form.childNodes[7].value;
     const priority = form.childNodes[11].value;
     const index = form.dataset.index;
+    const checked = form.classList.contains('true');
 
     todos.modifyTodo(index, title, date, priority);
 
     const li = document.createElement('li');
     const html = `
-          <div class="check"></div>
+          <div class="check ${
+            checked === true ? 'checked--btn' : ''
+          }"></div>
             <h3>${title}</h3>
             <p>${todos.getFormattedDate(date)}</p>
             <div class="span-todo-list">
@@ -223,6 +233,7 @@ export default class UI {
     `;
     li.classList.add('todo');
     li.classList.add(priority);
+    checked === true ? li.classList.add('checked--list') : null;
     li.dataset.index = index;
     li.insertAdjacentHTML('afterbegin', html);
     form.closest('#todo-list').replaceChild(li, form.closest('li'));
@@ -254,8 +265,10 @@ export default class UI {
   static renderTodo(todo, i) {
     const html = `<li class="todo ${todos.getPriority(
       todo
-    )}" data-index="${i}">
-                  <div class="check"></div>
+    )} ${todos.getCheckedList(todo)}" data-index="${i}">
+                  <div class="check ${todos.getCheckedButton(
+                    todo
+                  )}"></div>
                     <h3>${todos.getTitle(todo)}</h3>
                     <p>${todos.getFormattedDate(todo.date)}</p>
                     <div class="span-todo-list">
