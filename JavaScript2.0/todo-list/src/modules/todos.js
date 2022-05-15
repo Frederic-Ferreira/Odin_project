@@ -19,13 +19,26 @@ export default class todos {
   }
 
   static deleteTodo(index) {
-    console.log(this.todoList);
     this.todoList.splice(index, 1);
-    console.log(this.todoList);
   }
 
   static getTitle(todo) {
     return todo.title;
+  }
+
+  static getTodoDay(todo) {
+    return todo.date.split('-')[2];
+  }
+
+  static getTodoMonth(todo) {
+    const month = todo.date.split('-')[1].startsWith('0')
+      ? todo.date.split('-')[1].replace('0', '')
+      : todo.date.split('-')[1];
+    return month;
+  }
+
+  static getTodoYear(todo) {
+    return todo.date.split('-')[0];
   }
 
   static getFormattedDate(todoDate) {

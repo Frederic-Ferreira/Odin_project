@@ -1,4 +1,5 @@
 import todos from './todos';
+import dates from './dates';
 import general from './general';
 
 const todoForm = document.querySelector('.todo-form');
@@ -11,9 +12,19 @@ const priority = document.getElementById('priority');
 
 const btnAddTodo = document.getElementById('create-todo');
 const btnExitNewTodo = document.querySelector('.exit--new-todo');
+const btnsGeneralDates = document.querySelectorAll('.general');
 
 export default class UI {
   delete = false;
+  static generalCategory = 'all';
+
+  static selectedCategoryEventListener() {
+    btnsGeneralDates.forEach((btn) => {
+      if (btn.classList.contains(UI.generalCategory))
+        btn.classList.add('selected-category');
+      else btn.classList.remove('selected-category');
+    });
+  }
 
   static todoFormEventListener() {
     todoForm.addEventListener('submit', (e) => {
@@ -102,7 +113,9 @@ export default class UI {
     const form = document.querySelector('.modified-todo-form');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+
       const form = e.target.closest('form');
+
       UI.renderModifiedTodo(form);
     });
   }
@@ -123,6 +136,28 @@ export default class UI {
       const btn = e.target;
       const li = e.target.closest('li');
       todos.toggleCheck(btn, li);
+    });
+  }
+
+  static dateCategoryEventListener() {
+    btnsGeneralDates.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const targetClass = e.target.classList;
+
+        targetClass.contains('today')
+          ? (UI.generalCategory = 'today')
+          : targetClass.contains('year')
+          ? (UI.generalCategory = 'year')
+          : targetClass.contains('month')
+          ? (UI.generalCategory = 'month')
+          : (UI.generalCategory = 'all');
+
+        if (!newTodoLi.classList.contains('hidden'))
+          general.toggleHidden(newTodoLi);
+
+        UI.selectedCategoryEventListener();
+        UI.renderTodoList();
+      });
     });
   }
 
@@ -194,23 +229,41 @@ export default class UI {
   }
 
   static renderTodoList() {
-    mainTodos.innerHTML = '';
+    general.clearMainDisplay();
     if (todos.todoList.length !== 0) {
       todos.todoList.map((todo, i) => {
-        const html = `<li class="todo ${todos.getPriority(
-          todo
-        )}" data-index="${i}">
-                        <div class="check"></div>
-                          <h3>${todos.getTitle(todo)}</h3>
-                          <p>${todos.getFormattedDate(todo.date)}</p>
-                          <div class="span-todo-list">
-                            <i class="edit outline icon"></i>
-                            <i class="trash alternate outline icon"></i>
-                          </div>
-                          <div class="delete-request hidden"></div>
-                      </li>`;
-        mainTodos.insertAdjacentHTML('beforeend', html);
+        if (
+          UI.generalCategory === 'today'
+            ? dates.compareDay(new Date(), todo)
+            : UI.generalCategory === 'month'
+            ? dates.compareMonth(new Date(), todo)
+            : UI.generalCategory === 'year'
+            ? dates.compareYear(
+                new Date().getFullYear(),
+                todos.getTodoYear(todo)
+              )
+            : UI.generalCategory === 'all'
+            ? true
+            : false
+        )
+          UI.renderTodo(todo, i);
       });
     }
+  }
+
+  static renderTodo(todo, i) {
+    const html = `<li class="todo ${todos.getPriority(
+      todo
+    )}" data-index="${i}">
+                  <div class="check"></div>
+                    <h3>${todos.getTitle(todo)}</h3>
+                    <p>${todos.getFormattedDate(todo.date)}</p>
+                    <div class="span-todo-list">
+                      <i class="edit outline icon"></i>
+                      <i class="trash alternate outline icon"></i>
+                    </div>
+                    <div class="delete-request hidden"></div>
+                </li>`;
+    mainTodos.insertAdjacentHTML('beforeend', html);
   }
 }

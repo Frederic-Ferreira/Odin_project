@@ -107,6 +107,7 @@ main {
 
   h2 {
     padding-top: 1rem;
+    font-size: 2rem;
   }
 
   #general {
@@ -114,6 +115,24 @@ main {
     text-align: center;
     background-color: $second-color;
     border-radius: 10px;
+
+    #general-list {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      @include flexColumn();
+      justify-content: space-around;
+      height: 70%;
+
+      .all {
+        font-family: 'Sora', sans-serif;
+        font-weight: 500;
+      }
+
+      .selected-category {
+        color: $sixth-color;
+      }
+    }
 
     li {
       @include pointer();

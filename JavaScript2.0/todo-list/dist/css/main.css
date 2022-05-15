@@ -29,13 +29,6 @@ body {
   display: none !important;
 }
 
-.overlay {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  z-index: 2;
-}
-
 /* -------------- HEADER ------------- */
 header {
   background-color: #40b3a3;
@@ -115,6 +108,7 @@ main {
 
 #sidebar h2 {
   padding-top: 1rem;
+  font-size: 2rem;
 }
 
 #sidebar #general {
@@ -122,6 +116,31 @@ main {
   text-align: center;
   background-color: #7cc2ad;
   border-radius: 10px;
+}
+
+#sidebar #general #general-list {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  height: 70%;
+}
+
+#sidebar #general #general-list .all {
+  font-family: 'Sora', sans-serif;
+  font-weight: 500;
+}
+
+#sidebar #general #general-list .selected-category {
+  color: #e37c5f;
 }
 
 #sidebar #general li {

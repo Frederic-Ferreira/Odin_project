@@ -26,7 +26,10 @@
         <div id="general">
           <h2>General</h2>
           <ul id="general-list">
-            <li class="general">Todo example</li>
+            <li class="general all">All todos</li>
+            <li class="general today">Today</li>
+            <li class="general month">This month</li>
+            <li class="general year">This year</li>
           </ul>
         </div>
         <div id="projects">
@@ -55,54 +58,7 @@
 
       <section id="todo-list-display">
         <ul id="todo-list">
-          <li class="todo checked--list" data-index="10">
-            <div class="check checked--btn"></div>
-            <h3>Title</h3>
-            <p>11/02/2019</p>
-            <div class="span-todo-list">
-              <i class="edit outline icon"></i>
-              <i class="trash alternate outline icon"></i>
-            </div>
-          </li>
-          <li class="todo low">
-            <div class="check"></div>
-            <h3>Title</h3>
-            <p>11/02/2019</p>
-            <div class="span-todo-list">
-              <i class="edit outline icon"></i>
-              <i class="trash alternate outline icon"></i>
-            </div>
-            <div class="delete-request hidden"></div>
-          </li>
-          <li class="todo normal">
-            <div class="check"></div>
-            <h3>Title</h3>
-            <p>11/02/2019</p>
-            <div class="span-todo-list">
-              <i class="edit outline icon"></i>
-              <i class="trash alternate outline icon"></i>
-            </div>
-            <div class="delete-request hidden"></div>
-          </li>
-          <li class="todo high">
-            <div class="check"></div>
-            <h3>Title</h3>
-            <p>11/02/2019</p>
-            <div class="span-todo-list">
-              <i class="edit outline icon"></i>
-              <i class="trash alternate outline icon"></i>
-            </div>
-          </li>
-          <li class="todo">
-            <div class="check"></div>
-            <h3>Title</h3>
-            <p>11/02/2019</p>
-            <div class="span-todo-list">
-              <i class="edit outline icon"></i>
-              <i class="trash alternate outline icon"></i>
-            </div>
-          </li>
-          <li class="new-todo pop-up">
+          <li class="new-todo pop-up hidden">
             <form class="todo-form">
               <label for="title">Title</label>
               <input
