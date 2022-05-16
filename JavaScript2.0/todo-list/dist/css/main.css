@@ -167,6 +167,11 @@ main {
   border-radius: 10px;
 }
 
+#sidebar #projects .selected-project {
+  color: #85cdcb;
+  text-shadow: 1px 1px 1px black;
+}
+
 #sidebar #projects .project {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -221,8 +226,25 @@ main {
 }
 
 #sidebar #projects .new-project {
+  position: relative;
   -webkit-animation: ease 1s show-up;
           animation: ease 1s show-up;
+}
+
+#sidebar #projects .new-project .exit--new-project {
+  position: absolute;
+  left: -1rem;
+  font-size: 1.5rem;
+}
+
+#sidebar #projects .new-project .exit--new-project:hover {
+  cursor: pointer;
+  color: white;
+}
+
+#sidebar #projects .new-project .exit--new-project:active {
+  -webkit-transform: translate(1px, 1px);
+          transform: translate(1px, 1px);
 }
 
 #sidebar #projects .new-project input,

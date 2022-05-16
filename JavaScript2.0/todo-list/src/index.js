@@ -12,4 +12,6 @@ UI.dateCategoryEventListener();
 
 UI.addProjectEventListener();
 UI.deleteProjectEventListener();
+UI.exitNewProjectEventListener();
+UI.selectProjectCategoryEventListener();
 UI.createNewProjectEventListener();

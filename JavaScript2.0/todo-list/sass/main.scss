@@ -150,6 +150,11 @@ main {
     align-items: center;
     border-radius: 10px;
 
+    .selected-project {
+      color: $first-color;
+      text-shadow: 1px 1px 1px black;
+    }
+
     .project {
       display: flex;
       font-size: 1.25rem;
@@ -191,7 +196,23 @@ main {
     }
 
     .new-project {
+      position: relative;
       animation: ease 1s show-up;
+
+      .exit--new-project {
+        position: absolute;
+        left: -1rem;
+        font-size: 1.5rem;
+
+        &:hover {
+          @include pointer();
+          color: white;
+        }
+
+        &:active {
+          transform: translate(1px, 1px);
+        }
+      }
 
       input,
       button {

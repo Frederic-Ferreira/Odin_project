@@ -16,6 +16,7 @@ const btnExitNewTodo = document.querySelector('.exit--new-todo');
 const btnsGeneralDates = document.querySelectorAll('.general');
 
 const btnNewProject = document.getElementById('create-project');
+const exitNewProject = document.querySelector('.exit--new-project');
 
 const newProjectForm = document.querySelector('.new-project');
 const projectList = document.getElementById('project-list');
@@ -31,6 +32,8 @@ export default class UI {
       if (btn.classList.contains(UI.generalCategory))
         btn.classList.add('selected-category');
       else btn.classList.remove('selected-category');
+
+      general.hideProjectBtnsSelected();
     });
   }
 
@@ -39,12 +42,17 @@ export default class UI {
       e.preventDefault();
 
       const id = Math.floor(Math.random() * 100);
+      const category = UI.generalCategory.includes('project')
+        ? UI.generalCategory.slice(7)
+        : '';
+
       const newTodo = todos.createTodo(
         title.value,
         date.value,
         priority.value,
         id,
-        false
+        false,
+        category
       );
 
       todos.todoList.push(newTodo);
@@ -266,6 +274,11 @@ export default class UI {
             : false
         )
           UI.renderTodo(todo, i);
+        else if (UI.generalCategory.includes('project')) {
+          const projectName = UI.generalCategory.slice(7);
+
+          if (todo.category === projectName) UI.renderTodo(todo, i);
+        }
       });
     }
   }
@@ -294,6 +307,14 @@ export default class UI {
     btnNewProject.addEventListener('click', () => {
       projectList.appendChild(newProjectForm);
       general.toggleHidden(newProjectForm);
+    });
+  }
+
+  static exitNewProjectEventListener() {
+    exitNewProject.addEventListener('click', (e) => {
+      const li = e.target.closest('li');
+
+      general.toggleHidden(li);
     });
   }
 
@@ -372,9 +393,12 @@ export default class UI {
     general.clearProjectDisplay();
     if (projects.projectList.length !== 0) {
       projects.projectList.map((project, i) => {
+        const selected = UI.generalCategory.slice(7) === project;
         const html = `
         <li class="project" data-index="${i}">
-        <p>${project}</p>
+        <p class="project-name ${
+          selected ? 'selected-project' : ''
+        }">${project}</p>
         <i class="trash delete-project alternate outline icon"></i>
         <div class="confirm-delete-project hidden">
         Delete
@@ -383,5 +407,29 @@ export default class UI {
         projectList.insertAdjacentHTML('beforeend', html);
       });
     }
+  }
+
+  static selectProjectCategoryEventListener() {
+    document.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('project-name')) return;
+
+      const projectName = e.target.textContent;
+
+      UI.generalCategory = 'project' + projectName;
+      UI.selectedProjectEventListener();
+      UI.renderTodoList();
+    });
+  }
+
+  static selectedProjectEventListener() {
+    document.querySelectorAll('.project-name').forEach((project) => {
+      const categoryName = UI.generalCategory.slice(7);
+
+      if (project.textContent === categoryName)
+        project.classList.add('selected-project');
+      else project.classList.remove('selected-project');
+
+      general.hideGeneralBtnsSelected();
+    });
   }
 }
