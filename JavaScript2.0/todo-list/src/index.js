@@ -9,3 +9,7 @@ UI.deleteTodoEventListener();
 UI.confirmDeleteEventListener();
 UI.exitNewTodoEventListener();
 UI.dateCategoryEventListener();
+
+UI.addProjectEventListener();
+UI.deleteProjectEventListener();
+UI.createNewProjectEventListener();

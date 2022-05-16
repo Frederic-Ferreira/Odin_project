@@ -1,13 +1,21 @@
 const title = document.getElementById('title');
 const date = document.getElementById('date');
 const priority = document.getElementById('priority');
+
 const mainTodos = document.getElementById('todo-list');
 
+const projectFormInput = document.getElementById('project-input');
+const projectList = document.getElementById('project-list');
+
 export default class general {
-  static clearInputFields() {
+  static clearTodoInputFields() {
     title.value = '';
     date.value = '';
     priority.value = 'normal';
+  }
+
+  static clearProjectInputField() {
+    projectFormInput.value = '';
   }
 
   static toggleHidden(node) {
@@ -16,5 +24,9 @@ export default class general {
 
   static clearMainDisplay() {
     mainTodos.innerHTML = '';
+  }
+
+  static clearProjectDisplay() {
+    projectList.innerHTML = '';
   }
 }

@@ -152,10 +152,15 @@ main {
 
     .project {
       display: flex;
-      justify-content: space-between;
+      font-size: 1.25rem;
+      width: 15rem;
       padding: 0 1rem;
       transition: all 0.5s ease;
       @include pointer();
+
+      p {
+        margin-right: auto;
+      }
 
       p:hover {
         color: white;
@@ -163,6 +168,25 @@ main {
 
       i:hover {
         color: white;
+      }
+    }
+
+    .confirm-delete-project {
+      @include flexCenter();
+      height: 2rem;
+      width: 50%;
+      border-radius: 10px;
+      background-color: red !important;
+      animation: 0.5s ease delete-project-growth;
+      transition: all ease-in-out 0.1s;
+      // margin-bottom: 0.5rem;
+
+      &:hover {
+        color: white;
+      }
+
+      &:active {
+        transform: scale(0.9);
       }
     }
 
@@ -489,5 +513,14 @@ footer {
   }
   100% {
     width: 10%;
+  }
+}
+
+@keyframes delete-project-growth {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 50%;
   }
 }

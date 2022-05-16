@@ -1,5 +1,6 @@
 import todos from './todos';
 import dates from './dates';
+import projects from './projects';
 import general from './general';
 
 const todoForm = document.querySelector('.todo-form');
@@ -14,8 +15,15 @@ const btnAddTodo = document.getElementById('create-todo');
 const btnExitNewTodo = document.querySelector('.exit--new-todo');
 const btnsGeneralDates = document.querySelectorAll('.general');
 
+const btnNewProject = document.getElementById('create-project');
+
+const newProjectForm = document.querySelector('.new-project');
+const projectList = document.getElementById('project-list');
+const projectInput = document.getElementById('project-input');
+
 export default class UI {
-  delete = false;
+  deleteTodo = false;
+  deleteProject = false;
   static generalCategory = 'all';
 
   static selectedCategoryEventListener() {
@@ -41,7 +49,7 @@ export default class UI {
 
       todos.todoList.push(newTodo);
 
-      general.clearInputFields();
+      general.clearTodoInputFields();
       UI.toggleNewTodo();
       UI.renderTodoList();
     });
@@ -64,7 +72,7 @@ export default class UI {
 
   static deleteTodoEventListener() {
     document.addEventListener('click', (e) => {
-      if (!e.target.classList.contains('trash')) return;
+      if (!e.target.classList.contains('delete-todo')) return;
 
       const confirm = e.target.closest('div').nextElementSibling;
 
@@ -75,21 +83,21 @@ export default class UI {
       general.toggleHidden(confirm);
 
       // Set EventListener to possibly hide the confirm-delete
-      UI.hideConfirmDeleteEventListener();
-      UI.delete = true;
+      UI.hideConfirmDeleteTodoEventListener();
+      UI.deleteTodo = true;
     });
   }
 
-  static hideConfirmDeleteEventListener() {
+  static hideConfirmDeleteTodoEventListener() {
     document.addEventListener('click', (e) => {
       const guardClause = e.target.closest('li');
 
-      if (UI.delete === false) return;
+      if (UI.deleteTodo === false) return;
 
       // If the user click anywhere but on a todo element
       if (guardClause === null) {
         UI.hideConfirmsDelete();
-        UI.delete = false;
+        UI.deleteTodo = false;
       }
     });
   }
@@ -227,7 +235,7 @@ export default class UI {
             <p>${todos.getFormattedDate(date)}</p>
             <div class="span-todo-list">
               <i class="edit outline icon"></i>
-              <i class="trash alternate outline icon"></i>
+              <i class="trash delete-todo alternate outline icon"></i>
             </div>
             <div class="delete-request hidden"></div>
     `;
@@ -273,10 +281,107 @@ export default class UI {
                     <p>${todos.getFormattedDate(todo.date)}</p>
                     <div class="span-todo-list">
                       <i class="edit outline icon"></i>
-                      <i class="trash alternate outline icon"></i>
+                      <i class="trash delete-todo alternate outline icon"></i>
                     </div>
                     <div class="delete-request hidden"></div>
                 </li>`;
     mainTodos.insertAdjacentHTML('beforeend', html);
+  }
+
+  /* ------------------------ PROJECTS UI  ------------------------ */
+
+  static addProjectEventListener() {
+    btnNewProject.addEventListener('click', () => {
+      projectList.appendChild(newProjectForm);
+      general.toggleHidden(newProjectForm);
+    });
+  }
+
+  static deleteProjectEventListener() {
+    document.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('delete-project')) return;
+
+      const confirm = e.target.nextElementSibling;
+
+      UI.hideConfirmsDeleteProject();
+
+      console.log(e.target, confirm);
+      general.toggleHidden(e.target);
+      general.toggleHidden(confirm);
+
+      UI.hideConfirmDeleteProjectEventListener(e.target);
+      UI.confirmDeleteProjectEventListener();
+      UI.deleteProject = true;
+    });
+  }
+
+  static confirmDeleteProjectEventListener() {
+    document
+      .querySelectorAll('.confirm-delete-project')
+      .forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const i = btn.closest('li').dataset.index;
+          console.log(i);
+          projects.deleteProject(i);
+          UI.renderProjectList();
+        });
+      });
+  }
+
+  static hideConfirmDeleteProjectEventListener(trash) {
+    document.addEventListener('click', (e) => {
+      const guardClause = e.target.closest('li');
+
+      if (UI.deleteForm === false) return;
+
+      // If the user click anywhere but on a todo element
+      if (guardClause === null) {
+        UI.hideConfirmsDeleteProject();
+        UI.deleteProject = false;
+      }
+    });
+  }
+
+  static hideConfirmsDeleteProject() {
+    document
+      .querySelectorAll('.confirm-delete-project')
+      .forEach((btn) => {
+        if (!btn.classList.contains('hidden')) {
+          const trash = btn.previousElementSibling;
+          general.toggleHidden(btn);
+          if (trash.classList.contains('hidden'))
+            general.toggleHidden(trash);
+        }
+      });
+  }
+
+  static createNewProjectEventListener() {
+    newProjectForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const projectName = projectInput.value;
+
+      projects.createProject(projectName);
+      general.clearProjectInputField();
+      general.toggleHidden(newProjectForm);
+      UI.renderProjectList();
+    });
+  }
+
+  static renderProjectList() {
+    general.clearProjectDisplay();
+    if (projects.projectList.length !== 0) {
+      projects.projectList.map((project, i) => {
+        const html = `
+        <li class="project" data-index="${i}">
+        <p>${project}</p>
+        <i class="trash delete-project alternate outline icon"></i>
+        <div class="confirm-delete-project hidden">
+        Delete
+      </div>
+      </li>`;
+        projectList.insertAdjacentHTML('beforeend', html);
+      });
+    }
   }
 }

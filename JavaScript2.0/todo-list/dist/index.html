@@ -37,13 +37,19 @@
           <div class="space-between">
             <ul id="project-list">
               <li class="project">
-                <p>Project example</p>
-                <i class="trash alternate outline icon"></i>
+                <p>Project</p>
+                <i
+                  class="trash delete-project alternate outline icon"
+                ></i>
+                <div class="confirm-delete-project hidden">
+                  Delete
+                </div>
               </li>
               <li class="new-project">
                 <form>
-                  <input type="text" name="new-project" minlength="1"
-                  placeholder=" " required/ />
+                  <input id="project-input" type="text"
+                  name="new-project" minlength="1" placeholder=" "
+                  required/ />
                   <button>OK</button>
                 </form>
               </li>
