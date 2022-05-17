@@ -1,6 +1,7 @@
 import todos from './todos';
 import dates from './dates';
 import projects from './projects';
+import storage from './localStorage';
 import general from './general';
 
 const todoForm = document.querySelector('.todo-form');
@@ -56,6 +57,7 @@ export default class UI {
       );
 
       todos.todoList.push(newTodo);
+      storage.modifyArray('todos', todos.todoList);
 
       general.clearTodoInputFields();
       UI.toggleNewTodo();
@@ -123,6 +125,8 @@ export default class UI {
       const index = e.target.closest('li').dataset.index;
 
       todos.deleteTodo(index);
+      storage.modifyArray('todos', todos.todoList);
+
       UI.renderTodoList();
     });
   }
@@ -153,7 +157,9 @@ export default class UI {
 
       const btn = e.target;
       const li = e.target.closest('li');
+
       todos.toggleCheck(btn, li);
+      storage.modifyArray('todos', todos.todoList);
     });
   }
 
@@ -233,6 +239,7 @@ export default class UI {
     const checked = form.classList.contains('true');
 
     todos.modifyTodo(index, title, date, priority);
+    storage.modifyArray('todos', todos.todoList);
 
     const li = document.createElement('li');
     const html = `
@@ -326,7 +333,6 @@ export default class UI {
 
       UI.hideConfirmsDeleteProject();
 
-      console.log(e.target, confirm);
       general.toggleHidden(e.target);
       general.toggleHidden(confirm);
 
@@ -342,8 +348,12 @@ export default class UI {
       .forEach((btn) => {
         btn.addEventListener('click', () => {
           const i = btn.closest('li').dataset.index;
-          console.log(i);
+
           projects.deleteProject(i);
+          storage.modifyArray('projects', projects.projectList);
+
+          if (!newProjectForm.classList.contains('hidden'))
+            general.toggleHidden(newProjectForm);
           UI.renderProjectList();
         });
       });
@@ -383,8 +393,11 @@ export default class UI {
       const projectName = projectInput.value;
 
       projects.createProject(projectName);
+      storage.modifyArray('projects', projects.projectList);
+
       general.clearProjectInputField();
       general.toggleHidden(newProjectForm);
+
       UI.renderProjectList();
     });
   }

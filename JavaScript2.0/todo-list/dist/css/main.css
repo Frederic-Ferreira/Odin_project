@@ -64,6 +64,14 @@ header p {
   transition: all 0.4s ease;
 }
 
+header p a {
+  color: inherit;
+}
+
+header p a:hover {
+  color: inherit;
+}
+
 header p:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.33);

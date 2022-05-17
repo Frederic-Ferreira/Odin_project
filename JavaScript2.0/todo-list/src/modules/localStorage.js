@@ -1,14 +1,18 @@
 export default class storage {
-  static storeTodo(todo) {
-    localStorage.setItem(todo.title, this.stringify(todo));
+  static storeArray(name, arr) {
+    localStorage.setItem(name, this.stringify(arr));
   }
 
-  static storeProject(project) {
-    localStorage.setItem(project, project);
+  static getArray(name) {
+    return localStorage.getItem(name);
   }
 
-  static removeData(item) {
-    localStorage.removeItem(item);
+  static modifyArray(name, newArr) {
+    localStorage.setItem(name, this.stringify(newArr));
+  }
+
+  static clearStorage() {
+    localStorage.clear();
   }
 
   static stringify(obj) {

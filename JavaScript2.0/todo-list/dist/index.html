@@ -18,7 +18,13 @@
   <body>
     <header>
       <h1>Todo List</h1>
-      <p>Log In <i class="angle down icon"></i></p>
+      <p>
+        <a
+          target="_blank"
+          href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
+          >with Local Storage</a
+        >
+      </p>
     </header>
 
     <main>
@@ -36,7 +42,7 @@
           <h2>Categories</h2>
           <div class="space-between">
             <ul id="project-list">
-              <li class="new-project">
+              <li class="new-project hidden">
                 <form>
                   <span class="exit--new-project">&times;</span>
                   <input id="project-input" type="text"
@@ -47,7 +53,7 @@
               </li>
             </ul>
             <span id="new-project-span">
-              <p>New Project</p>
+              <p>New Category</p>
               <button id="create-project" type="button">+</button>
             </span>
           </div>

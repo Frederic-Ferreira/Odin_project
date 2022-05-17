@@ -1,6 +1,8 @@
 export default class projects {
   static projectList = [];
 
+  static initLocalStorage() {}
+
   static createProject(project) {
     this.projectList.push(project);
   }
