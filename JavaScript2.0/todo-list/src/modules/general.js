@@ -55,7 +55,6 @@ export default class general {
     if (storage.getArray('todos')) {
       const string = storage.getArray('todos');
       todos.todoList = storage.parse(string);
-      console.log(todos.todoList);
     }
   }
 
@@ -63,7 +62,6 @@ export default class general {
     if (storage.getArray('projects')) {
       const string = storage.getArray('projects');
       projects.projectList = storage.parse(string);
-      console.log(projects.projectList);
     }
   }
 
