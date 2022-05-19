@@ -1,0 +1,15 @@
+@import "https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap";
+* {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: Zen Maru Gothic, sans-serif;
+  font-size: 62.5%;
+  font-weight: 300;
+}
+
+/*# sourceMappingURL=index.f7626f62.css.map */
