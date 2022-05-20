@@ -56,17 +56,21 @@ export const getCurrentWeather = async (lat, long) => {
 
     const data = await response.json();
 
-    return data;
+    state.currentWeather = {
+      description: data.weather[0].description,
+      icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
+      temperature: data.main.temp,
+      feels: data.main.feels_like,
+      humidity: data.main.humidity,
+      min: data.main.temp_min,
+      max: data.main.temp_max,
+      wind: data.wind.speed,
+      rain: data.rain === undefined ? '' : data.rain['1h'],
+      snow: data.snow === undefined ? '' : data.snow['1h'],
+      time: data.dt,
+      city: data.name,
+    };
   } catch (err) {
     console.log(err);
   }
-};
-
-export const getWeatherIcon = (data) => {
-  const { weather } = data;
-  const { icon } = weather[0];
-
-  const img = `https://openweathermap.org/img/wn/${icon}@2x.png`;
-
-  return img;
 };

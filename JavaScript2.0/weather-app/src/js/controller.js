@@ -1,5 +1,6 @@
 import '@babel/polyfill';
 import * as model from './model';
+import * as helpers from './helpers';
 import currentView from './views/currentView';
 
 const controlWeather = async () => {
@@ -10,7 +11,7 @@ const controlWeather = async () => {
 
     const data = await model.getCurrentWeather(lat, long);
 
-    const icon = model.getWeatherIcon(data);
+    // helpers.convertTime(model.state.currentWeather.time);
   } catch (err) {
     console.error(err);
   }

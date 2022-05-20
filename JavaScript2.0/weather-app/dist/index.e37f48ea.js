@@ -529,6 +529,7 @@ function hmrAcceptRun(bundle, id) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _polyfill = require("@babel/polyfill");
 var _model = require("./model");
+var _helpers = require("./helpers");
 var _currentView = require("./views/currentView");
 var _currentViewDefault = parcelHelpers.interopDefault(_currentView);
 const controlWeather = async ()=>{
@@ -536,7 +537,7 @@ const controlWeather = async ()=>{
         await _model.getClientCoordinates();
         const { lat , long  } = _model.state.currentCity;
         const data = await _model.getCurrentWeather(lat, long);
-        const icon = _model.getWeatherIcon(data);
+    // helpers.convertTime(model.state.currentWeather.time);
     } catch (err) {
         console.error(err);
     }
@@ -546,7 +547,7 @@ const init = ()=>{
 };
 init();
 
-},{"@babel/polyfill":"dTCHC","./model":"Y4A21","./views/currentView":"aquYQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dTCHC":[function(require,module,exports) {
+},{"@babel/polyfill":"dTCHC","./model":"Y4A21","./views/currentView":"aquYQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./helpers":"hGI1E"}],"dTCHC":[function(require,module,exports) {
 "use strict";
 require("./noConflict");
 var _global = _interopRequireDefault(require("core-js/library/fn/global"));
@@ -7517,8 +7518,6 @@ parcelHelpers.export(exports, "getClientCoordinates", ()=>getClientCoordinates
 );
 parcelHelpers.export(exports, "getCurrentWeather", ()=>getCurrentWeather
 );
-parcelHelpers.export(exports, "getWeatherIcon", ()=>getWeatherIcon
-);
 var _config = require("./config");
 const state = {
     currentCity: {},
@@ -7550,16 +7549,23 @@ const getCurrentWeather = async (lat, long)=>{
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${_config.weatherKEY}`);
         if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
         const data = await response.json();
-        return data;
+        state.currentWeather = {
+            description: data.weather[0].description,
+            icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
+            temperature: data.main.temp,
+            feels: data.main.feels_like,
+            humidity: data.main.humidity,
+            min: data.main.temp_min,
+            max: data.main.temp_max,
+            wind: data.wind.speed,
+            rain: data.rain === undefined ? '' : data.rain['1h'],
+            snow: data.snow === undefined ? '' : data.snow['1h'],
+            time: data.dt,
+            city: data.name
+        };
     } catch (err) {
         console.log(err);
     }
-};
-const getWeatherIcon = (data)=>{
-    const { weather  } = data;
-    const { icon  } = weather[0];
-    const img = `https://openweathermap.org/img/wn/${icon}@2x.png`;
-    return img;
 };
 
 },{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports) {
@@ -7605,10 +7611,17 @@ parcelHelpers.defineInteropFlag(exports);
 var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class currentView extends _viewDefault.default {
-    _parentElement;
+    _parentElement = document.querySelector('.container');
+    _data;
+    renderCurrentWeather(currentWeather) {
+        _data = currentWeather;
+        const html = this._generateMarkup(_data);
+        this._parentElement.insertAdjacentHTML('afterbegin', html);
+    }
     loadEventListener(handler) {
         window.addEventListener('load', handler);
     }
+    _generateMarkup(data) {}
 }
 exports.default = new currentView();
 
@@ -7630,6 +7643,18 @@ class View {
     }
 }
 exports.default = View;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hGI1E":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "convertTime", ()=>convertTime
+);
+const convertTime = (unix)=>{
+    const date = new Date(unix * 1000);
+    const hours = date.getHours();
+    const minutes = '0' + date.getMinutes();
+    return `${hours}:${minutes}`;
+};
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["9GjUt","aenu9"], "aenu9", "parcelRequirebbde")
 
