@@ -142,13 +142,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"3MPsb":[function(require,module,exports) {
+})({"9GjUt":[function(require,module,exports) {
 "use strict";
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "65a30b1806dfd526";
+module.bundle.HMR_BUNDLE_ID = "d113fd8ce37f48ea";
 function _toConsumableArray(arr) {
     return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
@@ -525,22 +525,28 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"7bftq":[function(require,module,exports) {
+},{}],"aenu9":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _polyfill = require("@babel/polyfill");
-var _weather = require("./Weather");
-var _ui = require("./ui");
-var _uiDefault = parcelHelpers.interopDefault(_ui);
-const init = async ()=>{
-    const data1 = await _uiDefault.default.getClientCoordinates();
-    const { latitude , longitude  } = data1;
-    _weather.fetchWeather(latitude, longitude).then((data)=>_weather.getWeatherIcon(data)
-    ).then((img)=>undefined.changeImg(img)
-    );
+var _model = require("./model");
+var _currentView = require("./views/currentView");
+var _currentViewDefault = parcelHelpers.interopDefault(_currentView);
+const controlWeather = async ()=>{
+    try {
+        await _model.getClientCoordinates();
+        const { lat , long  } = _model.state.currentCity;
+        const data = await _model.getCurrentWeather(lat, long);
+        const icon = _model.getWeatherIcon(data);
+    } catch (err) {
+        console.error(err);
+    }
+};
+const init = ()=>{
+    _currentViewDefault.default.loadEventListener(controlWeather);
 };
 init();
 
-},{"@babel/polyfill":"dTCHC","./ui":"efi6n","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Weather":"6kwvs"}],"dTCHC":[function(require,module,exports) {
+},{"@babel/polyfill":"dTCHC","./model":"Y4A21","./views/currentView":"aquYQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dTCHC":[function(require,module,exports) {
 "use strict";
 require("./noConflict");
 var _global = _interopRequireDefault(require("core-js/library/fn/global"));
@@ -7502,21 +7508,66 @@ module.exports = function(it, key) {
     return hasOwnProperty.call(it, key);
 };
 
-},{}],"efi6n":[function(require,module,exports) {
+},{}],"Y4A21":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-const imgBody = document.querySelector('img');
-class UI {
-    static getClientCoordinates() {
-        navigator.geolocation.getCurrentPosition(({ coords  })=>{
-            const { latitude , longitude  } = coords;
-        });
+parcelHelpers.export(exports, "state", ()=>state
+);
+parcelHelpers.export(exports, "getClientCoordinates", ()=>getClientCoordinates
+);
+parcelHelpers.export(exports, "getCurrentWeather", ()=>getCurrentWeather
+);
+parcelHelpers.export(exports, "getWeatherIcon", ()=>getWeatherIcon
+);
+var _config = require("./config");
+const state = {
+    currentCity: {},
+    currentWeather: {},
+    hourlyWeather: {},
+    weeklyWeather: {}
+};
+const getClientCoordinates = async ()=>{
+    await new Promise((resolve)=>{
+        if (navigator.geolocation) navigator.geolocation.getCurrentPosition(successRes, errorRes);
+        else throw Error('Your navigator does not support geolocation');
+        function successRes(position) {
+            state.currentCity = {
+                lat: position.coords.latitude,
+                long: position.coords.longitude
+            };
+            resolve();
+        }
+        function errorRes(err) {
+            if (err.code == 1) throw Error('Please, allow your browser to access your position or search a specific city name.');
+            else if (err.code == 2) throw Error("The network is down or the positioning service can't be reached.");
+            else if (err.code == 3) throw Error('The attempt timed out before it could get the location data.');
+            else throw Error('Geolocation failed due to unknown error.');
+        }
+    });
+};
+const getCurrentWeather = async (lat, long)=>{
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${_config.weatherKEY}`);
+        if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
+        const data = await response.json();
+        return data;
+    } catch (err) {
+        console.log(err);
     }
-    static changeImg(img) {
-        imgBody.src = img;
-    }
-}
-exports.default = UI;
+};
+const getWeatherIcon = (data)=>{
+    const { weather  } = data;
+    const { icon  } = weather[0];
+    const img = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+    return img;
+};
+
+},{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "weatherKEY", ()=>weatherKEY
+);
+const weatherKEY = '72de7d77cda506a2464710f49b0ff2a5';
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -7548,38 +7599,38 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"6kwvs":[function(require,module,exports) {
+},{}],"aquYQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "fetchWeather", ()=>fetchWeather
-);
-parcelHelpers.export(exports, "getWeatherIcon", ()=>getWeatherIcon
-);
-var _general = require("./general");
-const fetchWeather = async (lat, long)=>{
-    try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${_general.weatherKEY}`);
-        if (!response.ok) throw Error('Please, authorize the browser to access your current location');
-        const data = await response.json();
-        return data;
-    } catch (err) {
-        console.log(err);
+var _view = require("./View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+class currentView extends _viewDefault.default {
+    _parentElement;
+    loadEventListener(handler) {
+        window.addEventListener('load', handler);
     }
-};
-const getWeatherIcon = (data)=>{
-    const { weather  } = data;
-    const { icon  } = weather[0];
-    const img = `https://openweathermap.org/img/wn/${icon}@2x.png`;
-    return img;
-};
+}
+exports.default = new currentView();
 
-},{"./general":"1FZwQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1FZwQ":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./View":"5cUXS"}],"5cUXS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "weatherKEY", ()=>weatherKEY
-);
-const weatherKEY = '72de7d77cda506a2464710f49b0ff2a5';
+class View {
+    renderSpinner() {
+        const html = `
+          <div class="spinner">
+              <i class="bi bi-arrow-clockwise"></i>
+          </div>
+          `;
+        this._clear();
+        this._parentElement.insertAdjacentHTML('afterbegin', html);
+    }
+    _clear() {
+        this._parentElement.innerHTML = '';
+    }
+}
+exports.default = View;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["3MPsb","7bftq"], "7bftq", "parcelRequirebbde")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["9GjUt","aenu9"], "aenu9", "parcelRequirebbde")
 
-//# sourceMappingURL=index.06dfd526.js.map
+//# sourceMappingURL=index.e37f48ea.js.map
