@@ -1,4 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Text:wght@300;500&family=Scope+One&family=Zen+Maru+Gothic:wght@300;400;500;700;900&&display=swap');
+
+$first-color: #a0c2d1;
+$second-color: #b19ac6;
+$third-color: #f1ebf5;
+$fourth-color: #f172a1;
+$fifth-color: #e74397;
+$sixth-color: #7d6859;
+$seventh-color: #afd275;
+
+/* ----------------------- GENERAL ----------------------- */
 
 * {
   margin: 0;
@@ -11,4 +21,124 @@ html {
   font-family: 'Zen Maru Gothic', sans-serif;
   font-weight: 300;
   box-sizing: border-box;
+}
+
+@mixin flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  @include flexColumn();
+}
+
+/* ----------------------- HEADER ----------------------- */
+
+header {
+  font-family: 'Scope One', serif;
+  background-color: $seventh-color;
+  color: $third-color;
+  height: 8rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 3rem;
+
+  i {
+    font-size: 5rem;
+    position: relative;
+    bottom: 0.5rem;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+/* ----------------------- MAIN ----------------------- */
+
+/* --------- PRESENT - HOURLY ---------- */
+
+#present-weather {
+  background-color: $third-color;
+  display: flex;
+  height: 50vh;
+
+  .now-weather {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    font-family: 'Zen Maru Gothic', sans-serif;
+    background-color: white;
+    width: 30rem;
+    margin: 1.5rem 3rem;
+    padding: 1rem;
+    border: 2px solid $sixth-color;
+    border-radius: 10px;
+
+    img {
+      grid-column: span 3;
+      position: relative;
+      top: 2rem;
+      width: 133%;
+    }
+
+    .main-infos {
+      text-align: center;
+      font-size: 2rem;
+      margin: auto 0;
+      @include flexColumn();
+
+      .titles {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-weight: 300;
+      }
+
+      h3 {
+        font-weight: 300;
+      }
+
+      span {
+        @include flexCenter();
+        gap: 1rem;
+        font-size: 1.75rem;
+      }
+
+      .min-max {
+        margin-top: 0.75rem;
+      }
+
+      .values {
+        font-weight: 500;
+      }
+    }
+
+    .second-categories,
+    .second-infos {
+      grid-column: span 4;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .second-categories {
+      font-size: 2rem;
+    }
+
+    .second-infos {
+      font-size: 1.5rem;
+      font-weight: bold;
+      position: relative;
+      right: 0.25rem;
+      bottom: 1rem;
+    }
+  }
 }

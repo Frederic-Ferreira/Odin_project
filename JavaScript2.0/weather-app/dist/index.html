@@ -7,9 +7,44 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/index.f7626f62.css">
     <script src="/index.e37f48ea.js" defer=""></script>
-    <title>Weather App</title>
+    <title>Weather - Météo</title>
   </head>
   <body>
-    <div class="container"></div>
+    <header>
+      <i class="bi bi-cloud-sun-fill"></i>
+      <h1>Weather - Météo</h1>
+    </header>
+
+    <main>
+      <section id="present-weather">
+        <div class="now-weather">
+          <img src="https://openweathermap.org/img/wn/01d@4x.png">
+          <div class="main-infos">
+            <span class="titles">
+              <h1>Mions</h1>
+              <h2>20°</h2>
+            </span>
+            <h3>Clear</h3>
+            <span class="min-max"><p>min</p>
+              <p>max</p></span>
+            <span class="values"><p>10°</p>
+              <p>30°</p></span>
+          </div>
+          <div class="second-categories">
+            <i class="bi bi-cloud-drizzle"></i>
+            <i class="bi bi-droplet"></i>
+            <i class="bi bi-wind"></i>
+            <p>Feels</p>
+          </div>
+          <div class="second-infos">
+            <p>0mm</p>
+            <p>10%</p>
+            <p>3.6m/s</p>
+            <p>25°</p>
+          </div>
+        </div>
+        <div class="hourly-weather"></div>
+      </section>
+    </main>
   </body>
 </html>

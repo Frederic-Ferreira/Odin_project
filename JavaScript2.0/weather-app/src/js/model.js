@@ -12,7 +12,9 @@ export const getClientCoordinates = async () => {
     if (navigator.geolocation)
       navigator.geolocation.getCurrentPosition(successRes, errorRes);
     else {
-      throw Error('Your navigator does not support geolocation');
+      throw Error(
+        'Your navigator does not support geolocation, please enter a city name'
+      );
     }
 
     function successRes(position) {

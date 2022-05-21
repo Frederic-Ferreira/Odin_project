@@ -1,4 +1,4 @@
-@import "https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Big+Shoulders+Text:wght@300;500&family=Scope+One&family=Zen+Maru+Gothic:wght@300;400;500;700;900&&display=swap";
 * {
   box-sizing: inherit;
   margin: 0;
@@ -10,6 +10,108 @@ html {
   font-family: Zen Maru Gothic, sans-serif;
   font-size: 62.5%;
   font-weight: 300;
+}
+
+body {
+  flex-direction: column;
+  display: flex;
+}
+
+header {
+  color: #f1ebf5;
+  height: 8rem;
+  background-color: #afd275;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 3rem;
+  font-family: Scope One, serif;
+  display: flex;
+}
+
+header i {
+  font-size: 5rem;
+  position: relative;
+  bottom: .5rem;
+}
+
+header h1 {
+  font-size: 3rem;
+}
+
+#present-weather {
+  height: 50vh;
+  background-color: #f1ebf5;
+  display: flex;
+}
+
+#present-weather .now-weather {
+  width: 30rem;
+  background-color: #fff;
+  border: 2px solid #7d6859;
+  border-radius: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 1.5rem 3rem;
+  padding: 1rem;
+  font-family: Zen Maru Gothic, sans-serif;
+  display: grid;
+}
+
+#present-weather .now-weather img {
+  width: 133%;
+  grid-column: span 3;
+  position: relative;
+  top: 2rem;
+}
+
+#present-weather .now-weather .main-infos {
+  text-align: center;
+  flex-direction: column;
+  margin: auto 0;
+  font-size: 2rem;
+  display: flex;
+}
+
+#present-weather .now-weather .main-infos .titles {
+  font-size: 2rem;
+}
+
+#present-weather .now-weather .main-infos h2, #present-weather .now-weather .main-infos h3 {
+  font-weight: 300;
+}
+
+#present-weather .now-weather .main-infos span {
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.75rem;
+  display: flex;
+}
+
+#present-weather .now-weather .main-infos .min-max {
+  margin-top: .75rem;
+}
+
+#present-weather .now-weather .main-infos .values {
+  font-weight: 500;
+}
+
+#present-weather .now-weather .second-categories, #present-weather .now-weather .second-infos {
+  grid-column: span 4;
+  justify-content: space-around;
+  display: flex;
+}
+
+#present-weather .now-weather .second-categories {
+  font-size: 2rem;
+}
+
+#present-weather .now-weather .second-infos {
+  font-size: 1.5rem;
+  font-weight: bold;
+  position: relative;
+  bottom: 1rem;
+  right: .25rem;
 }
 
 /*# sourceMappingURL=index.f7626f62.css.map */

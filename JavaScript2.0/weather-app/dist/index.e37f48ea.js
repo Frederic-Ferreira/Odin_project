@@ -7528,7 +7528,7 @@ const state = {
 const getClientCoordinates = async ()=>{
     await new Promise((resolve)=>{
         if (navigator.geolocation) navigator.geolocation.getCurrentPosition(successRes, errorRes);
-        else throw Error('Your navigator does not support geolocation');
+        else throw Error('Your navigator does not support geolocation, please enter a city name');
         function successRes(position) {
             state.currentCity = {
                 lat: position.coords.latitude,
