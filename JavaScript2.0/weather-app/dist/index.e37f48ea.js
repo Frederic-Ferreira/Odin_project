@@ -536,8 +536,9 @@ const controlWeather = async ()=>{
     try {
         await _model.getClientCoordinates();
         const { lat , long  } = _model.state.currentCity;
-        const data = await _model.getCurrentWeather(lat, long);
-        console.log(data);
+        await _model.getCurrentWeather(lat, long);
+        await _model.getHourlyWeather(lat, long);
+        await _model.getWeeklyWeather(lat, long);
     // helpers.convertTime(model.state.currentWeather.time);
     } catch (err) {
         console.error(err);
@@ -545,8 +546,7 @@ const controlWeather = async ()=>{
 };
 const init = ()=>{
     _currentViewDefault.default.loadEventListener(controlWeather);
-};
-init();
+}; // init();
 
 },{"@babel/polyfill":"dTCHC","./model":"Y4A21","./views/currentView":"aquYQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./helpers":"hGI1E"}],"dTCHC":[function(require,module,exports) {
 "use strict";
@@ -7519,12 +7519,16 @@ parcelHelpers.export(exports, "getClientCoordinates", ()=>getClientCoordinates
 );
 parcelHelpers.export(exports, "getCurrentWeather", ()=>getCurrentWeather
 );
+parcelHelpers.export(exports, "getHourlyWeather", ()=>getHourlyWeather
+);
+parcelHelpers.export(exports, "getWeeklyWeather", ()=>getWeeklyWeather
+);
 var _config = require("./config");
 const state = {
     currentCity: {},
     currentWeather: {},
-    hourlyWeather: {},
-    weeklyWeather: {}
+    hourlyWeather: [],
+    weeklyWeather: []
 };
 const getClientCoordinates = async ()=>{
     await new Promise((resolve)=>{
@@ -7547,24 +7551,66 @@ const getClientCoordinates = async ()=>{
 };
 const getCurrentWeather = async (lat, long)=>{
     try {
-        const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${_config.weatherKEY}`);
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${_config.weatherKEY}`);
         if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
         const data = await response.json();
-        return data;
-    // state.currentWeather = {
-    //   description: data.weather[0].description,
-    //   icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
-    //   temperature: data.main.temp,
-    //   feels: data.main.feels_like,
-    //   humidity: data.main.humidity,
-    //   min: data.main.temp_min,
-    //   max: data.main.temp_max,
-    //   wind: data.wind.speed,
-    //   rain: data.rain === undefined ? '' : data.rain['1h'],
-    //   snow: data.snow === undefined ? '' : data.snow['1h'],
-    //   time: data.dt,
-    //   city: data.name,
-    // };
+        state.currentWeather = {
+            description: data.weather[0].description,
+            icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
+            temperature: data.main.temp,
+            feels: data.main.feels_like,
+            humidity: data.main.humidity,
+            min: data.main.temp_min,
+            max: data.main.temp_max,
+            wind: data.wind.speed,
+            rain: data.rain === undefined ? '' : data.rain['1h'],
+            snow: data.snow === undefined ? '' : data.snow['1h'],
+            time: data.dt,
+            city: data.name
+        };
+    } catch (err) {
+        console.log(err);
+    }
+};
+const getHourlyWeather = async (lat, long)=>{
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${_config.weatherKEY}`);
+        if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
+        const { hourly  } = await response.json();
+        hourly.forEach((hour)=>{
+            const obj = {
+                hourNumber: hour.dt,
+                icon: hour.weather[0].icon,
+                temperature: hour.temp,
+                rain: hour.rain === undefined ? '' : hour.rain['1h'],
+                snow: hour.snow === undefined ? '' : hour.snow['1h'],
+                wind: hour.wind_speed
+            };
+            state.hourlyWeather.push(obj);
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+const getWeeklyWeather = async (lat, long)=>{
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${_config.weatherKEY}`);
+        if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
+        const { daily  } = await response.json();
+        daily.forEach((day, i)=>{
+            if (i !== 0) {
+                const obj = {
+                    dayName: day.dt,
+                    icon: day.weather[0].icon,
+                    minTemp: day.temp.min,
+                    maxTemp: day.temp.max,
+                    rain: day.rain === undefined ? '' : day.rain,
+                    snow: day.snow === undefined ? '' : day.snow,
+                    wind: day.wind_speed
+                };
+                state.weeklyWeather.push(obj);
+            }
+        });
     } catch (err) {
         console.log(err);
     }

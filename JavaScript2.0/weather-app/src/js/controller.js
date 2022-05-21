@@ -23,4 +23,4 @@ const init = () => {
   currentView.loadEventListener(controlWeather);
 };
 
-init();
+// init();

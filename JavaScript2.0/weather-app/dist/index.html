@@ -9,6 +9,7 @@
     <script src="/index.e37f48ea.js" defer=""></script>
     <title>Weather - Météo</title>
   </head>
+
   <body>
     <header>
       <i class="bi bi-cloud-sun-fill"></i>
@@ -18,7 +19,7 @@
     <main>
       <section id="present-weather">
         <div class="now-weather">
-          <img src="https://openweathermap.org/img/wn/01d@4x.png">
+          <img src="https://openweathermap.org/img/wn/01d@4x.png" alt="weather-icon">
           <div class="main-infos">
             <span class="titles">
               <h1>Mions</h1>
@@ -55,8 +56,238 @@
             </div>
           </div>
         </div>
-        <div class="hourly-weather"></div>
+
+        <div class="hourly-weather">
+          <div class="hour">
+            <h2>11h</h2>
+            <img src="https://openweathermap.org/img/wn/03d@4x.png" alt="weather-icon">
+            <h1>20°</h1>
+            <div class="smaller-icons">
+              <div class="column-wrapper">
+                <i class="bi bi-cloud-drizzle"></i>
+                <p>0mm</p>
+              </div>
+              <div class="column-wrapper">
+                <i class="bi bi-wind"></i>
+                <p>1.2m/s</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hour">
+            <h2>12h</h2>
+            <img src="https://openweathermap.org/img/wn/04d@4x.png" alt="weather-icon">
+            <h1>17°</h1>
+            <div class="smaller-icons">
+              <div class="column-wrapper">
+                <i class="bi bi-cloud-drizzle"></i>
+                <p>0mm</p>
+              </div>
+              <div class="column-wrapper">
+                <i class="bi bi-wind"></i>
+                <p>1.2m/s</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hour">
+            <h2>13h</h2>
+            <img src="https://openweathermap.org/img/wn/02d@4x.png" alt="weather-icon">
+            <h1>22°</h1>
+            <div class="smaller-icons">
+              <div class="column-wrapper">
+                <i class="bi bi-cloud-drizzle"></i>
+                <p>0mm</p>
+              </div>
+              <div class="column-wrapper">
+                <i class="bi bi-wind"></i>
+                <p>1.2m/s</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hour">
+            <h2>11h</h2>
+            <img src="https://openweathermap.org/img/wn/03d@4x.png" alt="weather-icon">
+            <h1>20°</h1>
+            <div class="smaller-icons">
+              <div class="column-wrapper">
+                <i class="bi bi-cloud-drizzle"></i>
+                <p>0mm</p>
+              </div>
+              <div class="column-wrapper">
+                <i class="bi bi-wind"></i>
+                <p>1.2m/s</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="daily-weather">
+        <div id="daily-container">
+          <div class="day">
+            <h1>Sunday</h1>
+            <img src="https://openweathermap.org/img/wn/01d@4x.png" alt="weather-icon">
+            <div class="row-wrapper">
+              <p>min</p>
+              <p class="value">10°</p>
+            </div>
+            <div class="row-wrapper">
+              <p>max</p>
+              <p class="value">30°</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-cloud-drizzle"></i>
+              <p class="value">0mm</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-wind"></i>
+              <p class="value">3.6m/s</p>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="day">
+            <h1>Monday</h1>
+            <img src="https://openweathermap.org/img/wn/02d@4x.png" alt="weather-icon">
+            <div class="row-wrapper">
+              <p>min</p>
+              <p class="value">20°</p>
+            </div>
+            <div class="row-wrapper">
+              <p>max</p>
+              <p class="value">27°</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-cloud-drizzle"></i>
+              <p class="value">0mm</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-wind"></i>
+              <p class="value">3.6m/s</p>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="day">
+            <h1>Tuesday</h1>
+            <img src="https://openweathermap.org/img/wn/03d@4x.png" alt="weather-icon">
+            <div class="row-wrapper">
+              <p>min</p>
+              <p class="value">0°</p>
+            </div>
+            <div class="row-wrapper">
+              <p>max</p>
+              <p class="value">20°</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-cloud-drizzle"></i>
+              <p class="value">0mm</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-wind"></i>
+              <p class="value">3.6m/s</p>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="day">
+            <h1>Wednesday</h1>
+            <img src="https://openweathermap.org/img/wn/02d@4x.png" alt="weather-icon">
+            <div class="row-wrapper">
+              <p>min</p>
+              <p class="value">10°</p>
+            </div>
+            <div class="row-wrapper">
+              <p>max</p>
+              <p class="value">30°</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-cloud-drizzle"></i>
+              <p class="value">0mm</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-wind"></i>
+              <p class="value">3.6m/s</p>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="day">
+            <h1>Thursday</h1>
+            <img src="https://openweathermap.org/img/wn/01d@4x.png" alt="weather-icon">
+            <div class="row-wrapper">
+              <p>min</p>
+              <p class="value">10°</p>
+            </div>
+            <div class="row-wrapper">
+              <p>max</p>
+              <p class="value">30°</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-cloud-drizzle"></i>
+              <p class="value">0mm</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-wind"></i>
+              <p class="value">3.6m/s</p>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="day">
+            <h1>Friday</h1>
+            <img src="https://openweathermap.org/img/wn/03d@4x.png" alt="weather-icon">
+            <div class="row-wrapper">
+              <p>min</p>
+              <p class="value">10°</p>
+            </div>
+            <div class="row-wrapper">
+              <p>max</p>
+              <p class="value">30°</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-cloud-drizzle"></i>
+              <p class="value">0mm</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-wind"></i>
+              <p class="value">3.6m/s</p>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="day">
+            <h1>Saturday</h1>
+            <img src="https://openweathermap.org/img/wn/02d@4x.png" alt="weather-icon">
+            <div class="row-wrapper">
+              <p>min</p>
+              <p class="value">10°</p>
+            </div>
+            <div class="row-wrapper">
+              <p>max</p>
+              <p class="value">30°</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-cloud-drizzle"></i>
+              <p class="value">0mm</p>
+            </div>
+            <div class="row-wrapper">
+              <i class="bi bi-wind"></i>
+              <p class="value">3.6m/s</p>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
+
+    <footer>Copyright ©2022 - Created by FREɄD</footer>
   </body>
 </html>
