@@ -78,15 +78,18 @@ header {
     background-color: white;
     width: 30rem;
     margin: 1.5rem 3rem;
-    padding: 1rem;
-    border: 2px solid $sixth-color;
-    border-radius: 10px;
+    padding: 1.5rem;
+    border: 3px solid $sixth-color;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.383);
+    border-radius: 7px;
 
     img {
       grid-column: span 3;
       position: relative;
-      top: 2rem;
+      top: 1rem;
+      left: -1rem;
       width: 133%;
+      height: 100%;
     }
 
     .main-infos {
