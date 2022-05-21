@@ -13,6 +13,8 @@ const controlWeather = async () => {
     await model.getHourlyWeather(lat, long);
     await model.getWeeklyWeather(lat, long);
 
+    console.log(model.state);
+
     // helpers.convertTime(model.state.currentWeather.time);
   } catch (err) {
     console.error(err);
@@ -23,4 +25,4 @@ const init = () => {
   currentView.loadEventListener(controlWeather);
 };
 
-// init();
+init();

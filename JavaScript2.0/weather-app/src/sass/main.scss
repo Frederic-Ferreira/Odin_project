@@ -230,11 +230,10 @@ header {
 /* --------- DAILY ---------- */
 
 #daily-weather {
-  height: 50rem;
+  height: 70rem;
   background-color: $background-color;
 
   #daily-container {
-    height: 40rem;
     margin: 0 5rem 0 10rem;
     background-color: white;
     padding: 1.5rem;
@@ -243,7 +242,6 @@ header {
     border-radius: 10px;
     @include flexColumn();
     gap: 1rem;
-    overflow: scroll;
 
     .day {
       display: flex;

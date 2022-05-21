@@ -16,7 +16,7 @@ class currentView extends View {
     window.addEventListener('load', handler);
   }
 
-  _generateMarkup(data) {}
+  // _generateMarkup(data) {}
 }
 
 export default new currentView();

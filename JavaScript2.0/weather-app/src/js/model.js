@@ -45,6 +45,29 @@ export const getClientCoordinates = async () => {
   });
 };
 
+export const getInputCoordinates = async (input) => {
+  try {
+    const response = await fetch(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=${weatherKEY}`
+    );
+
+    if (!response.ok)
+      throw Error(
+        'Something went wrong with the server, please try again ...'
+      );
+
+    const data = await response.json();
+
+    state.currentCity = {
+      name: data[0].name,
+      lat: data[0].lat,
+      long: data[0].lon,
+    };
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const getCurrentWeather = async (lat, long) => {
   try {
     const response = await fetch(
@@ -93,7 +116,7 @@ export const getHourlyWeather = async (lat, long) => {
     hourly.forEach((hour) => {
       const obj = {
         hourNumber: hour.dt,
-        icon: hour.weather[0].icon,
+        icon: `https://openweathermap.org/img/wn/${hour.weather[0].icon}@4x.png`,
         temperature: hour.temp,
         rain: hour.rain === undefined ? '' : hour.rain['1h'],
         snow: hour.snow === undefined ? '' : hour.snow['1h'],
@@ -123,7 +146,7 @@ export const getWeeklyWeather = async (lat, long) => {
       if (i !== 0) {
         const obj = {
           dayName: day.dt,
-          icon: day.weather[0].icon,
+          icon: `https://openweathermap.org/img/wn/${day.weather[0].icon}@4x.png`,
           minTemp: day.temp.min,
           maxTemp: day.temp.max,
           rain: day.rain === undefined ? '' : day.rain,

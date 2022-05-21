@@ -539,6 +539,7 @@ const controlWeather = async ()=>{
         await _model.getCurrentWeather(lat, long);
         await _model.getHourlyWeather(lat, long);
         await _model.getWeeklyWeather(lat, long);
+        console.log(_model.state);
     // helpers.convertTime(model.state.currentWeather.time);
     } catch (err) {
         console.error(err);
@@ -546,7 +547,8 @@ const controlWeather = async ()=>{
 };
 const init = ()=>{
     _currentViewDefault.default.loadEventListener(controlWeather);
-}; // init();
+};
+init();
 
 },{"@babel/polyfill":"dTCHC","./model":"Y4A21","./views/currentView":"aquYQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./helpers":"hGI1E"}],"dTCHC":[function(require,module,exports) {
 "use strict";
@@ -7517,6 +7519,8 @@ parcelHelpers.export(exports, "state", ()=>state
 );
 parcelHelpers.export(exports, "getClientCoordinates", ()=>getClientCoordinates
 );
+parcelHelpers.export(exports, "getInputCoordinates", ()=>getInputCoordinates
+);
 parcelHelpers.export(exports, "getCurrentWeather", ()=>getCurrentWeather
 );
 parcelHelpers.export(exports, "getHourlyWeather", ()=>getHourlyWeather
@@ -7549,6 +7553,20 @@ const getClientCoordinates = async ()=>{
         }
     });
 };
+const getInputCoordinates = async (input)=>{
+    try {
+        const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=${_config.weatherKEY}`);
+        if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
+        const data = await response.json();
+        state.currentCity = {
+            name: data[0].name,
+            lat: data[0].lat,
+            long: data[0].lon
+        };
+    } catch (err) {
+        console.log(err);
+    }
+};
 const getCurrentWeather = async (lat, long)=>{
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${_config.weatherKEY}`);
@@ -7580,7 +7598,7 @@ const getHourlyWeather = async (lat, long)=>{
         hourly.forEach((hour)=>{
             const obj = {
                 hourNumber: hour.dt,
-                icon: hour.weather[0].icon,
+                icon: `https://openweathermap.org/img/wn/${hour.weather[0].icon}@4x.png`,
                 temperature: hour.temp,
                 rain: hour.rain === undefined ? '' : hour.rain['1h'],
                 snow: hour.snow === undefined ? '' : hour.snow['1h'],
@@ -7601,7 +7619,7 @@ const getWeeklyWeather = async (lat, long)=>{
             if (i !== 0) {
                 const obj = {
                     dayName: day.dt,
-                    icon: day.weather[0].icon,
+                    icon: `https://openweathermap.org/img/wn/${day.weather[0].icon}@4x.png`,
                     minTemp: day.temp.min,
                     maxTemp: day.temp.max,
                     rain: day.rain === undefined ? '' : day.rain,
@@ -7669,7 +7687,6 @@ class currentView extends _viewDefault.default {
     loadEventListener(handler) {
         window.addEventListener('load', handler);
     }
-    _generateMarkup(data) {}
 }
 exports.default = new currentView();
 
