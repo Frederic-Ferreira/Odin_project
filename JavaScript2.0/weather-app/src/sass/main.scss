@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Text:wght@300;500&family=Scope+One&family=Zen+Maru+Gothic:wght@300;400;500;700;900&&display=swap');
 
+$header-color: rgba(255, 166, 0, 0.8);
+$border-color: rgba(255, 166, 0, 0.7);
+$background-color: rgb(100, 175, 236);
+$box-shadow-color: rgb(6, 132, 235);
+$text-color: rgb(77, 77, 77);
+
 $first-color: #a0c2d1;
 $second-color: #b19ac6;
 $third-color: #f1ebf5;
@@ -42,8 +48,8 @@ body {
 
 header {
   font-family: 'Scope One', serif;
-  background-color: $seventh-color;
-  color: $third-color;
+  background-color: $header-color;
+  color: white;
   height: 8rem;
   display: flex;
   justify-content: flex-start;
@@ -67,21 +73,24 @@ header {
 /* --------- PRESENT - HOURLY ---------- */
 
 #present-weather {
-  background-color: $third-color;
   display: flex;
-  height: 50vh;
+  align-items: center;
+  background-color: $background-color;
+  height: 50rem;
+  color: $text-color;
 
   .now-weather {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    font-family: 'Zen Maru Gothic', sans-serif;
     background-color: white;
-    width: 30rem;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    width: 33rem;
+    height: 33rem;
     margin: 1.5rem 3rem;
     padding: 1.5rem;
-    border: 3px solid $sixth-color;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.383);
-    border-radius: 7px;
+    border: 3px solid $border-color;
+    box-shadow: 5px 5px 2px $box-shadow-color;
+    border-radius: 10px;
 
     img {
       grid-column: span 3;
@@ -89,7 +98,6 @@ header {
       top: 1rem;
       left: -1rem;
       width: 133%;
-      height: 100%;
     }
 
     .main-infos {
@@ -103,7 +111,8 @@ header {
       }
 
       h2 {
-        font-weight: 300;
+        font-weight: 500;
+        color: $fourth-color;
       }
 
       h3 {
@@ -117,31 +126,42 @@ header {
       }
 
       .min-max {
+        display: flex;
+        gap: 2rem;
         margin-top: 0.75rem;
-      }
 
-      .values {
-        font-weight: 500;
+        .value {
+          color: $fourth-color;
+          font-weight: 500;
+          position: relative;
+          left: 0.33rem;
+        }
       }
-    }
-
-    .second-categories,
-    .second-infos {
-      grid-column: span 4;
-      display: flex;
-      justify-content: space-around;
     }
 
     .second-categories {
-      font-size: 2rem;
-    }
+      grid-column: span 4;
+      display: flex;
+      justify-content: space-around;
 
-    .second-infos {
-      font-size: 1.5rem;
-      font-weight: bold;
-      position: relative;
-      right: 0.25rem;
-      bottom: 1rem;
+      i,
+      .icon {
+        font-size: 2rem;
+        color: black;
+        font-weight: 300;
+      }
+
+      p {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: $fourth-color;
+      }
+
+      .column-wrapper {
+        @include flexColumn();
+        align-items: center;
+        gap: 1rem;
+      }
     }
   }
 }

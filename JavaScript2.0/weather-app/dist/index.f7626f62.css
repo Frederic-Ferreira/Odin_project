@@ -18,9 +18,9 @@ body {
 }
 
 header {
-  color: #f1ebf5;
+  color: #fff;
   height: 8rem;
-  background-color: #afd275;
+  background-color: #ffa600cc;
   justify-content: flex-start;
   align-items: center;
   gap: 1.5rem;
@@ -40,27 +40,29 @@ header h1 {
 }
 
 #present-weather {
-  height: 50vh;
-  background-color: #f1ebf5;
+  height: 50rem;
+  color: #4d4d4d;
+  background-color: #64afec;
+  align-items: center;
   display: flex;
 }
 
 #present-weather .now-weather {
-  width: 30rem;
+  width: 33rem;
+  height: 33rem;
   background-color: #fff;
-  border: 3px solid #7d6859;
-  border-radius: 7px;
+  border: 3px solid #ffa600b3;
+  border-radius: 10px;
   grid-template-columns: repeat(4, 1fr);
   margin: 1.5rem 3rem;
   padding: 1.5rem;
   font-family: Zen Maru Gothic, sans-serif;
   display: grid;
-  box-shadow: 3px 3px 3px #00000062;
+  box-shadow: 5px 5px 2px #0684eb;
 }
 
 #present-weather .now-weather img {
   width: 133%;
-  height: 100%;
   grid-column: span 3;
   position: relative;
   top: 1rem;
@@ -79,7 +81,12 @@ header h1 {
   font-size: 2rem;
 }
 
-#present-weather .now-weather .main-infos h2, #present-weather .now-weather .main-infos h3 {
+#present-weather .now-weather .main-infos h2 {
+  color: #f172a1;
+  font-weight: 500;
+}
+
+#present-weather .now-weather .main-infos h3 {
   font-weight: 300;
 }
 
@@ -92,29 +99,41 @@ header h1 {
 }
 
 #present-weather .now-weather .main-infos .min-max {
+  gap: 2rem;
   margin-top: .75rem;
+  display: flex;
 }
 
-#present-weather .now-weather .main-infos .values {
+#present-weather .now-weather .main-infos .min-max .value {
+  color: #f172a1;
   font-weight: 500;
+  position: relative;
+  left: .33rem;
 }
 
-#present-weather .now-weather .second-categories, #present-weather .now-weather .second-infos {
+#present-weather .now-weather .second-categories {
   grid-column: span 4;
   justify-content: space-around;
   display: flex;
 }
 
-#present-weather .now-weather .second-categories {
+#present-weather .now-weather .second-categories i, #present-weather .now-weather .second-categories .icon {
+  color: #000;
   font-size: 2rem;
+  font-weight: 300;
 }
 
-#present-weather .now-weather .second-infos {
+#present-weather .now-weather .second-categories p {
+  color: #f172a1;
   font-size: 1.5rem;
-  font-weight: bold;
-  position: relative;
-  bottom: 1rem;
-  right: .25rem;
+  font-weight: 500;
+}
+
+#present-weather .now-weather .second-categories .column-wrapper {
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  display: flex;
 }
 
 /*# sourceMappingURL=index.f7626f62.css.map */
