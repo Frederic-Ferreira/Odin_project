@@ -9,7 +9,9 @@ const controlWeather = async () => {
 
     const { lat, long } = model.state.currentCity;
 
-    const data = await model.getCurrentWeather(lat, long);
+    await model.getCurrentWeather(lat, long);
+    await model.getHourlyWeather(lat, long);
+    await model.getWeeklyWeather(lat, long);
 
     // helpers.convertTime(model.state.currentWeather.time);
   } catch (err) {

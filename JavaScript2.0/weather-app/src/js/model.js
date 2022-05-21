@@ -3,8 +3,8 @@ import { weatherKEY } from './config';
 export const state = {
   currentCity: {},
   currentWeather: {},
-  hourlyWeather: {},
-  weeklyWeather: {},
+  hourlyWeather: [],
+  weeklyWeather: [],
 };
 
 export const getClientCoordinates = async () => {
@@ -72,6 +72,67 @@ export const getCurrentWeather = async (lat, long) => {
       time: data.dt,
       city: data.name,
     };
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getHourlyWeather = async (lat, long) => {
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${weatherKEY}`
+    );
+
+    if (!response.ok)
+      throw Error(
+        'Something went wrong with the server, please try again ...'
+      );
+
+    const { hourly } = await response.json();
+
+    hourly.forEach((hour) => {
+      const obj = {
+        hourNumber: hour.dt,
+        icon: hour.weather[0].icon,
+        temperature: hour.temp,
+        rain: hour.rain === undefined ? '' : hour.rain['1h'],
+        snow: hour.snow === undefined ? '' : hour.snow['1h'],
+        wind: hour.wind_speed,
+      };
+      state.hourlyWeather.push(obj);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getWeeklyWeather = async (lat, long) => {
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${weatherKEY}`
+    );
+
+    if (!response.ok)
+      throw Error(
+        'Something went wrong with the server, please try again ...'
+      );
+
+    const { daily } = await response.json();
+
+    daily.forEach((day, i) => {
+      if (i !== 0) {
+        const obj = {
+          dayName: day.dt,
+          icon: day.weather[0].icon,
+          minTemp: day.temp.min,
+          maxTemp: day.temp.max,
+          rain: day.rain === undefined ? '' : day.rain,
+          snow: day.snow === undefined ? '' : day.snow,
+          wind: day.wind_speed,
+        };
+        state.weeklyWeather.push(obj);
+      }
+    });
   } catch (err) {
     console.log(err);
   }

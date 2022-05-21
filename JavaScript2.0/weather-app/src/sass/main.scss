@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Text:wght@300;500&family=Scope+One&family=Zen+Maru+Gothic:wght@300;400;500;700;900&&display=swap');
 
-$header-color: rgba(255, 166, 0, 0.8);
-$border-color: rgba(255, 166, 0, 0.7);
-$background-color: rgb(100, 175, 236);
-$box-shadow-color: rgb(6, 132, 235);
+$header-color: rgba(252, 180, 47, 0.8);
+$background-color: rgb(125, 175, 233);
+$box-shadow-color: rgb(31, 137, 223);
 $text-color: rgb(77, 77, 77);
 
 $first-color: #a0c2d1;
@@ -86,9 +85,9 @@ header {
     font-family: 'Zen Maru Gothic', sans-serif;
     width: 33rem;
     height: 33rem;
-    margin: 1.5rem 3rem;
+    margin: 0rem 5rem;
     padding: 1.5rem;
-    border: 3px solid $border-color;
+    border: 3px solid $header-color;
     box-shadow: 5px 5px 2px $box-shadow-color;
     border-radius: 10px;
 
@@ -97,7 +96,7 @@ header {
       position: relative;
       top: 1rem;
       left: -1rem;
-      width: 133%;
+      width: 125%;
     }
 
     .main-infos {

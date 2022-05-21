@@ -537,6 +537,7 @@ const controlWeather = async ()=>{
         await _model.getClientCoordinates();
         const { lat , long  } = _model.state.currentCity;
         const data = await _model.getCurrentWeather(lat, long);
+        console.log(data);
     // helpers.convertTime(model.state.currentWeather.time);
     } catch (err) {
         console.error(err);
@@ -7546,23 +7547,24 @@ const getClientCoordinates = async ()=>{
 };
 const getCurrentWeather = async (lat, long)=>{
     try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${_config.weatherKEY}`);
+        const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${_config.weatherKEY}`);
         if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
         const data = await response.json();
-        state.currentWeather = {
-            description: data.weather[0].description,
-            icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
-            temperature: data.main.temp,
-            feels: data.main.feels_like,
-            humidity: data.main.humidity,
-            min: data.main.temp_min,
-            max: data.main.temp_max,
-            wind: data.wind.speed,
-            rain: data.rain === undefined ? '' : data.rain['1h'],
-            snow: data.snow === undefined ? '' : data.snow['1h'],
-            time: data.dt,
-            city: data.name
-        };
+        return data;
+    // state.currentWeather = {
+    //   description: data.weather[0].description,
+    //   icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
+    //   temperature: data.main.temp,
+    //   feels: data.main.feels_like,
+    //   humidity: data.main.humidity,
+    //   min: data.main.temp_min,
+    //   max: data.main.temp_max,
+    //   wind: data.wind.speed,
+    //   rain: data.rain === undefined ? '' : data.rain['1h'],
+    //   snow: data.snow === undefined ? '' : data.snow['1h'],
+    //   time: data.dt,
+    //   city: data.name,
+    // };
     } catch (err) {
         console.log(err);
     }

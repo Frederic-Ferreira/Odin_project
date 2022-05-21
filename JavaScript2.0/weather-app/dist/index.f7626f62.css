@@ -20,7 +20,7 @@ body {
 header {
   color: #fff;
   height: 8rem;
-  background-color: #ffa600cc;
+  background-color: #fcb42fcc;
   justify-content: flex-start;
   align-items: center;
   gap: 1.5rem;
@@ -42,7 +42,7 @@ header h1 {
 #present-weather {
   height: 50rem;
   color: #4d4d4d;
-  background-color: #64afec;
+  background-color: #7dafe9;
   align-items: center;
   display: flex;
 }
@@ -51,18 +51,18 @@ header h1 {
   width: 33rem;
   height: 33rem;
   background-color: #fff;
-  border: 3px solid #ffa600b3;
+  border: 3px solid #fcb42fcc;
   border-radius: 10px;
   grid-template-columns: repeat(4, 1fr);
-  margin: 1.5rem 3rem;
+  margin: 0 5rem;
   padding: 1.5rem;
   font-family: Zen Maru Gothic, sans-serif;
   display: grid;
-  box-shadow: 5px 5px 2px #0684eb;
+  box-shadow: 5px 5px 2px #1f89df;
 }
 
 #present-weather .now-weather img {
-  width: 133%;
+  width: 125%;
   grid-column: span 3;
   position: relative;
   top: 1rem;
