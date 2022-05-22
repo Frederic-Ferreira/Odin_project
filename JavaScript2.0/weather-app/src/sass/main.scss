@@ -49,6 +49,7 @@ header {
   font-family: 'Scope One', serif;
   background-color: $header-color;
   color: white;
+  text-shadow: 0.5px 0.5px 0.5px $sixth-color;
   font-weight: 700;
   height: 8rem;
   display: flex;
@@ -57,10 +58,56 @@ header {
   gap: 1.5rem;
   padding: 2rem 3rem;
 
+  form {
+    position: relative;
+    i {
+      font-size: 2rem;
+      position: absolute;
+      right: 1rem;
+      top: 0.9rem;
+      color: $header-color;
+      cursor: pointer;
+    }
+  }
+
+  label {
+    font-size: 2.5rem;
+    margin-right: 1rem;
+  }
+
+  input {
+    width: 4rem;
+    height: 4rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    border: none;
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+
+  .input-wrapper:hover input,
+  input:focus {
+    width: 22rem;
+    padding: 0 2rem;
+    border-radius: 20px;
+    animation: ease 0.5s width-input;
+    &::placeholder {
+      opacity: 1;
+    }
+  }
+
   .row-wrapper {
     display: flex;
     align-items: center;
     gap: 1rem;
+
+    p {
+      font-size: 2.5rem;
+      text-shadow: 0.5px 0.5px 0.5px $sixth-color;
+      margin-right: 1rem;
+      padding-top: 0.25rem;
+    }
   }
 
   i {
@@ -320,4 +367,15 @@ footer {
   font-size: 2.5rem;
   height: 4rem;
   background-color: $header-color;
+}
+
+/* ------------- ANIMATION -------------- */
+
+@keyframes width-input {
+  0% {
+    width: 4rem;
+  }
+  100% {
+    width: 22rem;
+  }
 }
