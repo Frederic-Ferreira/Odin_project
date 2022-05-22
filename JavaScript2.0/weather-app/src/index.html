@@ -18,11 +18,24 @@
 
   <body>
     <header>
-      <i class="bi bi-cloud-sun-fill"></i>
-      <h1>Weather - Météo</h1>
+      <div class="row-wrapper">
+        <i class="bi bi-cloud-sun-fill"></i>
+        <h1>Weather - Météo</h1>
+      </div>
+      <form>
+        <label for="city">Enter City name:</label>
+        <input
+          id="city"
+          type="text"
+          placeholder="City's name, ZIP Code, ..."
+        />
+      </form>
     </header>
 
     <main>
+      <div id="title-today">
+        <h2>Today</h2>
+      </div>
       <section id="present-weather">
         <div class="now-weather">
           <img
@@ -145,6 +158,9 @@
         </div>
       </section>
 
+      <div id="title-week">
+        <h2>This week</h2>
+      </div>
       <section id="daily-weather">
         <div id="daily-container">
           <div class="day">
