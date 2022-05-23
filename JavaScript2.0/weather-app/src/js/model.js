@@ -5,6 +5,11 @@ export const state = {
   currentWeather: {},
   hourlyWeather: [],
   weeklyWeather: [],
+  lang: 'fr',
+};
+
+export const setStateLang = (choice) => {
+  state.lang = choice;
 };
 
 export const getClientCoordinates = async () => {
@@ -71,7 +76,7 @@ export const getInputCoordinates = async (input) => {
 export const getCurrentWeather = async (lat, long) => {
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${weatherKEY}&lang=fr`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${weatherKEY}&lang=${state.lang}`
     );
 
     if (!response.ok)
@@ -103,7 +108,7 @@ export const getCurrentWeather = async (lat, long) => {
 export const getHourlyWeather = async (lat, long) => {
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${weatherKEY}`
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts,current,daily&appid=${weatherKEY}&lang=${state.lang}`
     );
 
     if (!response.ok)
@@ -112,6 +117,8 @@ export const getHourlyWeather = async (lat, long) => {
       );
 
     const { hourly } = await response.json();
+
+    state.hourlyWeather = [];
 
     hourly.forEach((hour) => {
       const obj = {
@@ -132,7 +139,7 @@ export const getHourlyWeather = async (lat, long) => {
 export const getWeeklyWeather = async (lat, long) => {
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${weatherKEY}`
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,hourly,current,alerts&appid=${weatherKEY}&lang=${state.lang}`
     );
 
     if (!response.ok)
@@ -141,6 +148,8 @@ export const getWeeklyWeather = async (lat, long) => {
       );
 
     const { daily } = await response.json();
+
+    state.weeklyWeather = [];
 
     daily.forEach((day, i) => {
       if (i !== 0) {

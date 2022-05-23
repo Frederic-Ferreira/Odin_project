@@ -1,21 +1,33 @@
 import '@babel/polyfill';
+
 import * as model from './model';
-import * as helpers from './helpers';
+
+import mainView from './views/mainView';
 import currentView from './views/currentView';
 import searchView from './views/searchView';
+import hourlyView from './views/hourlyView';
+import weeklyView from './views/weeklyView';
 
 const controlWeather = async () => {
   try {
-    currentView.renderSpinner();
-
     const { lat, long } = model.state.currentCity;
 
     await model.getCurrentWeather(lat, long);
     await model.getHourlyWeather(lat, long);
     await model.getWeeklyWeather(lat, long);
 
-    currentView.renderCurrentWeather(model.state.currentWeather);
-    // helpers.convertTime(model.state.currentWeather.time);
+    currentView.renderCurrentWeather(
+      model.state.currentWeather,
+      model.state.lang
+    );
+    hourlyView.renderHourlyWeather(
+      model.state.hourlyWeather,
+      model.state.lang
+    );
+    weeklyView.renderWeeklyWeather(
+      model.state.weeklyWeather,
+      model.state.lang
+    );
   } catch (err) {
     console.error(err);
   }
@@ -41,8 +53,15 @@ const controlClientInput = async (input) => {
   }
 };
 
-const init = () => {
-  currentView.renderSpinner();
+const controlLanguage = (lang) => {
+  model.setStateLang(lang);
+
+  mainView.languageDisplay(model.state.lang);
+};
+
+const init = async () => {
+  mainView.addHandlerLang(controlLanguage);
+
   currentView.loadEventListener(controlClientCoordinates);
   searchView.addHandlerSearch(controlClientInput);
 };

@@ -20,16 +20,24 @@
     <header>
       <div class="row-wrapper">
         <i class="bi bi-cloud-sun-fill"></i>
-        <h1>Weather - Météo</h1>
+        <h1 id="site-title">Météo</h1>
+      </div>
+      <div id="choices">
+        <p id="fr">FR</p>
+        <label class="switch">
+          <input type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+        <p id="eng">ENG</p>
       </div>
       <div class="row-wrapper">
-        <p>Search</p>
+        <p id="label">Rechercher</p>
         <form>
           <div class="input-wrapper">
             <input
               id="city"
               type="text"
-              placeholder="City's name, ZIP Code, ..."
+              placeholder="Nom de ville, code postal, ..."
             />
             <i class="bi bi-search"></i>
           </div>
@@ -39,7 +47,7 @@
 
     <main>
       <div id="title-today">
-        <h2>Today</h2>
+        <h2 id="title-hours">Aujourd'hui</h2>
       </div>
       <section id="present-weather">
         <div class="now-weather">
@@ -85,7 +93,7 @@
         </div>
 
         <div class="hourly-weather">
-          <div class="hour">
+          <!-- <div class="hour">
             <h2>11h</h2>
             <img
               src="https://openweathermap.org/img/wn/03d@4x.png"
@@ -159,16 +167,16 @@
                 <p>1.2m/s</p>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </section>
 
       <div id="title-week">
-        <h2>This week</h2>
+        <h2 id="title-days">Cette semaine</h2>
       </div>
       <section id="daily-weather">
         <div id="daily-container">
-          <div class="day">
+          <!-- <div class="day">
             <h1>Sunday</h1>
             <img
               src="https://openweathermap.org/img/wn/01d@4x.png"
@@ -345,8 +353,8 @@
             <div class="row-wrapper">
               <i class="bi bi-wind"></i>
               <p class="value">3.6m/s</p>
-            </div>
-          </div>
+            </div> -->
+          <!-- </div> -->
         </div>
       </section>
     </main>

@@ -1,13 +1,23 @@
 import View from './View';
+import {
+  convertMPH,
+  convertKMH,
+  convertToCelsius,
+  convertToFarenheit,
+} from '../helpers';
+
+import _ from 'lodash';
 
 class currentView extends View {
   _parentElement = document.querySelector('.now-weather');
   _data;
+  _lang;
 
-  renderCurrentWeather(currentWeather) {
+  renderCurrentWeather(currentWeather, lang) {
     this._data = currentWeather;
+    this._lang = lang;
 
-    const html = this._generateMarkup(this._data);
+    const html = this._generateMarkup(this._data, this._lang);
 
     this._clear();
 
@@ -18,7 +28,7 @@ class currentView extends View {
     window.addEventListener('load', handler);
   }
 
-  _generateMarkup(data) {
+  _generateMarkup(data, lang) {
     const html = `
     <img
     src="${data.icon}"
@@ -27,17 +37,29 @@ class currentView extends View {
   <div class="main-infos">
     <span class="titles">
       <h1>${data.city}</h1>
-      <h2>${data.temperature}</h2>
+      <h2>${
+        lang === 'fr'
+          ? convertToCelsius(data.temperature)
+          : convertToFarenheit(data.temperature)
+      }</h2>
     </span>
-    <h3>${data.description}</h3>
+    <h3>${_.capitalize(data.description)}</h3>
     <span class="min-max">
       <div class="column-wrapper">
         <p>min</p>
-        <p class="value">${data.min}</p>
+        <p class="value">${
+          lang === 'fr'
+            ? convertToCelsius(data.min)
+            : convertToFarenheit(data.min)
+        }</p>
       </div>
       <div class="column-wrapper">
         <p>max</p>
-        <p class="value">${data.max}</p>
+        <p class="value">${
+          lang === 'fr'
+            ? convertToCelsius(data.max)
+            : convertToFarenheit(data.max)
+        }</p>
       </div>
     </span>
   </div>
@@ -52,11 +74,17 @@ class currentView extends View {
     </div>
     <div class="column-wrapper">
       <i class="bi bi-wind"></i>
-      <p>${data.wind}m/s</p>
+      <p>${
+        lang === 'fr' ? convertKMH(data.wind) : convertMPH(data.wind)
+      }</p>
     </div>
     <div class="column-wrapper">
       <p class="icon">Feels</p>
-      <p>${data.feels}°</p>
+      <p>${
+        lang === 'fr'
+          ? convertToCelsius(data.feels)
+          : convertToFarenheit(data.feels)
+      }</p>
     </div>
   </div>
   `;

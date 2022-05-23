@@ -1,7 +1,7 @@
 import View from './View';
 
 class searchView extends View {
-  _parentElement = document.querySelector('input');
+  _parentElement = document.getElementById('city');
   _search = document.querySelector('.bi-search');
 
   _getInput() {

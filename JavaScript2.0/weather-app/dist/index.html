@@ -14,13 +14,21 @@
     <header>
       <div class="row-wrapper">
         <i class="bi bi-cloud-sun-fill"></i>
-        <h1>Weather - Météo</h1>
+        <h1 id="site-title">Météo</h1>
+      </div>
+      <div id="choices">
+        <p id="fr">FR</p>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+        <p id="eng">ENG</p>
       </div>
       <div class="row-wrapper">
-        <p>Search</p>
+        <p id="label">Rechercher</p>
         <form>
           <div class="input-wrapper">
-            <input id="city" type="text" placeholder="City's name, ZIP Code, ...">
+            <input id="city" type="text" placeholder="Nom de ville, code postal, ...">
             <i class="bi bi-search"></i>
           </div>
         </form>
@@ -29,7 +37,7 @@
 
     <main>
       <div id="title-today">
-        <h2>Today</h2>
+        <h2 id="title-hours">Aujourd'hui</h2>
       </div>
       <section id="present-weather">
         <div class="now-weather">
@@ -75,9 +83,12 @@
         </div>
 
         <div class="hourly-weather">
-          <div class="hour">
+          <!-- <div class="hour">
             <h2>11h</h2>
-            <img src="https://openweathermap.org/img/wn/03d@4x.png" alt="weather-icon">
+            <img
+              src="https://openweathermap.org/img/wn/03d@4x.png"
+              alt="weather-icon"
+            />
             <h1>20°</h1>
             <div class="smaller-icons">
               <div class="column-wrapper">
@@ -93,7 +104,10 @@
 
           <div class="hour">
             <h2>12h</h2>
-            <img src="https://openweathermap.org/img/wn/04d@4x.png" alt="weather-icon">
+            <img
+              src="https://openweathermap.org/img/wn/04d@4x.png"
+              alt="weather-icon"
+            />
             <h1>17°</h1>
             <div class="smaller-icons">
               <div class="column-wrapper">
@@ -109,7 +123,10 @@
 
           <div class="hour">
             <h2>13h</h2>
-            <img src="https://openweathermap.org/img/wn/02d@4x.png" alt="weather-icon">
+            <img
+              src="https://openweathermap.org/img/wn/02d@4x.png"
+              alt="weather-icon"
+            />
             <h1>22°</h1>
             <div class="smaller-icons">
               <div class="column-wrapper">
@@ -125,7 +142,10 @@
 
           <div class="hour">
             <h2>11h</h2>
-            <img src="https://openweathermap.org/img/wn/03d@4x.png" alt="weather-icon">
+            <img
+              src="https://openweathermap.org/img/wn/03d@4x.png"
+              alt="weather-icon"
+            />
             <h1>20°</h1>
             <div class="smaller-icons">
               <div class="column-wrapper">
@@ -137,18 +157,21 @@
                 <p>1.2m/s</p>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </section>
 
       <div id="title-week">
-        <h2>This week</h2>
+        <h2 id="title-days">Cette semaine</h2>
       </div>
       <section id="daily-weather">
         <div id="daily-container">
-          <div class="day">
+          <!-- <div class="day">
             <h1>Sunday</h1>
-            <img src="https://openweathermap.org/img/wn/01d@4x.png" alt="weather-icon">
+            <img
+              src="https://openweathermap.org/img/wn/01d@4x.png"
+              alt="weather-icon"
+            />
             <div class="row-wrapper">
               <p>min</p>
               <p class="value">10°</p>
@@ -167,11 +190,14 @@
             </div>
           </div>
 
-          <hr>
+          <hr />
 
           <div class="day">
             <h1>Monday</h1>
-            <img src="https://openweathermap.org/img/wn/02d@4x.png" alt="weather-icon">
+            <img
+              src="https://openweathermap.org/img/wn/02d@4x.png"
+              alt="weather-icon"
+            />
             <div class="row-wrapper">
               <p>min</p>
               <p class="value">20°</p>
@@ -190,11 +216,14 @@
             </div>
           </div>
 
-          <hr>
+          <hr />
 
           <div class="day">
             <h1>Tuesday</h1>
-            <img src="https://openweathermap.org/img/wn/03d@4x.png" alt="weather-icon">
+            <img
+              src="https://openweathermap.org/img/wn/03d@4x.png"
+              alt="weather-icon"
+            />
             <div class="row-wrapper">
               <p>min</p>
               <p class="value">0°</p>
@@ -213,11 +242,14 @@
             </div>
           </div>
 
-          <hr>
+          <hr />
 
           <div class="day">
             <h1>Wednesday</h1>
-            <img src="https://openweathermap.org/img/wn/02d@4x.png" alt="weather-icon">
+            <img
+              src="https://openweathermap.org/img/wn/02d@4x.png"
+              alt="weather-icon"
+            />
             <div class="row-wrapper">
               <p>min</p>
               <p class="value">10°</p>
@@ -236,11 +268,14 @@
             </div>
           </div>
 
-          <hr>
+          <hr />
 
           <div class="day">
             <h1>Thursday</h1>
-            <img src="https://openweathermap.org/img/wn/01d@4x.png" alt="weather-icon">
+            <img
+              src="https://openweathermap.org/img/wn/01d@4x.png"
+              alt="weather-icon"
+            />
             <div class="row-wrapper">
               <p>min</p>
               <p class="value">10°</p>
@@ -259,11 +294,14 @@
             </div>
           </div>
 
-          <hr>
+          <hr />
 
           <div class="day">
             <h1>Friday</h1>
-            <img src="https://openweathermap.org/img/wn/03d@4x.png" alt="weather-icon">
+            <img
+              src="https://openweathermap.org/img/wn/03d@4x.png"
+              alt="weather-icon"
+            />
             <div class="row-wrapper">
               <p>min</p>
               <p class="value">10°</p>
@@ -282,11 +320,14 @@
             </div>
           </div>
 
-          <hr>
+          <hr />
 
           <div class="day">
             <h1>Saturday</h1>
-            <img src="https://openweathermap.org/img/wn/02d@4x.png" alt="weather-icon">
+            <img
+              src="https://openweathermap.org/img/wn/02d@4x.png"
+              alt="weather-icon"
+            />
             <div class="row-wrapper">
               <p>min</p>
               <p class="value">10°</p>
@@ -302,8 +343,8 @@
             <div class="row-wrapper">
               <i class="bi bi-wind"></i>
               <p class="value">3.6m/s</p>
-            </div>
-          </div>
+            </div> -->
+          <!-- </div> -->
         </div>
       </section>
     </main>

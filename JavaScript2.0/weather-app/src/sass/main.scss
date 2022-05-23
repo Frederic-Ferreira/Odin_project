@@ -43,6 +43,89 @@ body {
   @include flexColumn();
 }
 
+/* --------- OVERLAY ---------- */
+
+#choices {
+  @include flexCenter();
+  color: white;
+  font-size: 2.5rem;
+  // gap: 2.5rem;
+  p {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 400;
+  }
+  #fr {
+    padding: 0 1.75rem;
+  }
+  #eng {
+    padding: 0 0.25rem;
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* --------- SPINNER ---------- */
+
 .lds-ring {
   position: absolute;
   top: 50%;
@@ -59,11 +142,11 @@ body {
   position: absolute;
   width: 64px;
   height: 64px;
-  margin: 8px;
-  border: 8px solid $first-color;
+  border: 8px solid $background-color;
   border-radius: 50%;
+  text-align: center;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: $first-color transparent transparent transparent;
+  border-color: $background-color transparent transparent;
 }
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
@@ -306,6 +389,7 @@ main {
   background-color: white;
   margin-right: 5rem;
   height: 25rem;
+  width: 70rem;
   padding: 1.5rem;
   border: 3px solid $header-color;
   box-shadow: 5px 5px 2px $box-shadow-color;
@@ -369,6 +453,7 @@ main {
   #daily-container {
     margin: 0 5rem 0 10rem;
     background-color: white;
+    min-height: 50rem;
     padding: 1.5rem;
     border: 3px solid $seventh-color;
     box-shadow: 5px 5px 2px $box-shadow-color;
