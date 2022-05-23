@@ -571,6 +571,7 @@ const controlClientInput = async (input)=>{
 const controlLanguage = (lang)=>{
     _model.setStateLang(lang);
     _mainViewDefault.default.languageDisplay(_model.state.lang);
+    controlWeather();
 };
 const init = async ()=>{
     _mainViewDefault.default.addHandlerLang(controlLanguage);
@@ -22231,6 +22232,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
+const checkbox = document.getElementById('checkbox');
 const input = document.querySelector('input');
 const siteTitle = document.getElementById('site-title');
 const label = document.getElementById('label');
@@ -22239,13 +22241,11 @@ const weeksTitle = document.getElementById('title-days');
 const footer = document.querySelector('footer');
 class mainView extends _viewDefault.default {
     addHandlerLang(handler) {
-    // choices.forEach((choice) => {
-    //   choice.addEventListener('click', (e) => {
-    //     overlay.classList.add('hidden');
-    //     const lang = e.target.getAttribute('id');
-    //     handler(lang);
-    //   });
-    // });
+        checkbox.addEventListener('change', (e)=>{
+            const check = e.target.checked;
+            const lang = check === false ? 'fr' : 'eng';
+            handler(lang);
+        });
     }
     languageDisplay(lang) {
         const fr = lang === 'fr';

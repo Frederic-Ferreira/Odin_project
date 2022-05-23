@@ -1,5 +1,7 @@
 import View from './View';
 
+const checkbox = document.getElementById('checkbox');
+
 const input = document.querySelector('input');
 const siteTitle = document.getElementById('site-title');
 const label = document.getElementById('label');
@@ -9,13 +11,13 @@ const footer = document.querySelector('footer');
 
 class mainView extends View {
   addHandlerLang(handler) {
-    // choices.forEach((choice) => {
-    //   choice.addEventListener('click', (e) => {
-    //     overlay.classList.add('hidden');
-    //     const lang = e.target.getAttribute('id');
-    //     handler(lang);
-    //   });
-    // });
+    checkbox.addEventListener('change', (e) => {
+      const check = e.target.checked;
+
+      const lang = check === false ? 'fr' : 'eng';
+
+      handler(lang);
+    });
   }
 
   languageDisplay(lang) {

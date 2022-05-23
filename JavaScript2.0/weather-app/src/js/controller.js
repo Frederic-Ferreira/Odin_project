@@ -57,6 +57,8 @@ const controlLanguage = (lang) => {
   model.setStateLang(lang);
 
   mainView.languageDisplay(model.state.lang);
+
+  controlWeather();
 };
 
 const init = async () => {
