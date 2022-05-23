@@ -1,9 +1,7 @@
 export default class View {
   renderSpinner() {
     const html = `
-          <div class="spinner">
-              <i class="bi bi-arrow-clockwise"></i>
-          </div>
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
           `;
 
     this._clear();

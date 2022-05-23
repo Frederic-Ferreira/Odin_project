@@ -71,7 +71,7 @@ export const getInputCoordinates = async (input) => {
 export const getCurrentWeather = async (lat, long) => {
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${weatherKEY}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${weatherKEY}&lang=fr`
     );
 
     if (!response.ok)

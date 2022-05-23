@@ -532,25 +532,297 @@ var _model = require("./model");
 var _helpers = require("./helpers");
 var _currentView = require("./views/currentView");
 var _currentViewDefault = parcelHelpers.interopDefault(_currentView);
+var _searchView = require("./views/searchView");
+var _searchViewDefault = parcelHelpers.interopDefault(_searchView);
 const controlWeather = async ()=>{
     try {
-        await _model.getClientCoordinates();
+        _currentViewDefault.default.renderSpinner();
         const { lat , long  } = _model.state.currentCity;
         await _model.getCurrentWeather(lat, long);
         await _model.getHourlyWeather(lat, long);
         await _model.getWeeklyWeather(lat, long);
-        console.log(_model.state);
+        _currentViewDefault.default.renderCurrentWeather(_model.state.currentWeather);
     // helpers.convertTime(model.state.currentWeather.time);
     } catch (err) {
         console.error(err);
     }
 };
+const controlClientCoordinates = async ()=>{
+    try {
+        await _model.getClientCoordinates();
+        controlWeather();
+    } catch (err) {
+        console.log(err);
+    }
+};
+const controlClientInput = async (input)=>{
+    try {
+        await _model.getInputCoordinates(input);
+        controlWeather();
+    } catch (err) {
+        console.log(err);
+    }
+};
 const init = ()=>{
-    _currentViewDefault.default.loadEventListener(controlWeather);
+    _currentViewDefault.default.renderSpinner();
+    _currentViewDefault.default.loadEventListener(controlClientCoordinates);
+    _searchViewDefault.default.addHandlerSearch(controlClientInput);
 };
 init();
 
-},{"@babel/polyfill":"dTCHC","./model":"Y4A21","./views/currentView":"aquYQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./helpers":"hGI1E"}],"dTCHC":[function(require,module,exports) {
+},{"./model":"Y4A21","./helpers":"hGI1E","./views/currentView":"aquYQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@babel/polyfill":"dTCHC","./views/searchView":"9OQAM"}],"Y4A21":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "state", ()=>state
+);
+parcelHelpers.export(exports, "getClientCoordinates", ()=>getClientCoordinates
+);
+parcelHelpers.export(exports, "getInputCoordinates", ()=>getInputCoordinates
+);
+parcelHelpers.export(exports, "getCurrentWeather", ()=>getCurrentWeather
+);
+parcelHelpers.export(exports, "getHourlyWeather", ()=>getHourlyWeather
+);
+parcelHelpers.export(exports, "getWeeklyWeather", ()=>getWeeklyWeather
+);
+var _config = require("./config");
+const state = {
+    currentCity: {},
+    currentWeather: {},
+    hourlyWeather: [],
+    weeklyWeather: []
+};
+const getClientCoordinates = async ()=>{
+    await new Promise((resolve)=>{
+        if (navigator.geolocation) navigator.geolocation.getCurrentPosition(successRes, errorRes);
+        else throw Error('Your navigator does not support geolocation, please enter a city name');
+        function successRes(position) {
+            state.currentCity = {
+                lat: position.coords.latitude,
+                long: position.coords.longitude
+            };
+            resolve();
+        }
+        function errorRes(err) {
+            if (err.code == 1) throw Error('Please, allow your browser to access your position or search a specific city name.');
+            else if (err.code == 2) throw Error("The network is down or the positioning service can't be reached.");
+            else if (err.code == 3) throw Error('The attempt timed out before it could get the location data.');
+            else throw Error('Geolocation failed due to unknown error.');
+        }
+    });
+};
+const getInputCoordinates = async (input)=>{
+    try {
+        const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=${_config.weatherKEY}`);
+        if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
+        const data = await response.json();
+        state.currentCity = {
+            name: data[0].name,
+            lat: data[0].lat,
+            long: data[0].lon
+        };
+    } catch (err) {
+        console.log(err);
+    }
+};
+const getCurrentWeather = async (lat, long)=>{
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${_config.weatherKEY}&lang=fr`);
+        if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
+        const data = await response.json();
+        state.currentWeather = {
+            description: data.weather[0].description,
+            icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
+            temperature: data.main.temp,
+            feels: data.main.feels_like,
+            humidity: data.main.humidity,
+            min: data.main.temp_min,
+            max: data.main.temp_max,
+            wind: data.wind.speed,
+            rain: data.rain === undefined ? '' : data.rain['1h'],
+            snow: data.snow === undefined ? '' : data.snow['1h'],
+            time: data.dt,
+            city: data.name
+        };
+    } catch (err) {
+        console.log(err);
+    }
+};
+const getHourlyWeather = async (lat, long)=>{
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${_config.weatherKEY}`);
+        if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
+        const { hourly  } = await response.json();
+        hourly.forEach((hour)=>{
+            const obj = {
+                hourNumber: hour.dt,
+                icon: `https://openweathermap.org/img/wn/${hour.weather[0].icon}@4x.png`,
+                temperature: hour.temp,
+                rain: hour.rain === undefined ? '' : hour.rain['1h'],
+                snow: hour.snow === undefined ? '' : hour.snow['1h'],
+                wind: hour.wind_speed
+            };
+            state.hourlyWeather.push(obj);
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+const getWeeklyWeather = async (lat, long)=>{
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${_config.weatherKEY}`);
+        if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
+        const { daily  } = await response.json();
+        daily.forEach((day, i)=>{
+            if (i !== 0) {
+                const obj = {
+                    dayName: day.dt,
+                    icon: `https://openweathermap.org/img/wn/${day.weather[0].icon}@4x.png`,
+                    minTemp: day.temp.min,
+                    maxTemp: day.temp.max,
+                    rain: day.rain === undefined ? '' : day.rain,
+                    snow: day.snow === undefined ? '' : day.snow,
+                    wind: day.wind_speed
+                };
+                state.weeklyWeather.push(obj);
+            }
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+},{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "weatherKEY", ()=>weatherKEY
+);
+const weatherKEY = '72de7d77cda506a2464710f49b0ff2a5';
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"hGI1E":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "convertTime", ()=>convertTime
+);
+const convertTime = (unix)=>{
+    const date = new Date(unix * 1000);
+    const hours = date.getHours();
+    const minutes = '0' + date.getMinutes();
+    return `${hours}:${minutes}`;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aquYQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("./View");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+class currentView extends _viewDefault.default {
+    _parentElement = document.querySelector('.now-weather');
+    _data;
+    renderCurrentWeather(currentWeather) {
+        this._data = currentWeather;
+        const html = this._generateMarkup(this._data);
+        this._clear();
+        this._parentElement.insertAdjacentHTML('afterbegin', html);
+    }
+    loadEventListener(handler) {
+        window.addEventListener('load', handler);
+    }
+    _generateMarkup(data) {
+        const html = `
+    <img
+    src="${data.icon}"
+    alt="weather-icon"
+  />
+  <div class="main-infos">
+    <span class="titles">
+      <h1>${data.city}</h1>
+      <h2>${data.temperature}</h2>
+    </span>
+    <h3>${data.description}</h3>
+    <span class="min-max">
+      <div class="column-wrapper">
+        <p>min</p>
+        <p class="value">${data.min}</p>
+      </div>
+      <div class="column-wrapper">
+        <p>max</p>
+        <p class="value">${data.max}</p>
+      </div>
+    </span>
+  </div>
+  <div class="second-categories">
+    <div class="column-wrapper">
+      <i class="bi bi-cloud-drizzle"></i>
+      <p>${data.rain === '' ? '0' : data.rain}mm</p>
+    </div>
+    <div class="column-wrapper">
+      <i class="bi bi-droplet"></i>
+      <p>${data.humidity}%</p>
+    </div>
+    <div class="column-wrapper">
+      <i class="bi bi-wind"></i>
+      <p>${data.wind}m/s</p>
+    </div>
+    <div class="column-wrapper">
+      <p class="icon">Feels</p>
+      <p>${data.feels}°</p>
+    </div>
+  </div>
+  `;
+        return html;
+    }
+}
+exports.default = new currentView();
+
+},{"./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5cUXS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class View {
+    renderSpinner() {
+        const html = `
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+          `;
+        this._clear();
+        this._parentElement.insertAdjacentHTML('afterbegin', html);
+    }
+    _clear() {
+        this._parentElement.innerHTML = '';
+    }
+}
+exports.default = View;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dTCHC":[function(require,module,exports) {
 "use strict";
 require("./noConflict");
 var _global = _interopRequireDefault(require("core-js/library/fn/global"));
@@ -7512,215 +7784,36 @@ module.exports = function(it, key) {
     return hasOwnProperty.call(it, key);
 };
 
-},{}],"Y4A21":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "state", ()=>state
-);
-parcelHelpers.export(exports, "getClientCoordinates", ()=>getClientCoordinates
-);
-parcelHelpers.export(exports, "getInputCoordinates", ()=>getInputCoordinates
-);
-parcelHelpers.export(exports, "getCurrentWeather", ()=>getCurrentWeather
-);
-parcelHelpers.export(exports, "getHourlyWeather", ()=>getHourlyWeather
-);
-parcelHelpers.export(exports, "getWeeklyWeather", ()=>getWeeklyWeather
-);
-var _config = require("./config");
-const state = {
-    currentCity: {},
-    currentWeather: {},
-    hourlyWeather: [],
-    weeklyWeather: []
-};
-const getClientCoordinates = async ()=>{
-    await new Promise((resolve)=>{
-        if (navigator.geolocation) navigator.geolocation.getCurrentPosition(successRes, errorRes);
-        else throw Error('Your navigator does not support geolocation, please enter a city name');
-        function successRes(position) {
-            state.currentCity = {
-                lat: position.coords.latitude,
-                long: position.coords.longitude
-            };
-            resolve();
-        }
-        function errorRes(err) {
-            if (err.code == 1) throw Error('Please, allow your browser to access your position or search a specific city name.');
-            else if (err.code == 2) throw Error("The network is down or the positioning service can't be reached.");
-            else if (err.code == 3) throw Error('The attempt timed out before it could get the location data.');
-            else throw Error('Geolocation failed due to unknown error.');
-        }
-    });
-};
-const getInputCoordinates = async (input)=>{
-    try {
-        const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=${_config.weatherKEY}`);
-        if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
-        const data = await response.json();
-        state.currentCity = {
-            name: data[0].name,
-            lat: data[0].lat,
-            long: data[0].lon
-        };
-    } catch (err) {
-        console.log(err);
-    }
-};
-const getCurrentWeather = async (lat, long)=>{
-    try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${_config.weatherKEY}`);
-        if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
-        const data = await response.json();
-        state.currentWeather = {
-            description: data.weather[0].description,
-            icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`,
-            temperature: data.main.temp,
-            feels: data.main.feels_like,
-            humidity: data.main.humidity,
-            min: data.main.temp_min,
-            max: data.main.temp_max,
-            wind: data.wind.speed,
-            rain: data.rain === undefined ? '' : data.rain['1h'],
-            snow: data.snow === undefined ? '' : data.snow['1h'],
-            time: data.dt,
-            city: data.name
-        };
-    } catch (err) {
-        console.log(err);
-    }
-};
-const getHourlyWeather = async (lat, long)=>{
-    try {
-        const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${_config.weatherKEY}`);
-        if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
-        const { hourly  } = await response.json();
-        hourly.forEach((hour)=>{
-            const obj = {
-                hourNumber: hour.dt,
-                icon: `https://openweathermap.org/img/wn/${hour.weather[0].icon}@4x.png`,
-                temperature: hour.temp,
-                rain: hour.rain === undefined ? '' : hour.rain['1h'],
-                snow: hour.snow === undefined ? '' : hour.snow['1h'],
-                wind: hour.wind_speed
-            };
-            state.hourlyWeather.push(obj);
-        });
-    } catch (err) {
-        console.log(err);
-    }
-};
-const getWeeklyWeather = async (lat, long)=>{
-    try {
-        const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts&appid=${_config.weatherKEY}`);
-        if (!response.ok) throw Error('Something went wrong with the server, please try again ...');
-        const { daily  } = await response.json();
-        daily.forEach((day, i)=>{
-            if (i !== 0) {
-                const obj = {
-                    dayName: day.dt,
-                    icon: `https://openweathermap.org/img/wn/${day.weather[0].icon}@4x.png`,
-                    minTemp: day.temp.min,
-                    maxTemp: day.temp.max,
-                    rain: day.rain === undefined ? '' : day.rain,
-                    snow: day.snow === undefined ? '' : day.snow,
-                    wind: day.wind_speed
-                };
-                state.weeklyWeather.push(obj);
-            }
-        });
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-},{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "weatherKEY", ()=>weatherKEY
-);
-const weatherKEY = '72de7d77cda506a2464710f49b0ff2a5';
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, '__esModule', {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === 'default' || key === '__esModule' || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"aquYQ":[function(require,module,exports) {
+},{}],"9OQAM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
-class currentView extends _viewDefault.default {
-    _parentElement = document.querySelector('.container');
-    _data;
-    renderCurrentWeather(currentWeather) {
-        _data = currentWeather;
-        const html = this._generateMarkup(_data);
-        this._parentElement.insertAdjacentHTML('afterbegin', html);
+class searchView extends _viewDefault.default {
+    _parentElement = document.querySelector('input');
+    _search = document.querySelector('.bi-search');
+    _getInput() {
+        const input = this._parentElement.value;
+        this._clearInput();
+        return input;
     }
-    loadEventListener(handler) {
-        window.addEventListener('load', handler);
+    _clearInput() {
+        this._parentElement.value = '';
     }
-}
-exports.default = new currentView();
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./View":"5cUXS"}],"5cUXS":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-class View {
-    renderSpinner() {
-        const html = `
-          <div class="spinner">
-              <i class="bi bi-arrow-clockwise"></i>
-          </div>
-          `;
-        this._clear();
-        this._parentElement.insertAdjacentHTML('afterbegin', html);
-    }
-    _clear() {
-        this._parentElement.innerHTML = '';
+    addHandlerSearch(handler) {
+        const passInputHandler = ()=>{
+            const input = this._getInput();
+            handler(input);
+        };
+        this._parentElement.closest('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            passInputHandler();
+        });
+        this._search.addEventListener('click', passInputHandler);
     }
 }
-exports.default = View;
+exports.default = new searchView();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hGI1E":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "convertTime", ()=>convertTime
-);
-const convertTime = (unix)=>{
-    const date = new Date(unix * 1000);
-    const hours = date.getHours();
-    const minutes = '0' + date.getMinutes();
-    return `${hours}:${minutes}`;
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["9GjUt","aenu9"], "aenu9", "parcelRequirebbde")
+},{"./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["9GjUt","aenu9"], "aenu9", "parcelRequirebbde")
 
 //# sourceMappingURL=index.e37f48ea.js.map

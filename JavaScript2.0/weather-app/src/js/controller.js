@@ -2,10 +2,11 @@ import '@babel/polyfill';
 import * as model from './model';
 import * as helpers from './helpers';
 import currentView from './views/currentView';
+import searchView from './views/searchView';
 
 const controlWeather = async () => {
   try {
-    await model.getClientCoordinates();
+    currentView.renderSpinner();
 
     const { lat, long } = model.state.currentCity;
 
@@ -13,16 +14,37 @@ const controlWeather = async () => {
     await model.getHourlyWeather(lat, long);
     await model.getWeeklyWeather(lat, long);
 
-    console.log(model.state);
-
+    currentView.renderCurrentWeather(model.state.currentWeather);
     // helpers.convertTime(model.state.currentWeather.time);
   } catch (err) {
     console.error(err);
   }
 };
 
+const controlClientCoordinates = async () => {
+  try {
+    await model.getClientCoordinates();
+
+    controlWeather();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const controlClientInput = async (input) => {
+  try {
+    await model.getInputCoordinates(input);
+
+    controlWeather();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const init = () => {
-  currentView.loadEventListener(controlWeather);
+  currentView.renderSpinner();
+  currentView.loadEventListener(controlClientCoordinates);
+  searchView.addHandlerSearch(controlClientInput);
 };
 
 init();
