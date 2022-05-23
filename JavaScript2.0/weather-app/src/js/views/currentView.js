@@ -28,6 +28,17 @@ class currentView extends View {
     window.addEventListener('load', handler);
   }
 
+  renderSpinner() {
+    const html = `
+    <div class="spinner-current">
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+          `;
+
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', html);
+  }
+
   _generateMarkup(data, lang) {
     const html = `
     <img

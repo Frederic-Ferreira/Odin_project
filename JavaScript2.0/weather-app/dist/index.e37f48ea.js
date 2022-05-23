@@ -541,6 +541,7 @@ var _weeklyView = require("./views/weeklyView");
 var _weeklyViewDefault = parcelHelpers.interopDefault(_weeklyView);
 const controlWeather = async ()=>{
     try {
+        initSpinners();
         const { lat , long  } = _model.state.currentCity;
         await _model.getCurrentWeather(lat, long);
         await _model.getHourlyWeather(lat, long);
@@ -573,7 +574,13 @@ const controlLanguage = (lang)=>{
     _mainViewDefault.default.languageDisplay(_model.state.lang);
     controlWeather();
 };
+const initSpinners = ()=>{
+    _currentViewDefault.default.renderSpinner();
+    _hourlyViewDefault.default.renderSpinner();
+    _weeklyViewDefault.default.renderSpinner();
+};
 const init = async ()=>{
+    initSpinners();
     _mainViewDefault.default.addHandlerLang(controlLanguage);
     _currentViewDefault.default.loadEventListener(controlClientCoordinates);
     _searchViewDefault.default.addHandlerSearch(controlClientInput);
@@ -769,6 +776,15 @@ class currentView extends _viewDefault.default {
     loadEventListener(handler) {
         window.addEventListener('load', handler);
     }
+    renderSpinner() {
+        const html = `
+    <div class="spinner-current">
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+          `;
+        this._clear();
+        this._parentElement.insertAdjacentHTML('afterbegin', html);
+    }
     _generateMarkup(data, lang) {
         const html = `
     <img
@@ -820,13 +836,6 @@ exports.default = new currentView();
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class View {
-    renderSpinner() {
-        const html = `
-    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-          `;
-        this._clear();
-        this._parentElement.insertAdjacentHTML('afterbegin', html);
-    }
     _clear() {
         this._parentElement.innerHTML = '';
     }
@@ -22148,6 +22157,15 @@ class hourlyView extends _viewDefault.default {
             if (i === 24) this._parentElement.lastElementChild.style.border = 'none';
         });
     }
+    renderSpinner() {
+        const html = `
+    <div class="spinner-hours">
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+          `;
+        this._clear();
+        this._parentElement.insertAdjacentHTML('afterbegin', html);
+    }
     _generateMarkup(data, lang) {
         const html = `
     <div class="hour">
@@ -22193,6 +22211,15 @@ class weeklyView extends _viewDefault.default {
             const html = this._generateMarkup(hour, i, this._lang);
             this._parentElement.insertAdjacentHTML('beforeend', html);
         });
+    }
+    renderSpinner() {
+        const html = `
+    <div class="spinner-weeks">
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+          `;
+        this._clear();
+        this._parentElement.insertAdjacentHTML('afterbegin', html);
     }
     _generateMarkup(data, i, lang) {
         const html = `

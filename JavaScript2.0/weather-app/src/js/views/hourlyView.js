@@ -35,6 +35,17 @@ class hourlyView extends View {
     });
   }
 
+  renderSpinner() {
+    const html = `
+    <div class="spinner-hours">
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+          `;
+
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', html);
+  }
+
   _generateMarkup(data, lang) {
     const html = `
     <div class="hour">

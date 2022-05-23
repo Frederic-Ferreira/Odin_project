@@ -10,6 +10,8 @@ import weeklyView from './views/weeklyView';
 
 const controlWeather = async () => {
   try {
+    initSpinners();
+
     const { lat, long } = model.state.currentCity;
 
     await model.getCurrentWeather(lat, long);
@@ -61,9 +63,15 @@ const controlLanguage = (lang) => {
   controlWeather();
 };
 
-const init = async () => {
-  mainView.addHandlerLang(controlLanguage);
+const initSpinners = () => {
+  currentView.renderSpinner();
+  hourlyView.renderSpinner();
+  weeklyView.renderSpinner();
+};
 
+const init = async () => {
+  initSpinners();
+  mainView.addHandlerLang(controlLanguage);
   currentView.loadEventListener(controlClientCoordinates);
   searchView.addHandlerSearch(controlClientInput);
 };
