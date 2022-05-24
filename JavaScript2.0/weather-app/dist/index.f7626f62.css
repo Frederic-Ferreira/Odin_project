@@ -296,7 +296,10 @@ main {
 }
 
 #present-weather .now-weather img {
-  width: 50%;
+  position: absolute;
+  top: 12%;
+  left: 0;
+  transform: scale(1.1);
 }
 
 #present-weather .now-weather .main-infos {
@@ -304,8 +307,11 @@ main {
   text-align: center;
   flex-direction: column;
   margin: auto 0;
+  padding: 0 1rem;
   font-size: 2rem;
   display: flex;
+  position: relative;
+  left: 45%;
 }
 
 #present-weather .now-weather .main-infos i {
