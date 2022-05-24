@@ -45,6 +45,16 @@ const controlClientCoordinates = async () => {
   }
 };
 
+const controlInputChange = async (input) => {
+  try {
+    await model.getInputCityList(input);
+
+    searchView.renderInputCityList(model.state.cityList);
+  } catch (err) {
+    controlErrors(err);
+  }
+};
+
 const controlClientInput = async (input) => {
   try {
     await model.getInputCoordinates(input);
@@ -78,8 +88,9 @@ const initSpinners = () => {
 const init = async () => {
   initSpinners();
   mainView.addHandlerLang(controlLanguage);
-  currentView.loadEventListener(controlClientCoordinates);
+  // currentView.loadEventListener(controlClientCoordinates);
   searchView.addHandlerSearch(controlClientInput);
+  searchView.addInputChangeEventListener(controlInputChange);
 };
 
 init();

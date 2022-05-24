@@ -561,6 +561,14 @@ const controlClientCoordinates = async ()=>{
         controlErrors(err);
     }
 };
+const controlInputChange = async (input)=>{
+    try {
+        await _model.getInputCityList(input);
+        _searchViewDefault.default.renderInputCityList(_model.state.cityList);
+    } catch (err) {
+        controlErrors(err);
+    }
+};
 const controlClientInput = async (input)=>{
     try {
         await _model.getInputCoordinates(input);
@@ -587,8 +595,9 @@ const initSpinners = ()=>{
 const init = async ()=>{
     initSpinners();
     _mainViewDefault.default.addHandlerLang(controlLanguage);
-    _currentViewDefault.default.loadEventListener(controlClientCoordinates);
+    // currentView.loadEventListener(controlClientCoordinates);
     _searchViewDefault.default.addHandlerSearch(controlClientInput);
+    _searchViewDefault.default.addInputChangeEventListener(controlInputChange);
 };
 init();
 
@@ -601,6 +610,8 @@ parcelHelpers.export(exports, "setStateLang", ()=>setStateLang
 );
 parcelHelpers.export(exports, "getClientCoordinates", ()=>getClientCoordinates
 );
+parcelHelpers.export(exports, "getInputCityList", ()=>getInputCityList
+);
 parcelHelpers.export(exports, "getInputCoordinates", ()=>getInputCoordinates
 );
 parcelHelpers.export(exports, "getCurrentWeather", ()=>getCurrentWeather
@@ -611,6 +622,7 @@ parcelHelpers.export(exports, "getWeeklyWeather", ()=>getWeeklyWeather
 );
 var _config = require("./config");
 const state = {
+    cityList: [],
     currentCity: {},
     currentWeather: {},
     hourlyWeather: [],
@@ -639,6 +651,26 @@ const getClientCoordinates = async ()=>{
             else reject(lang ? 'La géolocalisation a échouée pour une raison inconnue' : 'Geolocation failed due to unknown error.');
         }
     });
+};
+const getInputCityList = async (input)=>{
+    const lang = state.lang === 'fr';
+    try {
+        const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=5&appid=${_config.weatherKEY}`);
+        if (!response.ok) throw Error(lang ? 'Le serveur météo a des problèmes, réessayez plus tard' : 'Something went wrong with the server, please try again ...');
+        const data = await response.json();
+        state.cityList = [];
+        data.forEach((city)=>{
+            const obj = {
+                country: city.country,
+                name: city.name,
+                lat: city.lat,
+                long: city.lon
+            };
+            state.cityList.push(obj);
+        });
+    } catch (err) {
+        throw lang ? 'Le serveur météo a des problèmes techniques, réessayez plus tard' : 'Something went wrong with the server, please try again ...';
+    }
 };
 const getInputCoordinates = async (input)=>{
     const lang = state.lang === 'fr';
@@ -22130,6 +22162,7 @@ var _viewDefault = parcelHelpers.interopDefault(_view);
 class searchView extends _viewDefault.default {
     _parentElement = document.getElementById('city');
     _search = document.querySelector('.bi-search');
+    _data;
     _getInput() {
         const input = this._parentElement.value;
         this._clearInput();
@@ -22137,6 +22170,27 @@ class searchView extends _viewDefault.default {
     }
     _clearInput() {
         this._parentElement.value = '';
+    }
+    _clearCityList() {
+        this._parentElement.closest('form').nextElementSibling.firstElementChild.innerHTML = '';
+    }
+    renderInputCityList(data) {
+        this._data = data;
+        this._clearCityList();
+        const dropdown = this._parentElement.closest('form').nextElementSibling.firstElementChild;
+        this._data.forEach((city, i)=>{
+            const html = this._generateMarkup(city);
+            dropdown.insertAdjacentHTML('afterbegin', html);
+            if (i === this._data.length - 1) dropdown.lastElementChild.lastElementChild.style.border = 'none';
+            dropdown.lastElementChild.style.borderBottomLeftRadius = '20px';
+            dropdown.lastElementChild.style.borderBottomRightRadius = '20px';
+        });
+    }
+    addInputChangeEventListener(handler) {
+        this._parentElement.closest('form').addEventListener('input', ()=>{
+            if (this._parentElement.value === '') return;
+            handler(this._parentElement.value);
+        });
     }
     addHandlerSearch(handler) {
         const passInputHandler = ()=>{
@@ -22149,6 +22203,14 @@ class searchView extends _viewDefault.default {
             passInputHandler();
         });
         this._search.addEventListener('click', passInputHandler);
+    }
+    _generateMarkup(data) {
+        const html = `
+    <li>
+        <p>${data.name}, ${data.country}</p>
+     </li>
+    `;
+        return html;
     }
 }
 exports.default = new searchView();

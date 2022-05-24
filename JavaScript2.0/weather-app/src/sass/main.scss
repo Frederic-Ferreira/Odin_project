@@ -101,7 +101,6 @@ header {
   align-items: center;
   gap: 1.5rem;
   padding: 2rem 3rem;
-  position: relative;
 
   form {
     position: relative;
@@ -140,11 +139,25 @@ header {
     }
   }
 
+  .input-wrapper:hover input {
+    border-radius: 20px;
+  }
+
+  .input-wrapper input:focus {
+    border-top: 3px solid $header-color;
+    border-left: 3px solid $header-color;
+    border-right: 3px solid $header-color;
+    border-bottom: 1px solid $text-color;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
   .input-wrapper:hover input,
   input:focus {
     width: 22rem;
     padding: 0 2rem;
-    border-radius: 20px;
     animation: ease 0.5s width-input;
     &::placeholder {
       opacity: 1;
@@ -155,6 +168,7 @@ header {
     display: flex;
     align-items: center;
     gap: 1rem;
+    position: relative;
 
     p {
       font-size: 2.5rem;
@@ -173,6 +187,8 @@ header {
   h1 {
     font-size: 3rem;
   }
+
+  /* -------- SLIDER ---------- */
 
   #choices {
     @include flexCenter();
@@ -256,6 +272,52 @@ header {
   .slider.round:before {
     border-radius: 50%;
   }
+
+  /* -------- DROPDOWN ---------- */
+
+  #dropdown {
+    position: absolute;
+    text-align: center;
+    background-color: white;
+    width: 22rem;
+    height: 17rem;
+    border-left: 2px solid $header-color;
+    border-right: 2px solid $header-color;
+    border-bottom: 2px solid $header-color;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    right: 0;
+    top: 100%;
+    z-index: 1;
+
+    ul {
+      list-style: none;
+    }
+
+    li {
+      &:hover {
+        background-color: $header-color;
+        cursor: pointer;
+      }
+      &:active {
+        background-color: rgba(252, 180, 47, 0.6);
+      }
+    }
+
+    p {
+      padding-bottom: 0.5rem;
+      width: 75%;
+      margin: 0.5rem auto 0 auto;
+      font-size: 1.5rem;
+      text-shadow: none;
+      color: $text-color;
+      border-bottom: 1px solid $text-color;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
 }
 
 /* ----------------------- MAIN ----------------------- */
@@ -330,7 +392,7 @@ main {
       position: absolute;
       left: 0;
       top: 12%;
-      transform: scale(1.11);
+      transform: scale(1.1);
     }
 
     .main-infos {

@@ -73,7 +73,6 @@ header {
   font-family: Scope One, serif;
   font-weight: 700;
   display: flex;
-  position: relative;
 }
 
 header form {
@@ -115,9 +114,18 @@ header input::placeholder {
   opacity: 0;
 }
 
+header .input-wrapper:hover input {
+  border-radius: 20px;
+}
+
+header .input-wrapper input:focus {
+  border: 3px solid #fcb42fcc;
+  border-bottom: 1px solid #4d4d4d;
+  border-radius: 20px 20px 0 0;
+}
+
 header .input-wrapper:hover input, header input:focus {
   width: 22rem;
-  border-radius: 20px;
   padding: 0 2rem;
   animation: width-input .5s;
 }
@@ -130,6 +138,7 @@ header .row-wrapper {
   align-items: center;
   gap: 1rem;
   display: flex;
+  position: relative;
 }
 
 header .row-wrapper p {
@@ -226,6 +235,49 @@ header .slider.round:before {
   border-radius: 50%;
 }
 
+header #dropdown {
+  text-align: center;
+  width: 22rem;
+  height: 17rem;
+  z-index: 1;
+  background-color: #fff;
+  border-bottom: 2px solid #fcb42fcc;
+  border-left: 2px solid #fcb42fcc;
+  border-right: 2px solid #fcb42fcc;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  position: absolute;
+  top: 100%;
+  right: 0;
+}
+
+header #dropdown ul {
+  list-style: none;
+}
+
+header #dropdown li:hover {
+  cursor: pointer;
+  background-color: #fcb42fcc;
+}
+
+header #dropdown li:active {
+  background-color: #fcb42f99;
+}
+
+header #dropdown p {
+  width: 75%;
+  text-shadow: none;
+  color: #4d4d4d;
+  border-bottom: 1px solid #4d4d4d;
+  margin: .5rem auto 0;
+  padding-bottom: .5rem;
+  font-size: 1.5rem;
+}
+
+header #dropdown p:hover {
+  color: #fff;
+}
+
 main {
   background-color: #7dafe9;
   position: relative;
@@ -299,7 +351,7 @@ main {
   position: absolute;
   top: 12%;
   left: 0;
-  transform: scale(1.11);
+  transform: scale(1.1);
 }
 
 #present-weather .now-weather .main-infos {

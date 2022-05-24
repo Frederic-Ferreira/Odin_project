@@ -1,6 +1,7 @@
 import { weatherKEY } from './config';
 
 export const state = {
+  cityList: [],
   currentCity: {},
   currentWeather: {},
   hourlyWeather: [],
@@ -62,6 +63,42 @@ export const getClientCoordinates = async () => {
       }
     }
   });
+};
+
+export const getInputCityList = async (input) => {
+  const lang = state.lang === 'fr';
+
+  try {
+    const response = await fetch(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=5&appid=${weatherKEY}`
+    );
+
+    if (!response.ok)
+      throw Error(
+        lang
+          ? 'Le serveur météo a des problèmes, réessayez plus tard'
+          : 'Something went wrong with the server, please try again ...'
+      );
+
+    const data = await response.json();
+
+    state.cityList = [];
+
+    data.forEach((city) => {
+      const obj = {
+        country: city.country,
+        name: city.name,
+        lat: city.lat,
+        long: city.lon,
+      };
+
+      state.cityList.push(obj);
+    });
+  } catch (err) {
+    throw lang
+      ? 'Le serveur météo a des problèmes techniques, réessayez plus tard'
+      : 'Something went wrong with the server, please try again ...';
+  }
 };
 
 export const getInputCoordinates = async (input) => {
