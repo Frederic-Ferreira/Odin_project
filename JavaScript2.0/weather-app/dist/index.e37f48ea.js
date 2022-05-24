@@ -579,10 +579,10 @@ const controlClientInput = async (input)=>{
 };
 const controlCityList = async (index)=>{
     try {
-        const city = _model.state.cityList(index);
-        await _model.getCurrentWeather(city);
-        await _model.getHourlyWeather(city);
-        await _model.getWeeklyWeather(city);
+        const city = _model.getCityFromList(index);
+        console.log(city);
+        _model.updateCurrentCity(city);
+        controlWeather();
     } catch (err) {
         console.log(err);
     }
@@ -605,11 +605,11 @@ const initSpinners = ()=>{
 const init = async ()=>{
     initSpinners();
     _mainViewDefault.default.addHandlerLang(controlLanguage);
-    // currentView.addHandlerLoad(controlClientCoordinates);
+    _currentViewDefault.default.addHandlerLoad(controlClientCoordinates);
     _searchViewDefault.default.addHandlerSearchForm(controlClientInput);
     _searchViewDefault.default.addHandlerInputChange(controlInputChange);
-    _searchViewDefault.default.addInputFocusEventListener();
     _searchViewDefault.default.addHandlerSearchList(controlCityList);
+    _searchViewDefault.default.addInputFocusEventListener();
 };
 init();
 
@@ -625,6 +625,8 @@ parcelHelpers.export(exports, "getClientCoordinates", ()=>getClientCoordinates
 parcelHelpers.export(exports, "getInputCityList", ()=>getInputCityList
 );
 parcelHelpers.export(exports, "getCityFromList", ()=>getCityFromList
+);
+parcelHelpers.export(exports, "updateCurrentCity", ()=>updateCurrentCity
 );
 parcelHelpers.export(exports, "getInputCoordinates", ()=>getInputCoordinates
 );
@@ -688,6 +690,13 @@ const getInputCityList = async (input)=>{
 };
 const getCityFromList = (index)=>{
     return state.cityList[index];
+};
+const updateCurrentCity = (data)=>{
+    state.currentCity = {
+        name: data.name,
+        lat: data.lat,
+        long: data.long
+    };
 };
 const getInputCoordinates = async (input)=>{
     const lang = state.lang === 'fr';
@@ -22219,7 +22228,9 @@ class searchView extends _viewDefault.default {
         evts.forEach((evt)=>{
             this._parentElement.closest('form').addEventListener(evt, ()=>{
                 const dropdown = this._parentElement.closest('form').nextElementSibling;
-                dropdown.classList.toggle('hidden');
+                setTimeout(()=>{
+                    dropdown.classList.toggle('hidden');
+                }, 150);
             });
         });
     }
@@ -22227,7 +22238,9 @@ class searchView extends _viewDefault.default {
         document.addEventListener('click', (e)=>{
             if (!e.target.classList.contains('li')) return;
             const { index  } = e.target.dataset;
-            handler(index);
+            this._clearInput();
+            this._clearCityList();
+            handler(Number(index));
         });
     }
     addHandlerSearchForm(handler) {
@@ -22244,10 +22257,10 @@ class searchView extends _viewDefault.default {
     }
     _generateMarkup(data, i) {
         const html = `
-    <li class="li" data-index="${i}>
-        <p>${data.name}, ${data.country}</p>
-     </li>
-    `;
+    <li class="li" data-index="${i}">
+        <p class="li" data-index="${i}">${data.name}, ${data.country}</p>
+      </li>
+`;
         return html;
     }
 }

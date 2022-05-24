@@ -274,8 +274,8 @@ header #dropdown p {
   text-shadow: none;
   color: #4d4d4d;
   border-bottom: 1px solid #4d4d4d;
-  margin: .5rem auto 0;
-  padding-bottom: .5rem;
+  margin: 0 auto;
+  padding: .6rem 0;
   font-size: 1.5rem;
 }
 
@@ -331,7 +331,7 @@ main {
 }
 
 #present-weather .now-weather {
-  width: 33rem;
+  width: 40rem;
   height: 33rem;
   background-color: #fff;
   border: 3px solid #fcb42fcc;
@@ -343,6 +343,7 @@ main {
   font-family: Zen Maru Gothic, sans-serif;
   display: flex;
   position: relative;
+  overflow: scroll;
   box-shadow: 5px 5px 2px #1f89df;
 }
 

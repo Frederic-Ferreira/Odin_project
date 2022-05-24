@@ -310,9 +310,9 @@ header {
     }
 
     p {
-      padding-bottom: 0.5rem;
+      padding: 0.6rem 0;
       width: 75%;
-      margin: 0.5rem auto 0 auto;
+      margin: 0 auto;
       font-size: 1.5rem;
       text-shadow: none;
       color: $text-color;
@@ -379,13 +379,14 @@ main {
     justify-content: space-between;
     background-color: white;
     font-family: 'Zen Maru Gothic', sans-serif;
-    width: 33rem;
+    width: 40rem;
     height: 33rem;
     margin: 0rem 10rem;
     padding: 1.5rem;
     border: 3px solid $header-color;
     box-shadow: 5px 5px 2px $box-shadow-color;
     border-radius: 10px;
+    overflow: scroll;
     flex-wrap: wrap;
 
     .column-wrapper {

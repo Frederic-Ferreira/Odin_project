@@ -105,6 +105,14 @@ export const getCityFromList = (index) => {
   return state.cityList[index];
 };
 
+export const updateCurrentCity = (data) => {
+  state.currentCity = {
+    name: data.name,
+    lat: data.lat,
+    long: data.long,
+  };
+};
+
 export const getInputCoordinates = async (input) => {
   const lang = state.lang === 'fr';
 

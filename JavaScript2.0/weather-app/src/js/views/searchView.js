@@ -66,7 +66,9 @@ class searchView extends View {
           const dropdown =
             this._parentElement.closest('form').nextElementSibling;
 
-          dropdown.classList.toggle('hidden');
+          setTimeout(() => {
+            dropdown.classList.toggle('hidden');
+          }, 150);
         });
     });
   }
@@ -77,7 +79,11 @@ class searchView extends View {
 
       const { index } = e.target.dataset;
 
-      handler(index);
+      this._clearInput();
+
+      this._clearCityList();
+
+      handler(Number(index));
     });
   }
 
@@ -102,10 +108,10 @@ class searchView extends View {
 
   _generateMarkup(data, i) {
     const html = `
-    <li class="li" data-index="${i}>
-        <p>${data.name}, ${data.country}</p>
-     </li>
-    `;
+    <li class="li" data-index="${i}">
+        <p class="li" data-index="${i}">${data.name}, ${data.country}</p>
+      </li>
+`;
 
     return html;
   }
