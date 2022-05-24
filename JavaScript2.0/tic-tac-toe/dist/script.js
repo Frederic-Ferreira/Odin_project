@@ -24,18 +24,19 @@ const gameBoard = {
   'third-row': ['', '', ''],
 };
 
-let activePlayer, playerOne, playerTwo, winner;
+let activePlayer;
+let playerOne;
+let playerTwo;
+let winner;
 let tie = false;
 
-const playerProto = (choice, player) => {
-  return {
-    choice: choice,
-    player: player,
-    score: 0,
-  };
-};
+const playerProto = (choice, player) => ({
+  choice,
+  player,
+  score: 0,
+});
 
-const choosePlayer = (choice) => {
+var choosePlayer = (choice) => {
   playerOne = playerProto(choice, 'Player One');
   playerTwo.choice = choice === 'X' ? 'O' : 'X';
   activePlayer = playerOne;
@@ -136,8 +137,9 @@ const checkTie = () => {
     gameBoard['third-row'][0] !== '' &&
     gameBoard['third-row'][1] !== '' &&
     gameBoard['third-row'][2] !== ''
-  )
+  ) {
     tie = true;
+  }
 };
 
 const autoPlay = () => {
@@ -152,9 +154,11 @@ const autoPlay = () => {
     const [goodCell] = [...gridCells].filter((cell) => {
       if (keys[random] === 'first-row') {
         return cell.dataset.cell === String(index + 1);
-      } else if (keys[random] === 'second-row') {
+      }
+      if (keys[random] === 'second-row') {
         return cell.dataset.cell === String(index + 4);
-      } else return cell.dataset.cell === String(index + 7);
+      }
+      return cell.dataset.cell === String(index + 7);
     });
 
     return (cell = goodCell);
@@ -162,7 +166,7 @@ const autoPlay = () => {
 
   const tryFill = () => {
     console.log('tryFill called');
-    for (i = 0; i < 9; i++) {
+    for (let i = 0; i < 9; i++) {
       findCell();
       if (gameBoard[keys[random]][index] === '') {
         gameBoard[keys[random]][index] = fill;
@@ -192,10 +196,11 @@ const autoPlay = () => {
 };
 
 const playGame = () => {
-  if (playerTwo.player === 'Computer' && activePlayer === playerTwo)
+  if (playerTwo.player === 'Computer' && activePlayer === playerTwo) {
     setTimeout(autoPlay, 2000);
+  }
   checkCombinations();
-  if (winner !== undefined) console.log('The winner is ' + winner);
+  if (winner !== undefined) console.log(`The winner is ${winner}`);
   checkTie();
   if (winner === undefined && tie === true) console.log('Its a tie');
 };
@@ -217,12 +222,10 @@ gridCells.forEach((cell) => {
         cell.firstElementChild.textContent = fill;
         cell.firstElementChild.classList.add('p-cell');
       }
-    } else {
-      if (gameBoard['third-row'][i - 7] === '') {
-        gameBoard['third-row'][i - 7] = fill;
-        cell.firstElementChild.textContent = fill;
-        cell.firstElementChild.classList.add('p-cell');
-      }
+    } else if (gameBoard['third-row'][i - 7] === '') {
+      gameBoard['third-row'][i - 7] = fill;
+      cell.firstElementChild.textContent = fill;
+      cell.firstElementChild.classList.add('p-cell');
     }
     activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
     playGame();

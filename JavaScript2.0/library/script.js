@@ -10,7 +10,7 @@ const authorInput = document.getElementById('author');
 const pagesInput = document.getElementById('pages');
 const readInput = document.getElementById('read');
 
-let myLibrary = [];
+const myLibrary = [];
 
 class Book {
   constructor(title, author, pages, read) {
@@ -137,7 +137,7 @@ btn.addEventListener('click', toggleOverlay);
 
 close.addEventListener('click', toggleOverlay);
 
-document.addEventListener('keydown', function (e) {
+document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
     toggleOverlay();
   }

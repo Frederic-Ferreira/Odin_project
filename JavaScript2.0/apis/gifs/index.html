@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <img src="#" />
+    <input type="text" />
+    <script>
+      const img = document.querySelector('img');
+      const input = document.querySelector('input');
+      const text = document.createElement('p');
+
+      document.addEventListener('input', () => {
+        if (input.value !== '') fetchGif(input.value);
+      });
+
+      async function fetchGif(search) {
+        try {
+          const request = await fetch(
+            `https://api.giphy.com/v1/gifs/translate?api_key=INADUUqrfwKIFAedFBuLjLTIVo9gXo9x&s=${search}`,
+            { mode: 'cors' }
+          );
+          if (!request.ok)
+            throw Error('Something went wrong with your research...');
+          const response = await request.json();
+          img.src = response.data.images.original.url;
+        } catch (err) {
+          text.innerText = err;
+          document.body.appendChild(text);
+        }
+      }
+    </script>
+  </body>
+</html>
