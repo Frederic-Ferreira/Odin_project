@@ -26,7 +26,7 @@ class currentView extends View {
     this._parentElement.insertAdjacentHTML('afterbegin', html);
   }
 
-  loadEventListener(handler) {
+  addHandlerLoad(handler) {
     window.addEventListener('load', handler);
   }
 

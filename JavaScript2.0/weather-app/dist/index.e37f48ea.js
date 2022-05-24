@@ -577,6 +577,16 @@ const controlClientInput = async (input)=>{
         controlErrors(err);
     }
 };
+const controlCityList = async (index)=>{
+    try {
+        const city = _model.state.cityList(index);
+        await _model.getCurrentWeather(city);
+        await _model.getHourlyWeather(city);
+        await _model.getWeeklyWeather(city);
+    } catch (err) {
+        console.log(err);
+    }
+};
 const controlLanguage = (lang)=>{
     _model.setStateLang(lang);
     _mainViewDefault.default.languageDisplay(_model.state.lang);
@@ -595,9 +605,11 @@ const initSpinners = ()=>{
 const init = async ()=>{
     initSpinners();
     _mainViewDefault.default.addHandlerLang(controlLanguage);
-    // currentView.loadEventListener(controlClientCoordinates);
-    _searchViewDefault.default.addHandlerSearch(controlClientInput);
-    _searchViewDefault.default.addInputChangeEventListener(controlInputChange);
+    // currentView.addHandlerLoad(controlClientCoordinates);
+    _searchViewDefault.default.addHandlerSearchForm(controlClientInput);
+    _searchViewDefault.default.addHandlerInputChange(controlInputChange);
+    _searchViewDefault.default.addInputFocusEventListener();
+    _searchViewDefault.default.addHandlerSearchList(controlCityList);
 };
 init();
 
@@ -611,6 +623,8 @@ parcelHelpers.export(exports, "setStateLang", ()=>setStateLang
 parcelHelpers.export(exports, "getClientCoordinates", ()=>getClientCoordinates
 );
 parcelHelpers.export(exports, "getInputCityList", ()=>getInputCityList
+);
+parcelHelpers.export(exports, "getCityFromList", ()=>getCityFromList
 );
 parcelHelpers.export(exports, "getInputCoordinates", ()=>getInputCoordinates
 );
@@ -671,6 +685,9 @@ const getInputCityList = async (input)=>{
     } catch (err) {
         throw lang ? 'Le serveur météo a des problèmes techniques, réessayez plus tard' : 'Something went wrong with the server, please try again ...';
     }
+};
+const getCityFromList = (index)=>{
+    return state.cityList[index];
 };
 const getInputCoordinates = async (input)=>{
     const lang = state.lang === 'fr';
@@ -815,7 +832,7 @@ class currentView extends _viewDefault.default {
         this._clear();
         this._parentElement.insertAdjacentHTML('afterbegin', html);
     }
-    loadEventListener(handler) {
+    addHandlerLoad(handler) {
         window.addEventListener('load', handler);
     }
     renderSpinner() {
@@ -22177,22 +22194,43 @@ class searchView extends _viewDefault.default {
     renderInputCityList(data) {
         this._data = data;
         this._clearCityList();
-        const dropdown = this._parentElement.closest('form').nextElementSibling.firstElementChild;
+        const list = this._parentElement.closest('form').nextElementSibling.firstElementChild;
         this._data.forEach((city, i)=>{
-            const html = this._generateMarkup(city);
-            dropdown.insertAdjacentHTML('afterbegin', html);
-            if (i === this._data.length - 1) dropdown.lastElementChild.lastElementChild.style.border = 'none';
-            dropdown.lastElementChild.style.borderBottomLeftRadius = '20px';
-            dropdown.lastElementChild.style.borderBottomRightRadius = '20px';
+            const html = this._generateMarkup(city, i);
+            list.insertAdjacentHTML('afterbegin', html);
+            if (i === this._data.length - 1) list.lastElementChild.lastElementChild.style.border = 'none';
+            if (this._data.length > 4) {
+                list.lastElementChild.style.borderBottomLeftRadius = '20px';
+                list.lastElementChild.style.borderBottomRightRadius = '20px';
+            }
         });
     }
-    addInputChangeEventListener(handler) {
+    addHandlerInputChange(handler) {
         this._parentElement.closest('form').addEventListener('input', ()=>{
-            if (this._parentElement.value === '') return;
+            if (this._parentElement.value === '') return this._clearCityList();
             handler(this._parentElement.value);
         });
     }
-    addHandlerSearch(handler) {
+    addInputFocusEventListener() {
+        const evts = [
+            'focusin',
+            'focusout'
+        ];
+        evts.forEach((evt)=>{
+            this._parentElement.closest('form').addEventListener(evt, ()=>{
+                const dropdown = this._parentElement.closest('form').nextElementSibling;
+                dropdown.classList.toggle('hidden');
+            });
+        });
+    }
+    addHandlerSearchList(handler) {
+        document.addEventListener('click', (e)=>{
+            if (!e.target.classList.contains('li')) return;
+            const { index  } = e.target.dataset;
+            handler(index);
+        });
+    }
+    addHandlerSearchForm(handler) {
         const passInputHandler = ()=>{
             if (this._parentElement.value === '') return;
             const input = this._getInput();
@@ -22204,9 +22242,9 @@ class searchView extends _viewDefault.default {
         });
         this._search.addEventListener('click', passInputHandler);
     }
-    _generateMarkup(data) {
+    _generateMarkup(data, i) {
         const html = `
-    <li>
+    <li class="li" data-index="${i}>
         <p>${data.name}, ${data.country}</p>
      </li>
     `;

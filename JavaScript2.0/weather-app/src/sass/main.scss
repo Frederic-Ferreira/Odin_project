@@ -43,6 +43,10 @@ body {
   @include flexColumn();
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* --------- SPINNER ---------- */
 
 .spinner-hours,
@@ -288,6 +292,7 @@ header {
     border-bottom-right-radius: 20px;
     right: 0;
     top: 100%;
+    overflow: scroll;
     z-index: 1;
 
     ul {

@@ -26,35 +26,62 @@ class searchView extends View {
 
     this._clearCityList();
 
-    const dropdown =
+    const list =
       this._parentElement.closest('form').nextElementSibling
         .firstElementChild;
 
     this._data.forEach((city, i) => {
-      const html = this._generateMarkup(city);
+      const html = this._generateMarkup(city, i);
 
-      dropdown.insertAdjacentHTML('afterbegin', html);
+      list.insertAdjacentHTML('afterbegin', html);
 
       if (i === this._data.length - 1)
-        dropdown.lastElementChild.lastElementChild.style.border =
-          'none';
-      dropdown.lastElementChild.style.borderBottomLeftRadius = '20px';
-      dropdown.lastElementChild.style.borderBottomRightRadius =
-        '20px';
+        list.lastElementChild.lastElementChild.style.border = 'none';
+
+      if (this._data.length > 4) {
+        list.lastElementChild.style.borderBottomLeftRadius = '20px';
+        list.lastElementChild.style.borderBottomRightRadius = '20px';
+      }
     });
   }
 
-  addInputChangeEventListener(handler) {
+  addHandlerInputChange(handler) {
     this._parentElement
       .closest('form')
       .addEventListener('input', () => {
-        if (this._parentElement.value === '') return;
+        if (this._parentElement.value === '')
+          return this._clearCityList();
 
         handler(this._parentElement.value);
       });
   }
 
-  addHandlerSearch(handler) {
+  addInputFocusEventListener() {
+    const evts = ['focusin', 'focusout'];
+
+    evts.forEach((evt) => {
+      this._parentElement
+        .closest('form')
+        .addEventListener(evt, () => {
+          const dropdown =
+            this._parentElement.closest('form').nextElementSibling;
+
+          dropdown.classList.toggle('hidden');
+        });
+    });
+  }
+
+  addHandlerSearchList(handler) {
+    document.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('li')) return;
+
+      const { index } = e.target.dataset;
+
+      handler(index);
+    });
+  }
+
+  addHandlerSearchForm(handler) {
     const passInputHandler = () => {
       if (this._parentElement.value === '') return;
 
@@ -73,9 +100,9 @@ class searchView extends View {
     this._search.addEventListener('click', passInputHandler);
   }
 
-  _generateMarkup(data) {
+  _generateMarkup(data, i) {
     const html = `
-    <li>
+    <li class="li" data-index="${i}>
         <p>${data.name}, ${data.country}</p>
      </li>
     `;

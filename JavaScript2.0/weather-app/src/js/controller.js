@@ -65,6 +65,18 @@ const controlClientInput = async (input) => {
   }
 };
 
+const controlCityList = async (index) => {
+  try {
+    const city = model.state.cityList(index);
+
+    await model.getCurrentWeather(city);
+    await model.getHourlyWeather(city);
+    await model.getWeeklyWeather(city);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const controlLanguage = (lang) => {
   model.setStateLang(lang);
 
@@ -88,9 +100,11 @@ const initSpinners = () => {
 const init = async () => {
   initSpinners();
   mainView.addHandlerLang(controlLanguage);
-  // currentView.loadEventListener(controlClientCoordinates);
-  searchView.addHandlerSearch(controlClientInput);
-  searchView.addInputChangeEventListener(controlInputChange);
+  // currentView.addHandlerLoad(controlClientCoordinates);
+  searchView.addHandlerSearchForm(controlClientInput);
+  searchView.addHandlerInputChange(controlInputChange);
+  searchView.addInputFocusEventListener();
+  searchView.addHandlerSearchList(controlCityList);
 };
 
 init();

@@ -101,6 +101,10 @@ export const getInputCityList = async (input) => {
   }
 };
 
+export const getCityFromList = (index) => {
+  return state.cityList[index];
+};
+
 export const getInputCoordinates = async (input) => {
   const lang = state.lang === 'fr';
 
