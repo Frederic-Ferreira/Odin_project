@@ -22206,7 +22206,7 @@ class searchView extends _viewDefault.default {
         const list = this._parentElement.closest('form').nextElementSibling.firstElementChild;
         this._data.forEach((city, i)=>{
             const html = this._generateMarkup(city, i);
-            list.insertAdjacentHTML('afterbegin', html);
+            list.insertAdjacentHTML('beforeend', html);
             if (i === this._data.length - 1) list.lastElementChild.lastElementChild.style.border = 'none';
             if (this._data.length > 4) {
                 list.lastElementChild.style.borderBottomLeftRadius = '20px';

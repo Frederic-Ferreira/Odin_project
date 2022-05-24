@@ -33,7 +33,7 @@ class searchView extends View {
     this._data.forEach((city, i) => {
       const html = this._generateMarkup(city, i);
 
-      list.insertAdjacentHTML('afterbegin', html);
+      list.insertAdjacentHTML('beforeend', html);
 
       if (i === this._data.length - 1)
         list.lastElementChild.lastElementChild.style.border = 'none';
