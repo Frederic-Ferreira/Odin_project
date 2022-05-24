@@ -16,6 +16,8 @@ class searchView extends View {
 
   addHandlerSearch(handler) {
     const passInputHandler = () => {
+      if (this._parentElement.value === '') return;
+
       const input = this._getInput();
       handler(input);
     };
@@ -24,6 +26,7 @@ class searchView extends View {
       .closest('form')
       .addEventListener('submit', function (e) {
         e.preventDefault();
+
         passInputHandler();
       });
 

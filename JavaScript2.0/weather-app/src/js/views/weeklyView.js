@@ -57,7 +57,7 @@ class weeklyView extends View {
     </div>
     <div class="row-wrapper">
       <p>max</p>
-      <p class="value">${
+      <p class="max">${
         lang === 'fr'
           ? convertToCelsius(data.maxTemp)
           : convertToFarenheit(data.maxTemp)
@@ -65,11 +65,11 @@ class weeklyView extends View {
     </div>
     <div class="row-wrapper">
       <i class="bi bi-cloud-drizzle"></i>
-      <p class="value">${data.rain === '' ? '0' : data.rain}mm</p>
+      <p class="rain">${data.rain === '' ? '0' : data.rain}mm</p>
     </div>
     <div class="row-wrapper">
       <i class="bi bi-wind"></i>
-      <p class="value">${
+      <p class="wind">${
         lang === 'fr' ? convertKMH(data.wind) : convertMPH(data.wind)
       }</p>
     </div>

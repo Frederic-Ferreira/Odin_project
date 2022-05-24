@@ -667,8 +667,8 @@ const getCurrentWeather = async (lat, long)=>{
             temperature: data.main.temp,
             feels: data.main.feels_like,
             humidity: data.main.humidity,
-            min: data.main.temp_min,
-            max: data.main.temp_max,
+            sunrise: data.sys.sunrise,
+            sunset: data.sys.sunset,
             wind: data.wind.speed,
             rain: data.rain === undefined ? '' : data.rain['1h'],
             snow: data.snow === undefined ? '' : data.snow['1h'],
@@ -807,14 +807,14 @@ class currentView extends _viewDefault.default {
       <h2>${lang === 'fr' ? _helpers.convertToCelsius(data.temperature) : _helpers.convertToFarenheit(data.temperature)}</h2>
     </span>
     <h3>${_lodashDefault.default.capitalize(data.description)}</h3>
-    <span class="min-max">
+    <span class="rise-set">
       <div class="column-wrapper">
-        <p>min</p>
-        <p class="value">${lang === 'fr' ? _helpers.convertToCelsius(data.min) : _helpers.convertToFarenheit(data.min)}</p>
+      <i class="bi bi-sunrise"></i>
+        <p class="value">${lang === 'fr' ? _helpers.convertTimeFR(data.sunrise) : _helpers.convertTimeENG(data.sunrise)}</p>
       </div>
       <div class="column-wrapper">
-        <p>max</p>
-        <p class="value">${lang === 'fr' ? _helpers.convertToCelsius(data.max) : _helpers.convertToFarenheit(data.max)}</p>
+      <i class="bi bi-sunset-fill"></i>
+        <p class="value">${lang === 'fr' ? _helpers.convertTimeFR(data.sunset) : _helpers.convertTimeENG(data.sunset)}</p>
       </div>
     </span>
   </div>
@@ -22140,6 +22140,7 @@ class searchView extends _viewDefault.default {
     }
     addHandlerSearch(handler) {
         const passInputHandler = ()=>{
+            if (this._parentElement.value === '') return;
             const input = this._getInput();
             handler(input);
         };
@@ -22254,15 +22255,15 @@ class weeklyView extends _viewDefault.default {
     </div>
     <div class="row-wrapper">
       <p>max</p>
-      <p class="value">${lang === 'fr' ? _helpers.convertToCelsius(data.maxTemp) : _helpers.convertToFarenheit(data.maxTemp)}</p>
+      <p class="max">${lang === 'fr' ? _helpers.convertToCelsius(data.maxTemp) : _helpers.convertToFarenheit(data.maxTemp)}</p>
     </div>
     <div class="row-wrapper">
       <i class="bi bi-cloud-drizzle"></i>
-      <p class="value">${data.rain === '' ? '0' : data.rain}mm</p>
+      <p class="rain">${data.rain === '' ? '0' : data.rain}mm</p>
     </div>
     <div class="row-wrapper">
       <i class="bi bi-wind"></i>
-      <p class="value">${lang === 'fr' ? _helpers.convertKMH(data.wind) : _helpers.convertMPH(data.wind)}</p>
+      <p class="wind">${lang === 'fr' ? _helpers.convertKMH(data.wind) : _helpers.convertMPH(data.wind)}</p>
     </div>
   </div>
 

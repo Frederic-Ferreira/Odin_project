@@ -44,13 +44,10 @@ body {
 }
 
 /* --------- SPINNER ---------- */
-.spinner-current {
-  height: 100%;
-  grid-column: span 4;
-}
 
 .spinner-hours,
-.spinner-weeks {
+.spinner-weeks,
+.spinner-current {
   height: 100%;
   width: 100%;
 }
@@ -311,8 +308,8 @@ main {
 
   .now-weather {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    justify-content: space-between;
     background-color: white;
     font-family: 'Zen Maru Gothic', sans-serif;
     width: 33rem;
@@ -322,29 +319,36 @@ main {
     border: 3px solid $header-color;
     box-shadow: 5px 5px 2px $box-shadow-color;
     border-radius: 10px;
+    flex-wrap: wrap;
+
+    .column-wrapper {
+      @include flexColumn();
+      align-items: center;
+    }
 
     img {
-      grid-column: span 3;
-      position: relative;
-      top: 1rem;
-      left: -1rem;
-      width: 125%;
+      width: 50%;
     }
 
     .main-infos {
-      grid-column: span 1;
+      width: 50%;
       text-align: center;
       font-size: 2rem;
       margin: auto 0;
       @include flexColumn();
+
+      i {
+        font-size: 2.5rem;
+      }
 
       .titles {
         font-size: 2rem;
       }
 
       h2 {
-        font-weight: 500;
-        color: $fifth-color;
+        font-weight: 700;
+        font-size: 4rem;
+        color: $header-color;
       }
 
       h3 {
@@ -357,24 +361,24 @@ main {
         font-size: 1.75rem;
       }
 
-      .min-max {
+      .rise-set {
+        margin-top: 0.5rem;
         display: flex;
         gap: 2rem;
-        margin-top: 0.75rem;
 
         .value {
-          color: $fifth-color;
+          color: $header-color;
           font-weight: 500;
-          position: relative;
-          left: 0.33rem;
+          font-size: 2rem;
         }
       }
     }
 
     .second-categories {
-      grid-column: span 4;
       display: flex;
+      align-items: center;
       justify-content: space-around;
+      width: 100%;
 
       i,
       .icon {
@@ -386,13 +390,7 @@ main {
       p {
         font-size: 1.5rem;
         font-weight: 500;
-        color: $fifth-color;
-      }
-
-      .column-wrapper {
-        @include flexColumn();
-        align-items: center;
-        gap: 1rem;
+        color: $box-shadow-color;
       }
     }
   }
@@ -452,9 +450,9 @@ main {
       }
 
       p {
-        font-size: 1rem;
+        font-size: 1.25rem;
         font-weight: 500;
-        color: $fourth-color;
+        color: $box-shadow-color;
       }
     }
   }
@@ -499,11 +497,30 @@ main {
       .row-wrapper {
         @include flexCenter();
         gap: 1rem;
-        font-size: 1.5rem;
+        font-size: 1.75rem;
+
+        .value,
+        .max,
+        .wind,
+        .rain {
+          font-weight: 500;
+        }
 
         .value {
-          color: $fourth-color;
-          font-weight: 500;
+          color: $background-color;
+        }
+
+        .max {
+          color: rgb(252, 146, 47);
+        }
+
+        .rain {
+          color: $box-shadow-color;
+        }
+
+        .wind {
+          color: rgba(0, 0, 0, 0.5);
+          font-size: 1.5rem;
         }
       }
     }
@@ -516,9 +533,8 @@ footer {
   @include flexCenter();
   color: $background-color;
   font-weight: 500;
-  margin-bottom: 2rem;
   font-size: 2.5rem;
-  height: 8rem;
+  height: 5rem;
   background-color: $header-color;
 }
 

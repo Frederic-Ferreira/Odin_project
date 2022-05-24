@@ -4,6 +4,8 @@ import {
   convertKMH,
   convertToCelsius,
   convertToFarenheit,
+  convertTimeFR,
+  convertTimeENG,
 } from '../helpers';
 
 import _ from 'lodash';
@@ -55,21 +57,21 @@ class currentView extends View {
       }</h2>
     </span>
     <h3>${_.capitalize(data.description)}</h3>
-    <span class="min-max">
+    <span class="rise-set">
       <div class="column-wrapper">
-        <p>min</p>
+      <i class="bi bi-sunrise"></i>
         <p class="value">${
           lang === 'fr'
-            ? convertToCelsius(data.min)
-            : convertToFarenheit(data.min)
+            ? convertTimeFR(data.sunrise)
+            : convertTimeENG(data.sunrise)
         }</p>
       </div>
       <div class="column-wrapper">
-        <p>max</p>
+      <i class="bi bi-sunset-fill"></i>
         <p class="value">${
           lang === 'fr'
-            ? convertToCelsius(data.max)
-            : convertToFarenheit(data.max)
+            ? convertTimeFR(data.sunset)
+            : convertTimeENG(data.sunset)
         }</p>
       </div>
     </span>
