@@ -13,12 +13,14 @@ export const setStateLang = (choice) => {
 };
 
 export const getClientCoordinates = async () => {
-  await new Promise((resolve) => {
+  await new Promise((resolve, reject) => {
     if (navigator.geolocation)
       navigator.geolocation.getCurrentPosition(successRes, errorRes);
     else {
       throw Error(
-        'Your navigator does not support geolocation, please enter a city name'
+        lang
+          ? 'Votre navigateur ne supporte pas le servir de géolocalisation, rechercher une météo dans la barre de recherche'
+          : 'Your navigator does not support geolocation, please enter a city name'
       );
     }
 
@@ -31,26 +33,40 @@ export const getClientCoordinates = async () => {
     }
 
     function errorRes(err) {
+      const lang = state.lang === 'fr';
+
       if (err.code == 1) {
-        throw Error(
-          'Please, allow your browser to access your position or search a specific city name.'
+        reject(
+          lang
+            ? 'Veuillez autoriser votre navigateur à accéder à votre position, ou faites une recherche.'
+            : 'Please, allow your browser to access your position or search a specific city name.'
         );
       } else if (err.code == 2) {
-        throw Error(
-          "The network is down or the positioning service can't be reached."
+        reject(
+          lang
+            ? 'Le réseau ne fonctionne pas, ou on ne peut pas accéder au service de position.'
+            : "The network is down or the positioning service can't be reached."
         );
       } else if (err.code == 3) {
-        throw Error(
-          'The attempt timed out before it could get the location data.'
+        reject(
+          lang
+            ? 'Le timer a atteint son maximum avant de pouvoir récupérer les données de position'
+            : 'The attempt timed out before it could get the location data.'
         );
       } else {
-        throw Error('Geolocation failed due to unknown error.');
+        reject(
+          lang
+            ? 'La géolocalisation a échouée pour une raison inconnue'
+            : 'Geolocation failed due to unknown error.'
+        );
       }
     }
   });
 };
 
 export const getInputCoordinates = async (input) => {
+  const lang = state.lang === 'fr';
+
   try {
     const response = await fetch(
       `http://api.openweathermap.org/geo/1.0/direct?q=${input}&limit=1&appid=${weatherKEY}`
@@ -58,7 +74,9 @@ export const getInputCoordinates = async (input) => {
 
     if (!response.ok)
       throw Error(
-        'Something went wrong with the server, please try again ...'
+        lang
+          ? 'Le serveur météo a des problèmes, réessayez plus tard'
+          : 'Something went wrong with the server, please try again ...'
       );
 
     const data = await response.json();
@@ -69,11 +87,15 @@ export const getInputCoordinates = async (input) => {
       long: data[0].lon,
     };
   } catch (err) {
-    console.log(err);
+    throw lang
+      ? 'Le serveur météo a des problèmes techniques, réessayez plus tard'
+      : 'Something went wrong with the server, please try again ...';
   }
 };
 
 export const getCurrentWeather = async (lat, long) => {
+  const lang = state.lang === 'fr';
+
   try {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${weatherKEY}&lang=${state.lang}`
@@ -81,7 +103,9 @@ export const getCurrentWeather = async (lat, long) => {
 
     if (!response.ok)
       throw Error(
-        'Something went wrong with the server, please try again ...'
+        lang
+          ? 'Le serveur météo a des problèmes techniques, réessayez plus tard'
+          : 'Something went wrong with the server, please try again ...'
       );
 
     const data = await response.json();
@@ -100,12 +124,16 @@ export const getCurrentWeather = async (lat, long) => {
       time: data.dt,
       city: data.name,
     };
-  } catch (err) {
-    console.log(err);
+  } catch {
+    throw lang
+      ? 'Le serveur météo a des problèmes techniques, réessayez plus tard'
+      : 'Something went wrong with the server, please try again ...';
   }
 };
 
 export const getHourlyWeather = async (lat, long) => {
+  const lang = state.lang === 'fr';
+
   try {
     const response = await fetch(
       `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,alerts,current,daily&appid=${weatherKEY}&lang=${state.lang}`
@@ -113,7 +141,9 @@ export const getHourlyWeather = async (lat, long) => {
 
     if (!response.ok)
       throw Error(
-        'Something went wrong with the server, please try again ...'
+        lang
+          ? 'Le serveur météo a des problèmes techniques, réessayez plus tard'
+          : 'Something went wrong with the server, please try again ...'
       );
 
     const { hourly } = await response.json();
@@ -131,12 +161,16 @@ export const getHourlyWeather = async (lat, long) => {
       };
       state.hourlyWeather.push(obj);
     });
-  } catch (err) {
-    console.log(err);
+  } catch {
+    throw lang
+      ? 'Le serveur météo a des problèmes techniques, réessayez plus tard'
+      : 'Something went wrong with the server, please try again ...';
   }
 };
 
 export const getWeeklyWeather = async (lat, long) => {
+  const lang = state.lang === 'fr';
+
   try {
     const response = await fetch(
       `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${long}&exclude=minutely,hourly,current,alerts&appid=${weatherKEY}&lang=${state.lang}`
@@ -144,7 +178,9 @@ export const getWeeklyWeather = async (lat, long) => {
 
     if (!response.ok)
       throw Error(
-        'Something went wrong with the server, please try again ...'
+        lang
+          ? 'Le serveur météo a des problèmes techniques, réessayez plus tard'
+          : 'Something went wrong with the server, please try again ...'
       );
 
     const { daily } = await response.json();
@@ -165,7 +201,9 @@ export const getWeeklyWeather = async (lat, long) => {
         state.weeklyWeather.push(obj);
       }
     });
-  } catch (err) {
-    console.log(err);
+  } catch {
+    throw lang
+      ? 'Le serveur météo a des problèmes techniques, réessayez plus tard'
+      : 'Something went wrong with the server, please try again ...';
   }
 };

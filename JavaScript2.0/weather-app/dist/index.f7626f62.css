@@ -19,7 +19,7 @@ body {
 
 .spinner-current {
   height: 100%;
-  width: 370%;
+  grid-column: span 4;
 }
 
 .spinner-hours, .spinner-weeks {
@@ -64,16 +64,6 @@ body {
 
 .lds-ring div:nth-child(3) {
   animation-delay: -.15s;
-}
-
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
 header {
@@ -244,6 +234,17 @@ header .slider.round:before {
 main {
   background-color: #7dafe9;
   position: relative;
+}
+
+.error-message {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.75rem;
+  font-weight: 500;
+  display: flex;
 }
 
 #title-today {
@@ -483,10 +484,11 @@ main {
 
 footer {
   color: #7dafe9;
-  height: 4rem;
+  height: 8rem;
   background-color: #fcb42fcc;
   justify-content: center;
   align-items: center;
+  margin-bottom: 2rem;
   font-size: 2.5rem;
   font-weight: 500;
   display: flex;
@@ -503,6 +505,16 @@ footer {
 }
 
 @keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes lds-ring {
   0% {
     transform: rotate(0deg);
   }

@@ -31,7 +31,7 @@ const controlWeather = async () => {
       model.state.lang
     );
   } catch (err) {
-    console.error(err);
+    controlErrors(err);
   }
 };
 
@@ -41,7 +41,7 @@ const controlClientCoordinates = async () => {
 
     controlWeather();
   } catch (err) {
-    console.log(err);
+    controlErrors(err);
   }
 };
 
@@ -51,7 +51,7 @@ const controlClientInput = async (input) => {
 
     controlWeather();
   } catch (err) {
-    console.log(err);
+    controlErrors(err);
   }
 };
 
@@ -61,6 +61,12 @@ const controlLanguage = (lang) => {
   mainView.languageDisplay(model.state.lang);
 
   controlWeather();
+};
+
+const controlErrors = (err) => {
+  currentView.renderErrorMessage(err);
+  hourlyView.renderErrorMessage(err);
+  weeklyView.renderErrorMessage(err);
 };
 
 const initSpinners = () => {
