@@ -93,6 +93,10 @@ button {
       &:hover {
         opacity: 1;
 
+        &:active {
+          transform: translate(1px, 1px);
+        }
+
         &::after {
           content: 'EDIT';
           color: black;
@@ -134,7 +138,7 @@ button {
     margin: 3.3rem;
     text-align: center;
 
-    #edit-btn {
+    #add-btn {
       top: 5rem;
       right: -3.3rem;
     }

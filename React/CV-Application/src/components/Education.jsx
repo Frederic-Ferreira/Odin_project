@@ -1,26 +1,44 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Button from './Button';
 
-const Education = (props) => {
-  return (
-    <div id="education">
-      <Button choice="add" />
-      <h2>Education</h2>
-      <ul>
-        <li>
-          <div>
-            <h4>Aug 2019 - JULY 202</h4>
-            <h5>B.S. Web Development</h5>
-          </div>
-          <div>
-            <h4>Cool University</h4>
-            <h5>New York City, NY</h5>
-            <p>minor: leprem ipsum dolor</p>
-          </div>
-        </li>
-      </ul>
-    </div>
-  );
-};
+class Education extends Component {
+  constructor() {
+    super();
+    this.state = {
+      school: 'Cool University',
+      degree: 'B.S. Web Development',
+      start: 'AUG 2019',
+      end: 'JULY 2020',
+      location: 'New York City, NY',
+      details: 'minor: leprem ipsum dolor',
+    };
+  }
+
+  render() {
+    const { school, degree, start, end, location, details } =
+      this.state;
+    return (
+      <div id="education">
+        <Button choice="add" />
+        <h2>Education</h2>
+        <ul>
+          <li>
+            <div>
+              <h4>
+                {start} - {end}
+              </h4>
+              <h5>{degree}</h5>
+            </div>
+            <div>
+              <h4>{school}</h4>
+              <h5>{location}</h5>
+              <p>{details}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+}
 
 export default Education;
