@@ -1,6 +1,10 @@
+import React from 'react';
+import Button from './Button';
+
 const Education = (props) => {
   return (
     <div id="education">
+      <Button choice="add" />
       <h2>Education</h2>
       <ul>
         <li>

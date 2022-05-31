@@ -1,3 +1,5 @@
+/* --------------- GENERAL --------------- */
+
 * {
   margin: 0;
   padding: 0;
@@ -27,6 +29,40 @@ body {
   user-select: none;
 }
 
+button {
+  width: 5rem;
+  height: 3rem;
+  position: absolute;
+  right: 0;
+  text-transform: uppercase;
+  opacity: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.33);
+  opacity: 0;
+}
+
+#header,
+#education,
+#experience,
+#profile,
+#informations,
+#skills {
+  position: relative;
+
+  &:hover button {
+    opacity: 1;
+  }
+}
+
 /* --------------- CV --------------- */
 
 #CV {
@@ -45,13 +81,40 @@ body {
   @include flexColumn();
   align-items: center;
 
-  img {
-    border-radius: 50%;
-    height: 20rem;
-    width: 20rem;
+  #profile {
+    img,
+    .profile {
+      border-radius: 50%;
+      height: 20rem;
+      width: 20rem;
+    }
+
+    .profile {
+      &:hover {
+        opacity: 1;
+
+        &::after {
+          content: 'EDIT';
+          color: black;
+          text-shadow: 1px 1px 1px white;
+          font-size: 3.3rem;
+          position: relative;
+          top: 40%;
+          left: 33%;
+        }
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   #informations {
+    #edit-btn {
+      right: -3.3rem;
+    }
+
     .category {
       margin: 1rem 0;
       text-align: center;
@@ -70,6 +133,11 @@ body {
   #skills {
     margin: 3.3rem;
     text-align: center;
+
+    #edit-btn {
+      top: 5rem;
+      right: -3.3rem;
+    }
 
     h4 {
       width: 20rem;
@@ -107,6 +175,10 @@ body {
     @include flexColumn();
     font-size: 1.5rem;
     padding: 1.5rem;
+
+    #add-btn {
+      top: 7rem;
+    }
 
     h2 {
       border-top: 1px solid black;

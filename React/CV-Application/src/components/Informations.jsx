@@ -1,6 +1,10 @@
+import React from 'react';
+import Button from './Button';
+
 const Informations = (props) => {
   return (
     <div id="informations">
+      <Button choice="edit" />
       <div className="category">
         <h6>Address</h6>
         <p>123 Address St</p>

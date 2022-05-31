@@ -1,6 +1,10 @@
+import React from 'react';
+import Button from './Button';
+
 const Header = (props) => {
   return (
     <div id="header">
+      <Button choice="edit" />
       <h1>Your name</h1>
       <h3>Your Title</h3>
       <h5>Profile</h5>
