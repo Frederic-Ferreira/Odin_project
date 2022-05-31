@@ -104,6 +104,7 @@ body {
 #CV {
   padding: 5rem;
   width: 80vw;
+  max-height: auto;
   display: flex;
   margin: 5rem 0;
   background-color: rgb(220, 220, 220);
@@ -200,6 +201,7 @@ body {
 /* --------------- MAIN --------------- */
 
 .main {
+  height: 100%;
   #header {
     @include flexColumn();
     height: 20rem;
@@ -217,6 +219,7 @@ body {
     font-size: 1.5rem;
     padding: 1.5rem;
     background-color: pink;
+    flex-wrap: wrap;
 
     .education,
     .experience {
