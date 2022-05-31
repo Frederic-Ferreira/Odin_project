@@ -29,7 +29,7 @@ body {
   user-select: none;
 }
 
-button {
+.button {
   width: 5rem;
   height: 3rem;
   position: absolute;
@@ -50,6 +50,42 @@ button {
   opacity: 0;
 }
 
+.form {
+  width: 25rem;
+  height: 25rem;
+  position: absolute;
+  right: 0;
+  background-color: rgba(75, 128, 58, 0.769);
+  @include flexColumn();
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 5px;
+
+  input,
+  textarea {
+    border-radius: 5px;
+    border: none;
+    padding-left: 1rem;
+  }
+  input {
+    height: 3.3rem;
+  }
+
+  textarea {
+    height: 12rem;
+  }
+
+  button {
+    height: 4rem;
+    width: 7rem;
+    margin-left: auto;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 #header,
 #education,
 #experience,
@@ -67,7 +103,6 @@ button {
 
 #CV {
   padding: 5rem;
-  min-height: 100vh;
   width: 80vw;
   display: flex;
   margin: 5rem 0;
@@ -167,6 +202,8 @@ button {
 .main {
   #header {
     @include flexColumn();
+    height: 20rem;
+    width: 50rem;
     gap: 1rem;
     font-size: 2rem;
     margin: 2rem 0;
@@ -175,10 +212,32 @@ button {
   #education,
   #experience {
     margin-top: 5rem;
-    height: 33%;
+    min-height: 33%;
     @include flexColumn();
     font-size: 1.5rem;
     padding: 1.5rem;
+    background-color: pink;
+
+    .education,
+    .experience {
+      height: 33rem;
+
+      input {
+        height: 7rem;
+      }
+
+      .row-wrapper {
+        text-transform: uppercase;
+        position: relative;
+        button {
+          height: 3.3rem;
+        }
+        button:nth-child(2) {
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
 
     #add-btn {
       top: 7rem;
@@ -200,8 +259,9 @@ button {
 
     li {
       display: flex;
-      justify-content: center;
       gap: 2rem;
+      width: 50rem;
+      margin-bottom: 3.3rem;
 
       div {
         @include flexColumn();

@@ -1,10 +1,15 @@
 import React from 'react';
 
 const Button = (props) => {
-  const { choice } = props;
+  const { choice, event } = props;
 
   return (
-    <button id={choice + '-btn'} type="button">
+    <button
+      onClick={event}
+      id={choice + '-btn'}
+      className="button"
+      type="button"
+    >
       {choice}
     </button>
   );
