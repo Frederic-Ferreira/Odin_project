@@ -118,11 +118,30 @@ body {
   align-items: center;
 
   #profile {
+    position: relative;
     img,
     .profile {
       border-radius: 50%;
       height: 20rem;
       width: 20rem;
+    }
+
+    .picture {
+      position: absolute;
+      top: 0;
+      height: 15rem;
+
+      label {
+        font-size: 2rem;
+      }
+    }
+
+    .row-wrapper {
+      position: relative;
+      button:nth-child(2) {
+        position: absolute;
+        right: 0;
+      }
     }
 
     .profile {
@@ -151,8 +170,16 @@ body {
   }
 
   #informations {
+    position: relative;
+
     #edit-btn {
       right: -3.3rem;
+    }
+
+    .informations {
+      position: absolute;
+      height: 33rem;
+      top: 0;
     }
 
     .category {
@@ -173,6 +200,28 @@ body {
   #skills {
     margin: 3.3rem;
     text-align: center;
+    position: relative;
+
+    .skills {
+      position: absolute;
+      bottom: 0;
+      height: 10rem;
+
+      .row-wrapper {
+        position: relative;
+        button {
+          height: 3rem;
+          position: absolute;
+
+          &:nth-child(1) {
+            left: 0;
+          }
+          &:nth-child(2) {
+            right: 0;
+          }
+        }
+      }
+    }
 
     #add-btn {
       top: 5rem;
@@ -214,11 +263,10 @@ body {
   #education,
   #experience {
     margin-top: 5rem;
-    min-height: 33%;
+    min-height: 330px;
     @include flexColumn();
     font-size: 1.5rem;
     padding: 1.5rem;
-    background-color: pink;
     flex-wrap: wrap;
 
     .education,

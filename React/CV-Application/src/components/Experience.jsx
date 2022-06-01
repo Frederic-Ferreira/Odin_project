@@ -14,30 +14,7 @@ class Experience extends Component {
           end: 'JULY 2020',
           location: 'New York City, NY',
           description: 'minor: leprem ipsum dolor reprehem narutale',
-        },
-        {
-          company: 'Super Awesome Web',
-          title: 'Senior Web Developer',
-          start: 'AUG 2019',
-          end: 'JULY 2020',
-          location: 'New York City, NY',
-          description: 'minor: leprem ipsum dolor reprehem narutale',
-        },
-        {
-          company: 'Super Awesome Web',
-          title: 'Senior Web Developer',
-          start: 'AUG 2019',
-          end: 'JULY 2020',
-          location: 'New York City, NY',
-          description: 'minor: leprem ipsum dolor reprehem narutale',
-        },
-        {
-          company: 'Super Awesome Web',
-          title: 'Senior Web Developer',
-          start: 'AUG 2019',
-          end: 'JULY 2020',
-          location: 'New York City, NY',
-          description: 'minor: leprem ipsum dolor reprehem narutale',
+          id: uniqid(),
         },
       ],
       add: false,
@@ -47,6 +24,16 @@ class Experience extends Component {
   toggleAdd = () => {
     this.setState({
       add: !this.state.add,
+    });
+  };
+
+  handleDelete = (e) => {
+    const id = e.target.closest('li').id;
+
+    this.setState({
+      experiences: this.state.experiences.filter(
+        (experience) => experience.id !== id
+      ),
     });
   };
 
@@ -87,6 +74,7 @@ class Experience extends Component {
       end,
       location,
       description,
+      id: uniqid(),
     };
 
     this.clearInputFields();
@@ -107,7 +95,11 @@ class Experience extends Component {
         <ul>
           {experiences.map((experience) => {
             return (
-              <li key={uniqid()}>
+              <li
+                onClick={this.handleDelete}
+                id={experience.id}
+                key={uniqid()}
+              >
                 <div>
                   <h4>
                     {experience.start} - {experience.end}
@@ -144,13 +136,13 @@ class Experience extends Component {
             <input
               id="start"
               type="text"
-              placeholder="From ... month/year"
+              placeholder="From ... AUG 2020"
               required
             />
             <input
               id="end"
               type="text"
-              placeholder="To ... month/year"
+              placeholder="To ... FEB 2022"
               required
             />
             <input

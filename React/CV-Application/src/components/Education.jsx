@@ -14,6 +14,7 @@ class Education extends Component {
           end: 'JULY 2020',
           location: 'New York City, NY',
           details: 'minor: leprem ipsum dolor',
+          id: uniqid(),
         },
       ],
       add: false,
@@ -32,6 +33,15 @@ class Education extends Component {
 
     fields.forEach((field) => (field.value = ''));
   }
+
+  handleDelete = (e) => {
+    const id = e.target.closest('li').id;
+    this.setState({
+      educations: this.state.educations.filter(
+        (education) => education.id !== id
+      ),
+    });
+  };
 
   toggleAdd = () => {
     this.setState({
@@ -56,6 +66,7 @@ class Education extends Component {
       end,
       location,
       details,
+      id: uniqid(),
     };
 
     this.clearInputFields();
@@ -76,7 +87,11 @@ class Education extends Component {
         <ul>
           {educations.map((education) => {
             return (
-              <li key={uniqid()}>
+              <li
+                onClick={this.handleDelete}
+                id={education.id}
+                key={uniqid()}
+              >
                 <div>
                   <h4>
                     {education.start} - {education.end}
@@ -113,13 +128,13 @@ class Education extends Component {
             <input
               id="start"
               type="text"
-              placeholder="From ... month/year"
+              placeholder="From ... FEB 2019"
               required
             />
             <input
               id="end"
               type="text"
-              placeholder="To ... month/year"
+              placeholder="To ... AUG 2020"
               required
             />
             <input

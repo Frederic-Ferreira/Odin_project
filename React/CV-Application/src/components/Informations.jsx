@@ -11,16 +11,71 @@ class Informations extends Component {
       email: 'arobase@mail.com',
       website: 'website.com',
       linkedin: 'Linkedin.com/in/user-name',
+      edit: false,
     };
   }
 
+  setAddress = () => {
+    const address = document.getElementById('address').value;
+
+    this.setState({
+      address: address,
+    });
+  };
+
+  setZip = () => {
+    const zip = document.getElementById('zip').value;
+
+    this.setState({
+      zip: zip,
+    });
+  };
+
+  setPhone = () => {
+    const phone = document.getElementById('phone').value;
+
+    this.setState({
+      phone: phone,
+    });
+  };
+
+  setEmail = () => {
+    const email = document.getElementById('email').value;
+
+    this.setState({
+      email: email,
+    });
+  };
+
+  setWebsite = () => {
+    const website = document.getElementById('website').value;
+
+    this.setState({
+      website: website,
+    });
+  };
+
+  setLinkedin = () => {
+    const linkedin = document.getElementById('linkedin').value;
+
+    this.setState({
+      linkedin: linkedin,
+    });
+  };
+
+  toggleEdit = () => {
+    this.setState({
+      edit: !this.state.edit,
+    });
+  };
+
   render() {
-    const { address, zip, phone, email, website, linkedin } =
+    const { address, zip, phone, email, website, linkedin, edit } =
       this.state;
 
     return (
       <div id="informations">
-        <Button choice="edit" />
+        <Button event={this.toggleEdit} choice="edit" />
         <div className="category">
           <h6>Address</h6>
           <p>{address}</p>
@@ -39,6 +94,55 @@ class Informations extends Component {
           <p>{website}</p>
           <p>{linkedin}</p>
         </div>
+
+        {edit && (
+          <form className="informations form">
+            <input
+              id="address"
+              type="text"
+              onChange={this.setAddress}
+              value={address}
+              required
+            />
+            <input
+              id="zip"
+              type="text"
+              onChange={this.setZip}
+              value={zip}
+              required
+            />
+            <input
+              id="phone"
+              type="text"
+              onChange={this.setPhone}
+              value={phone}
+              required
+            />
+            <input
+              id="email"
+              type="text"
+              onChange={this.setEmail}
+              value={email}
+              required
+            />
+            <input
+              id="website"
+              type="text"
+              onChange={this.setWebsite}
+              value={website}
+            />
+            <input
+              id="linkedin"
+              type="text"
+              onChange={this.setLinkedin}
+              value={linkedin}
+              required
+            />
+            <button onClick={this.toggleEdit} type="button">
+              Close
+            </button>
+          </form>
+        )}
       </div>
     );
   }
