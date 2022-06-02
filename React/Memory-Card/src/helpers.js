@@ -11,7 +11,6 @@ const randomItemsPosition = (arr, arrLength) => {
 
   for (let i = 0; i < arr.length - 1; i++) {
     let newRandomIndex = generateRandomIndex();
-    newArr.forEach((element) => element);
 
     if (
       compare !== newRandomIndex &&
