@@ -1,5 +1,13 @@
 /* ------------ GENERAL ------------ */
 
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Mali&display=swap');
+
+$header-color: rgb(39, 39, 39);
+$text-color: #16b1c7;
+$normal-shadow-color: #f5ec3a;
+$theme-shadow-color: #83c543;
+$header-height: 10rem;
+
 * {
   padding: 0;
   margin: 0;
@@ -20,4 +28,84 @@ html {
 @mixin flexColumn {
   display: flex;
   flex-direction: column;
+}
+
+.App {
+  height: 100%;
+  width: 100%;
+}
+
+/* ------------ HEADER ------------ */
+
+header {
+  background-color: $header-color;
+  font-family: 'Indie Flower', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5rem;
+  height: 10rem;
+
+  h1 {
+    font-size: 5rem;
+    color: rgb(225, 225, 225);
+    text-shadow: 1px 1px 1px $theme-shadow-color;
+  }
+
+  h3 {
+    font-size: 3.3rem;
+    color: $text-color;
+  }
+
+  .score {
+    color: white;
+  }
+}
+
+/* ------------ CARDBOARD ------------ */
+
+#cardboard {
+  height: 100%;
+  width: 100%;
+  background: url(../images/wallpaper.jpg) no-repeat center center
+    fixed;
+  background-size: cover;
+  padding: 10rem;
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  font-family: 'Mali', sans-serif;
+  height: 250px;
+  width: 250px;
+  background-color: $header-color;
+  border: 2rem solid $header-color;
+  border-radius: 20px;
+  transition: all ease 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    transform: translate(3px, -3px);
+    p {
+      color: $text-color;
+    }
+  }
+
+  &:active p {
+    color: #f5ec3a;
+  }
+
+  img {
+    height: 80%;
+    width: 100%;
+  }
+
+  p {
+    font-size: 2rem;
+    margin-top: 1rem;
+    color: white;
+    text-align: center;
+  }
 }
