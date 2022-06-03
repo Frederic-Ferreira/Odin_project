@@ -1,6 +1,6 @@
 /* ------------ GENERAL ------------ */
 
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Mali&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Mali&family=Patrick+Hand&display=swap');
 
 $header-color: rgb(39, 39, 39);
 $text-color: #16b1c7;
@@ -52,24 +52,80 @@ header {
     text-shadow: 1px 1px 1px $theme-shadow-color;
   }
 
+  h2 {
+    font-size: 2.75rem;
+    letter-spacing: 0.2rem;
+    text-shadow: 1px 1px 1px black;
+    font-family: 'Patrick Hand', sans-serif;
+    color: rgb(225, 225, 225);
+  }
+
   h3 {
     font-size: 3.3rem;
     color: $text-color;
   }
 
-  .score {
-    color: white;
+  .inline-score {
+    @include flexCenter();
+    gap: 2rem;
+    position: relative;
+    width: 25rem;
+    height: 5rem;
+    h3 {
+      position: absolute;
+      left: 0;
+    }
+    p {
+      position: absolute;
+      right: 0;
+      font-size: 5rem;
+      color: white;
+      animation: 0.7s ease-in zoom-in;
+    }
+  }
+
+  #display {
+    animation: 1s ease-in fade-in;
   }
 }
 
 /* ------------ CARDBOARD ------------ */
 
+#videoboard,
 #cardboard {
-  height: 100%;
-  width: 100%;
   background: url(../images/wallpaper.jpg) no-repeat center center
     fixed;
   background-size: cover;
+}
+
+#videoboard {
+  height: 100vh;
+  width: 100vw;
+  @include flexColumn();
+  align-items: center;
+}
+
+.video-container {
+  margin: auto 0;
+  @include flexColumn();
+  align-items: center;
+  height: 80%;
+  width: 70%;
+  background-color: $theme-shadow-color;
+  border-radius: 20px;
+  animation: 0.5s ease scale-up;
+
+  h1 {
+    font-family: 'Patrick Hand', sans-serif;
+    font-size: 5rem;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+  }
+}
+
+#cardboard {
+  height: 100%;
+  width: 100%;
   padding: 10rem;
   @include flexCenter();
   gap: 3rem;
@@ -81,13 +137,17 @@ header {
   height: 250px;
   width: 250px;
   background-color: $header-color;
-  border: 2rem solid $header-color;
+  border-top: 2rem solid $header-color;
+  border-left: 2rem solid $header-color;
+  border-right: 2rem solid $header-color;
+  box-shadow: 5px 5px 1px $theme-shadow-color;
   border-radius: 20px;
   transition: all ease 0.3s;
 
   &:hover {
     cursor: pointer;
-    transform: translate(3px, -3px);
+    transform: translate(-3px, 3px);
+    box-shadow: 8px 8px 1px $text-color;
     p {
       color: $text-color;
     }
@@ -107,5 +167,57 @@ header {
     margin-top: 1rem;
     color: white;
     text-align: center;
+  }
+}
+
+#overlay-video {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.335);
+  @include flexCenter();
+}
+
+/* ------------ ANIMATION ------------ */
+
+@keyframes zoom-in {
+  0% {
+    transform: scale(3.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-up {
+  0% {
+    transform: scale(0.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    transform: translateY(-200%);
+  }
+  50% {
+    transform: translateY(50%);
+  }
+  60% {
+    transform: translateY(-25%);
+  }
+  70% {
+    transform: translateY(25%);
+  }
+  80% {
+    transform: translateY(-10%);
+  }
+  90% {
+    transform: translateY(10%);
+  }
+  100% {
+    transform: translateY(0%);
   }
 }

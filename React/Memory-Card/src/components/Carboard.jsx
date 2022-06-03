@@ -16,7 +16,10 @@ import Squanchy from '../images/squanchy.png';
 import Summer from '../images/summer.png';
 import Wong from '../images/wong.png';
 
-function Cardboard() {
+function Cardboard(props) {
+  const { increment, setBest, score } = props;
+  const { current, best } = score;
+
   const [cards, setCards] = useState([
     {
       name: 'Rick Sanchez',
@@ -97,6 +100,7 @@ function Cardboard() {
     let newState;
 
     if (clicked !== true) {
+      increment();
       newState = cards.map((card) => {
         if (card.name === name)
           return {
@@ -107,6 +111,9 @@ function Cardboard() {
         else return card;
       });
     } else {
+      if (current > best) setBest(current);
+      else if (current < best) setBest(best);
+
       newState = cards.map(({ name, url }) => {
         return {
           name,
