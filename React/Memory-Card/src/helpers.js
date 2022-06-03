@@ -1,4 +1,4 @@
-const randomItemsPosition = (arr, arrLength) => {
+export const randomItemsPosition = (arr, arrLength) => {
   const generateRandomIndex = () =>
     Math.floor(Math.random() * arrLength);
 

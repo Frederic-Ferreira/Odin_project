@@ -71,7 +71,7 @@ header {
     fixed;
   background-size: cover;
   padding: 10rem;
-  display: flex;
+  @include flexCenter();
   gap: 3rem;
   flex-wrap: wrap;
 }
